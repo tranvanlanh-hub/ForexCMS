@@ -1,5 +1,22 @@
 # Codex Handoff
 
+## Cloudflare preview UI deploy — 2026-09-10
+
+- Commit `9dead2d` deploy lên `content-hub-cms-preview` thành công, version
+  `4d1c601e-c446-497a-ac75-0fec4c994d1c` tại
+  `https://content-hub-cms-preview.content-hub-stack.workers.dev`.
+- Bundle được build khi tách `.env.local` và đã quét lại: không có giá trị local
+  bị nhúng. Preview vẫn có `DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`
+  trong Cloudflare secret store.
+- Smoke đạt: homepage/robots/sitemap/chunk 200, 16/16 URL sitemap 200,
+  canonical đúng preview origin, admin không auth 401/có auth 200, affiliate
+  redirect cuối 302 có Location.
+- Chưa có custom domain nên chưa launch production SEO. Worker legacy
+  `content-hub-cms` đã được trả về version
+  `61921371-c388-4d55-9282-4958bcb298aa`; version build nhầm có local env đã
+  bị xóa. Version sạch `9fc85adb-6f6d-4116-a464-cea638927169` chỉ là inactive,
+  không nhận traffic.
+
 ## Localhost 404/cache fix — 2026-09-10
 
 - Fixed the reported false 404 on published content routes. The old local dev
@@ -22,7 +39,7 @@
 - Public article: typography và chiều rộng đọc mới, byline/thời gian đọc, mục lục sidebar desktop và inline mobile, FAQ/CTA/facts rõ hơn; header/footer đồng bộ cả comparison. Ngày updated được chuẩn hóa từ Date/string để render đúng cả khi đọc cache.
 - Admin: sidebar chia nhóm, active state rõ, menu mobile; content editor có body 680px, publishing/SEO/route/editorial/template/broker panels, checkbox broker và pending save. Giữ nguyên tất cả field names, server actions, auth và validation.
 - Đã chạy lint/build/typecheck thành công; warning Prisma WASM cũ còn. Đã chụp/kiểm tra homepage, article và editor có dữ liệu Neon ở desktop/mobile 390px; không tràn ngang, anchor TOC đúng, body 680px. Article HTTP 200 ở hai lần đọc liên tiếp sau sửa Date/string. Không thử lưu/publish nội dung Neon trong sprint.
-- Không deploy, commit/push hoặc mở roadmap mới. Các blocker launch về dữ liệu demo, CPU Cloudflare và cấu hình production chưa được sprint UI này giải quyết. Nhận xét homepage shell trong báo cáo readiness trước đây đã được thay thế bởi giao diện mới ở workspace; remote preview vẫn là bản cũ.
+- Đã commit và deploy lên preview theo mục trạng thái ở đầu tài liệu; không mở roadmap mới. Các blocker launch production về dữ liệu demo, domain, backup và credentials production chưa được sprint UI này giải quyết. Nhận xét homepage shell trong báo cáo readiness trước đây đã được thay thế bởi giao diện mới trên preview.
 - Code sửa/thêm: app/(public)/page.tsx; app/(public)/[market]/[contentType]/[slug]/page.tsx; app/(public)/[market]/compare/[pair]/page.tsx; app/admin/content/content-form.tsx; app/admin/layout.tsx; app/globals.css; app/layout.tsx; components/admin/admin-navigation.tsx; components/admin/save-content-button.tsx; components/public/site-chrome.tsx; components/public/template-block-renderer.tsx; components/public/affiliate-cta.tsx.
 - Spec ngắn của sprint: openspec/changes/022-ui-ux-rescue/{proposal,design,tasks}.md. docs/ROADMAP.md và docs/PRODUCTION_READINESS.md có thay đổi từ phiên trước, được giữ nguyên trong sprint này.
 
