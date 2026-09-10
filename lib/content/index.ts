@@ -1,4 +1,5 @@
 import type { ContentStatus, ContentType, Prisma } from "@prisma/client";
+import { toStructuredContentBody } from "@/lib/content/blocks";
 
 export const contentTypeLabels: Record<ContentType, string> = {
   ARTICLE: "Article",
@@ -33,10 +34,11 @@ export function getContentTypeFromPathSegment(segment: string) {
 }
 
 export const contentStatusLabels: Record<
-  Extract<ContentStatus, "DRAFT" | "PUBLISHED" | "ARCHIVED">,
+  ContentStatus,
   string
 > = {
   DRAFT: "Draft",
+  REVIEW: "Review",
   PUBLISHED: "Published",
   ARCHIVED: "Archived",
 };
@@ -66,11 +68,11 @@ export function buildContentCanonicalPath(args: {
   return `/${market}/${typeSegment}/${slug}/`;
 }
 
-export function toMarkdownBody(markdown: string): Prisma.InputJsonObject {
-  return {
-    format: "markdown",
-    markdown: markdown.trim(),
-  };
+export function toMarkdownBody(
+  markdown: string,
+  template?: Parameters<typeof toStructuredContentBody>[0]["template"],
+): Prisma.InputJsonObject {
+  return toStructuredContentBody({ markdown, template }) as unknown as Prisma.InputJsonObject;
 }
 
 export function getMarkdownBody(body: Prisma.JsonValue | null | undefined) {

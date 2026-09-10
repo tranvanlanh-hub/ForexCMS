@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
-import {
-  getPublishedContentSitemapEntries,
-  renderUrlSet,
-} from "@/lib/seo/sitemap";
+import { getCachedPublishedContentSitemapEntries } from "@/lib/cache/public";
+import { renderUrlSet } from "@/lib/seo/sitemap";
 
 export const dynamic = "force-dynamic";
 
@@ -20,10 +18,11 @@ export async function GET(_request: Request, { params }: SitemapRouteProps) {
     notFound();
   }
 
-  const entries = await getPublishedContentSitemapEntries(Number(match[1]));
+  const entries = await getCachedPublishedContentSitemapEntries(Number(match[1]));
 
   return new Response(renderUrlSet(entries), {
     headers: {
+      "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=86400",
       "Content-Type": "application/xml; charset=utf-8",
     },
   });

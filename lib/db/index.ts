@@ -1,29 +1,41 @@
-import { PrismaClient, type Prisma } from "@prisma/client";
-import { PrismaD1 } from "@prisma/adapter-d1";
+import { PrismaClient as NodePrismaClient, type PrismaClient, type Prisma } from "@prisma/client";
+import { PrismaClient as EdgePrismaClient } from "../../node_modules/.prisma/client-edge/wasm.js";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { logEvent } from "@/lib/observability/logging";
 
 const globalForPrisma = globalThis as unknown as {
   prisma?: Promise<PrismaClient>;
 };
 
-async function createPrismaClient() {
+function createPrismaClient() {
   const log = (
     process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"]
   ) satisfies Prisma.LogLevel[];
-  const cloudflare = await import("cloudflare:workers").catch(() => undefined);
-  const d1 = (cloudflare?.env as { DB?: D1Database } | undefined)?.DB;
+  const databaseUrl = process.env.DATABASE_URL ?? "";
+  const shouldUseNeonAdapter =
+    process.env.APP_ENV === "preview" || process.env.APP_ENV === "production";
 
-  if (d1) {
-    return new PrismaClient({
-      adapter: new PrismaD1(d1),
-      log,
+  if (shouldUseNeonAdapter && databaseUrl.includes(".neon.tech")) {
+    logEvent("info", "database_neon_adapter_enabled", {
+      appEnv: process.env.APP_ENV,
+      host: new URL(databaseUrl).hostname,
     });
+
+    return new EdgePrismaClient({
+      adapter: new PrismaNeon({ connectionString: databaseUrl }),
+      log,
+    }) as PrismaClient;
   }
 
-  return new PrismaClient({ log });
+  return new NodePrismaClient({ log });
 }
 
 function getPrismaClient() {
-  globalForPrisma.prisma ??= createPrismaClient();
+  if (process.env.APP_ENV === "preview" || process.env.APP_ENV === "production") {
+    return Promise.resolve(createPrismaClient());
+  }
+
+  globalForPrisma.prisma ??= Promise.resolve(createPrismaClient());
   return globalForPrisma.prisma;
 }
 
@@ -55,7 +67,7 @@ export type DatabaseConfig = {
 
 export function getDatabaseConfig(): DatabaseConfig {
   return {
-    url: process.env.DATABASE_URL ?? "Cloudflare D1 binding: DB",
+    url: process.env.DATABASE_URL ?? "",
   };
 }
 

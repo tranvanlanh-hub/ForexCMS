@@ -1,7 +1,9 @@
 import { AffiliateLinkStatus } from "@prisma/client";
 import Link from "next/link";
+import { DemoModeBanner } from "@/components/admin/demo-mode-banner";
 import { affiliateLinkStatusLabels } from "@/lib/affiliate";
 import { prisma } from "@/lib/db";
+import { getDemoAffiliateRows, getDemoPilotDrafts } from "@/lib/demo/content-scale";
 
 export const dynamic = "force-dynamic";
 
@@ -41,15 +43,59 @@ export default async function AdminAffiliateLinksPage() {
   }
 
   if (!isDatabaseReady) {
+    const demoRows = getDemoAffiliateRows(await getDemoPilotDrafts());
+
     return (
-      <div className="rounded-lg border border-[#f0b8a8] bg-[#fff7f4] p-5">
-        <h1 className="text-base font-semibold text-[#9a3412]">
-          Database is not ready
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-[#9a3412]">
-          Connect PostgreSQL and run the Prisma migration before using
-          Affiliate Manager.
-        </p>
+      <div className="flex flex-col gap-6">
+        <DemoModeBanner module="Affiliate Manager" />
+        <section className="grid gap-4 sm:grid-cols-3">
+          <div className="rounded-lg border border-[#d9ded7] bg-white p-4">
+            <p className="text-sm font-medium text-[#5f6268]">Demo tokens</p>
+            <p className="mt-2 text-2xl font-semibold text-[#111827]">
+              {demoRows.length}
+            </p>
+          </div>
+          <div className="rounded-lg border border-[#d9ded7] bg-white p-4">
+            <p className="text-sm font-medium text-[#5f6268]">Markets</p>
+            <p className="mt-2 text-2xl font-semibold text-[#111827]">
+              {new Set(demoRows.map((row) => row.market)).size}
+            </p>
+          </div>
+          <div className="rounded-lg border border-[#d9ded7] bg-white p-4">
+            <p className="text-sm font-medium text-[#5f6268]">Hard-coded URLs</p>
+            <p className="mt-2 text-2xl font-semibold text-[#166534]">0</p>
+          </div>
+        </section>
+        <section className="overflow-hidden rounded-lg border border-[#d9ded7] bg-white">
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse text-left text-sm">
+              <thead className="border-b border-[#d9ded7] bg-[#fbfcfb] text-xs uppercase tracking-[0.1em] text-[#5f6268]">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Token</th>
+                  <th className="px-4 py-3 font-semibold">Broker</th>
+                  <th className="px-4 py-3 font-semibold">Market</th>
+                  <th className="px-4 py-3 font-semibold">Draft usage</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#eef1ed]">
+                {demoRows.map((row) => (
+                  <tr key={`${row.market}-${row.language}-${row.broker}-${row.campaign}`}>
+                    <td className="px-4 py-4 font-semibold text-[#123c3a]">
+                      {row.campaign}
+                    </td>
+                    <td className="px-4 py-4 text-[#374151]">{row.broker}</td>
+                    <td className="px-4 py-4 text-[#374151]">
+                      {row.market} / {row.language}
+                    </td>
+                    <td className="px-4 py-4 text-[#374151]">
+                      {row.contentCount}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
     );
   }

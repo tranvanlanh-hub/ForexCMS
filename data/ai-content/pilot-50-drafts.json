@@ -1,0 +1,1892 @@
+[
+  {
+    "id": "pilot-01",
+    "title": "Forex trading basics",
+    "slug": "forex-trading-basics",
+    "market": "global",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex trading basics",
+    "seoTitle": "Forex trading basics: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex trading basics in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/articles/forex-trading-basics/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/articles/pips-lots-margin-leverage/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-trading-basics",
+    "body": "# Forex trading basics\n\nThis draft targets forex trading basics for the Global market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-02",
+    "title": "Pips lots margin and leverage",
+    "slug": "pips-lots-margin-leverage",
+    "market": "global",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "pips lots margin leverage",
+    "seoTitle": "Pips lots margin and leverage: Draft SEO Brief",
+    "metaDescription": "Draft brief for pips lots margin leverage in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/articles/pips-lots-margin-leverage/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/articles/forex-trading-basics/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "pips-lots-margin-leverage",
+    "body": "# Pips lots margin and leverage\n\nThis draft targets pips lots margin leverage for the Global market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-03",
+    "title": "How to read forex quotes",
+    "slug": "how-to-read-forex-quotes",
+    "market": "global",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to read forex quotes",
+    "seoTitle": "How to read forex quotes: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to read forex quotes in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/guides/how-to-read-forex-quotes/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/articles/forex-trading-basics/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-read-forex-quotes",
+    "body": "# How to read forex quotes\n\nThis draft targets how to read forex quotes for the Global market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-04",
+    "title": "Forex risk management checklist",
+    "slug": "forex-risk-management-checklist",
+    "market": "global",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex risk management",
+    "seoTitle": "Forex risk management checklist: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex risk management in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/articles/forex-risk-management-checklist/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/articles/forex-trading-basics/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-risk-management-checklist",
+    "body": "# Forex risk management checklist\n\nThis draft targets forex risk management for the Global market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-05",
+    "title": "How to open a forex account",
+    "slug": "how-to-open-a-forex-account",
+    "market": "global",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to open a forex account",
+    "seoTitle": "How to open a forex account: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to open a forex account in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/guides/how-to-open-a-forex-account/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/guides/forex-kyc-documents-checklist/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-open-a-forex-account",
+    "body": "# How to open a forex account\n\nThis draft targets how to open a forex account for the Global market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-06",
+    "title": "Forex KYC documents checklist",
+    "slug": "forex-kyc-documents-checklist",
+    "market": "global",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "forex kyc documents",
+    "seoTitle": "Forex KYC documents checklist: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex kyc documents in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/guides/forex-kyc-documents-checklist/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/guides/how-to-open-a-forex-account/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-kyc-documents-checklist",
+    "body": "# Forex KYC documents checklist\n\nThis draft targets forex kyc documents for the Global market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-07",
+    "title": "Demo vs live forex account",
+    "slug": "demo-vs-live-forex-account",
+    "market": "global",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "demo vs live forex account",
+    "seoTitle": "Demo vs live forex account: Draft SEO Brief",
+    "metaDescription": "Draft brief for demo vs live forex account in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/articles/demo-vs-live-forex-account/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/guides/how-to-open-a-forex-account/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "demo-vs-live-forex-account",
+    "body": "# Demo vs live forex account\n\nThis draft targets demo vs live forex account for the Global market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-08",
+    "title": "How to verify a forex broker",
+    "slug": "how-to-verify-a-forex-broker",
+    "market": "global",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "verify forex broker",
+    "seoTitle": "How to verify a forex broker: Draft SEO Brief",
+    "metaDescription": "Draft brief for verify forex broker in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/guides/how-to-verify-a-forex-broker/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/articles/forex-broker-fees-explained/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-verify-a-forex-broker",
+    "body": "# How to verify a forex broker\n\nThis draft targets verify forex broker for the Global market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-09",
+    "title": "Forex broker fees explained",
+    "slug": "forex-broker-fees-explained",
+    "market": "global",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex broker fees",
+    "seoTitle": "Forex broker fees explained: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex broker fees in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/articles/forex-broker-fees-explained/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/guides/how-to-verify-a-forex-broker/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-broker-fees-explained",
+    "body": "# Forex broker fees explained\n\nThis draft targets forex broker fees for the Global market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-10",
+    "title": "Best forex brokers for beginners",
+    "slug": "best-forex-brokers-for-beginners",
+    "market": "global",
+    "language": "en",
+    "contentType": "BEST_BROKER_LIST",
+    "template": "best-broker-list",
+    "status": "DRAFT",
+    "targetKeyword": "best forex brokers for beginners",
+    "seoTitle": "Best forex brokers for beginners: Draft SEO Brief",
+    "metaDescription": "Draft brief for best forex brokers for beginners in Global, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/global/best-brokers/best-forex-brokers-for-beginners/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "ItemList",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/global/guides/how-to-verify-a-forex-broker/"
+    ],
+    "affiliateTokens": [
+      {
+        "broker": "exness",
+        "market": "global",
+        "language": "en",
+        "campaign": "review_top_cta"
+      }
+    ],
+    "brokerMentions": [],
+    "translationGroupKey": "best-forex-brokers-for-beginners",
+    "body": "# Best forex brokers for beginners\n\nThis draft targets best forex brokers for beginners for the Global market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to global market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-11",
+    "title": "Forex trading basics in United States",
+    "slug": "forex-trading-basics-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex trading basics United States",
+    "seoTitle": "Forex trading basics in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex trading basics in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/articles/forex-trading-basics-us/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/articles/pips-lots-margin-leverage-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-trading-basics",
+    "body": "# Forex trading basics in United States\n\nThis draft targets forex trading basics for the United States market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-12",
+    "title": "Pips lots margin and leverage in United States",
+    "slug": "pips-lots-margin-leverage-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "pips lots margin leverage United States",
+    "seoTitle": "Pips lots margin and leverage in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for pips lots margin leverage in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/articles/pips-lots-margin-leverage-us/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/articles/forex-trading-basics-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "pips-lots-margin-leverage",
+    "body": "# Pips lots margin and leverage in United States\n\nThis draft targets pips lots margin leverage for the United States market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-13",
+    "title": "How to read forex quotes in United States",
+    "slug": "how-to-read-forex-quotes-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to read forex quotes United States",
+    "seoTitle": "How to read forex quotes in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to read forex quotes in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/guides/how-to-read-forex-quotes-us/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/articles/forex-trading-basics-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-read-forex-quotes",
+    "body": "# How to read forex quotes in United States\n\nThis draft targets how to read forex quotes for the United States market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-14",
+    "title": "Forex risk management checklist in United States",
+    "slug": "forex-risk-management-checklist-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex risk management United States",
+    "seoTitle": "Forex risk management checklist in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex risk management in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/articles/forex-risk-management-checklist-us/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/articles/forex-trading-basics-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-risk-management-checklist",
+    "body": "# Forex risk management checklist in United States\n\nThis draft targets forex risk management for the United States market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-15",
+    "title": "How to open a forex account in United States",
+    "slug": "how-to-open-a-forex-account-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to open a forex account United States",
+    "seoTitle": "How to open a forex account in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to open a forex account in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/guides/how-to-open-a-forex-account-us/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/guides/forex-kyc-documents-checklist-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-open-a-forex-account",
+    "body": "# How to open a forex account in United States\n\nThis draft targets how to open a forex account for the United States market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-16",
+    "title": "Forex KYC documents checklist in United States",
+    "slug": "forex-kyc-documents-checklist-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "forex kyc documents United States",
+    "seoTitle": "Forex KYC documents checklist in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex kyc documents in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/guides/forex-kyc-documents-checklist-us/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/guides/how-to-open-a-forex-account-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-kyc-documents-checklist",
+    "body": "# Forex KYC documents checklist in United States\n\nThis draft targets forex kyc documents for the United States market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-17",
+    "title": "Demo vs live forex account in United States",
+    "slug": "demo-vs-live-forex-account-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "demo vs live forex account United States",
+    "seoTitle": "Demo vs live forex account in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for demo vs live forex account in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/articles/demo-vs-live-forex-account-us/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/guides/how-to-open-a-forex-account-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "demo-vs-live-forex-account",
+    "body": "# Demo vs live forex account in United States\n\nThis draft targets demo vs live forex account for the United States market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-18",
+    "title": "How to verify a forex broker in United States",
+    "slug": "how-to-verify-a-forex-broker-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "verify forex broker United States",
+    "seoTitle": "How to verify a forex broker in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for verify forex broker in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/guides/how-to-verify-a-forex-broker-us/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/articles/forex-broker-fees-explained-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-verify-a-forex-broker",
+    "body": "# How to verify a forex broker in United States\n\nThis draft targets verify forex broker for the United States market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-19",
+    "title": "Forex broker fees explained in United States",
+    "slug": "forex-broker-fees-explained-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex broker fees United States",
+    "seoTitle": "Forex broker fees explained in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex broker fees in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/articles/forex-broker-fees-explained-us/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/guides/how-to-verify-a-forex-broker-us/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-broker-fees-explained",
+    "body": "# Forex broker fees explained in United States\n\nThis draft targets forex broker fees for the United States market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-20",
+    "title": "Best forex brokers for beginners in United States",
+    "slug": "best-forex-brokers-for-beginners-us",
+    "market": "us",
+    "language": "en",
+    "contentType": "BEST_BROKER_LIST",
+    "template": "best-broker-list",
+    "status": "DRAFT",
+    "targetKeyword": "best forex brokers for beginners United States",
+    "seoTitle": "Best forex brokers for beginners in United States: Draft SEO Brief",
+    "metaDescription": "Draft brief for best forex brokers for beginners in United States, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/us/best-brokers/best-forex-brokers-for-beginners-us/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "ItemList",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/us/guides/how-to-verify-a-forex-broker-us/"
+    ],
+    "affiliateTokens": [
+      {
+        "broker": "exness",
+        "market": "us",
+        "language": "en",
+        "campaign": "review_top_cta"
+      }
+    ],
+    "brokerMentions": [],
+    "translationGroupKey": "best-forex-brokers-for-beginners",
+    "body": "# Best forex brokers for beginners in United States\n\nThis draft targets best forex brokers for beginners for the United States market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to us market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-21",
+    "title": "Forex trading basics in United Kingdom",
+    "slug": "forex-trading-basics-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex trading basics United Kingdom",
+    "seoTitle": "Forex trading basics in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex trading basics in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/articles/forex-trading-basics-uk/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/articles/pips-lots-margin-leverage-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-trading-basics",
+    "body": "# Forex trading basics in United Kingdom\n\nThis draft targets forex trading basics for the United Kingdom market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-22",
+    "title": "Pips lots margin and leverage in United Kingdom",
+    "slug": "pips-lots-margin-leverage-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "pips lots margin leverage United Kingdom",
+    "seoTitle": "Pips lots margin and leverage in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for pips lots margin leverage in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/articles/pips-lots-margin-leverage-uk/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/articles/forex-trading-basics-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "pips-lots-margin-leverage",
+    "body": "# Pips lots margin and leverage in United Kingdom\n\nThis draft targets pips lots margin leverage for the United Kingdom market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-23",
+    "title": "How to read forex quotes in United Kingdom",
+    "slug": "how-to-read-forex-quotes-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to read forex quotes United Kingdom",
+    "seoTitle": "How to read forex quotes in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to read forex quotes in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/guides/how-to-read-forex-quotes-uk/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/articles/forex-trading-basics-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-read-forex-quotes",
+    "body": "# How to read forex quotes in United Kingdom\n\nThis draft targets how to read forex quotes for the United Kingdom market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-24",
+    "title": "Forex risk management checklist in United Kingdom",
+    "slug": "forex-risk-management-checklist-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex risk management United Kingdom",
+    "seoTitle": "Forex risk management checklist in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex risk management in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/articles/forex-risk-management-checklist-uk/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/articles/forex-trading-basics-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-risk-management-checklist",
+    "body": "# Forex risk management checklist in United Kingdom\n\nThis draft targets forex risk management for the United Kingdom market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-25",
+    "title": "How to open a forex account in United Kingdom",
+    "slug": "how-to-open-a-forex-account-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to open a forex account United Kingdom",
+    "seoTitle": "How to open a forex account in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to open a forex account in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/guides/how-to-open-a-forex-account-uk/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/guides/forex-kyc-documents-checklist-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-open-a-forex-account",
+    "body": "# How to open a forex account in United Kingdom\n\nThis draft targets how to open a forex account for the United Kingdom market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-26",
+    "title": "Forex KYC documents checklist in United Kingdom",
+    "slug": "forex-kyc-documents-checklist-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "forex kyc documents United Kingdom",
+    "seoTitle": "Forex KYC documents checklist in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex kyc documents in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/guides/forex-kyc-documents-checklist-uk/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/guides/how-to-open-a-forex-account-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-kyc-documents-checklist",
+    "body": "# Forex KYC documents checklist in United Kingdom\n\nThis draft targets forex kyc documents for the United Kingdom market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-27",
+    "title": "Demo vs live forex account in United Kingdom",
+    "slug": "demo-vs-live-forex-account-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "demo vs live forex account United Kingdom",
+    "seoTitle": "Demo vs live forex account in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for demo vs live forex account in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/articles/demo-vs-live-forex-account-uk/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/guides/how-to-open-a-forex-account-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "demo-vs-live-forex-account",
+    "body": "# Demo vs live forex account in United Kingdom\n\nThis draft targets demo vs live forex account for the United Kingdom market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-28",
+    "title": "How to verify a forex broker in United Kingdom",
+    "slug": "how-to-verify-a-forex-broker-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "verify forex broker United Kingdom",
+    "seoTitle": "How to verify a forex broker in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for verify forex broker in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/guides/how-to-verify-a-forex-broker-uk/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/articles/forex-broker-fees-explained-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-verify-a-forex-broker",
+    "body": "# How to verify a forex broker in United Kingdom\n\nThis draft targets verify forex broker for the United Kingdom market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-29",
+    "title": "Forex broker fees explained in United Kingdom",
+    "slug": "forex-broker-fees-explained-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex broker fees United Kingdom",
+    "seoTitle": "Forex broker fees explained in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex broker fees in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/articles/forex-broker-fees-explained-uk/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/guides/how-to-verify-a-forex-broker-uk/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-broker-fees-explained",
+    "body": "# Forex broker fees explained in United Kingdom\n\nThis draft targets forex broker fees for the United Kingdom market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-30",
+    "title": "Best forex brokers for beginners in United Kingdom",
+    "slug": "best-forex-brokers-for-beginners-uk",
+    "market": "uk",
+    "language": "en",
+    "contentType": "BEST_BROKER_LIST",
+    "template": "best-broker-list",
+    "status": "DRAFT",
+    "targetKeyword": "best forex brokers for beginners United Kingdom",
+    "seoTitle": "Best forex brokers for beginners in United Kingdom: Draft SEO Brief",
+    "metaDescription": "Draft brief for best forex brokers for beginners in United Kingdom, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/uk/best-brokers/best-forex-brokers-for-beginners-uk/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "ItemList",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/uk/guides/how-to-verify-a-forex-broker-uk/"
+    ],
+    "affiliateTokens": [
+      {
+        "broker": "exness",
+        "market": "uk",
+        "language": "en",
+        "campaign": "review_top_cta"
+      }
+    ],
+    "brokerMentions": [],
+    "translationGroupKey": "best-forex-brokers-for-beginners",
+    "body": "# Best forex brokers for beginners in United Kingdom\n\nThis draft targets best forex brokers for beginners for the United Kingdom market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to uk market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-31",
+    "title": "Forex trading basics in Australia",
+    "slug": "forex-trading-basics-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex trading basics Australia",
+    "seoTitle": "Forex trading basics in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex trading basics in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/articles/forex-trading-basics-au/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/articles/pips-lots-margin-leverage-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-trading-basics",
+    "body": "# Forex trading basics in Australia\n\nThis draft targets forex trading basics for the Australia market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-32",
+    "title": "Pips lots margin and leverage in Australia",
+    "slug": "pips-lots-margin-leverage-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "pips lots margin leverage Australia",
+    "seoTitle": "Pips lots margin and leverage in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for pips lots margin leverage in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/articles/pips-lots-margin-leverage-au/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/articles/forex-trading-basics-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "pips-lots-margin-leverage",
+    "body": "# Pips lots margin and leverage in Australia\n\nThis draft targets pips lots margin leverage for the Australia market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-33",
+    "title": "How to read forex quotes in Australia",
+    "slug": "how-to-read-forex-quotes-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to read forex quotes Australia",
+    "seoTitle": "How to read forex quotes in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to read forex quotes in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/guides/how-to-read-forex-quotes-au/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/articles/forex-trading-basics-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-read-forex-quotes",
+    "body": "# How to read forex quotes in Australia\n\nThis draft targets how to read forex quotes for the Australia market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-34",
+    "title": "Forex risk management checklist in Australia",
+    "slug": "forex-risk-management-checklist-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex risk management Australia",
+    "seoTitle": "Forex risk management checklist in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex risk management in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/articles/forex-risk-management-checklist-au/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/articles/forex-trading-basics-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-risk-management-checklist",
+    "body": "# Forex risk management checklist in Australia\n\nThis draft targets forex risk management for the Australia market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-35",
+    "title": "How to open a forex account in Australia",
+    "slug": "how-to-open-a-forex-account-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to open a forex account Australia",
+    "seoTitle": "How to open a forex account in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to open a forex account in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/guides/how-to-open-a-forex-account-au/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/guides/forex-kyc-documents-checklist-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-open-a-forex-account",
+    "body": "# How to open a forex account in Australia\n\nThis draft targets how to open a forex account for the Australia market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-36",
+    "title": "Forex KYC documents checklist in Australia",
+    "slug": "forex-kyc-documents-checklist-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "forex kyc documents Australia",
+    "seoTitle": "Forex KYC documents checklist in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex kyc documents in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/guides/forex-kyc-documents-checklist-au/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/guides/how-to-open-a-forex-account-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-kyc-documents-checklist",
+    "body": "# Forex KYC documents checklist in Australia\n\nThis draft targets forex kyc documents for the Australia market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-37",
+    "title": "Demo vs live forex account in Australia",
+    "slug": "demo-vs-live-forex-account-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "demo vs live forex account Australia",
+    "seoTitle": "Demo vs live forex account in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for demo vs live forex account in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/articles/demo-vs-live-forex-account-au/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/guides/how-to-open-a-forex-account-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "demo-vs-live-forex-account",
+    "body": "# Demo vs live forex account in Australia\n\nThis draft targets demo vs live forex account for the Australia market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-38",
+    "title": "How to verify a forex broker in Australia",
+    "slug": "how-to-verify-a-forex-broker-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "verify forex broker Australia",
+    "seoTitle": "How to verify a forex broker in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for verify forex broker in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/guides/how-to-verify-a-forex-broker-au/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/articles/forex-broker-fees-explained-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-verify-a-forex-broker",
+    "body": "# How to verify a forex broker in Australia\n\nThis draft targets verify forex broker for the Australia market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-39",
+    "title": "Forex broker fees explained in Australia",
+    "slug": "forex-broker-fees-explained-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex broker fees Australia",
+    "seoTitle": "Forex broker fees explained in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex broker fees in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/articles/forex-broker-fees-explained-au/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/guides/how-to-verify-a-forex-broker-au/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-broker-fees-explained",
+    "body": "# Forex broker fees explained in Australia\n\nThis draft targets forex broker fees for the Australia market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-40",
+    "title": "Best forex brokers for beginners in Australia",
+    "slug": "best-forex-brokers-for-beginners-au",
+    "market": "au",
+    "language": "en",
+    "contentType": "BEST_BROKER_LIST",
+    "template": "best-broker-list",
+    "status": "DRAFT",
+    "targetKeyword": "best forex brokers for beginners Australia",
+    "seoTitle": "Best forex brokers for beginners in Australia: Draft SEO Brief",
+    "metaDescription": "Draft brief for best forex brokers for beginners in Australia, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/au/best-brokers/best-forex-brokers-for-beginners-au/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "ItemList",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/au/guides/how-to-verify-a-forex-broker-au/"
+    ],
+    "affiliateTokens": [
+      {
+        "broker": "exness",
+        "market": "au",
+        "language": "en",
+        "campaign": "review_top_cta"
+      }
+    ],
+    "brokerMentions": [],
+    "translationGroupKey": "best-forex-brokers-for-beginners",
+    "body": "# Best forex brokers for beginners in Australia\n\nThis draft targets best forex brokers for beginners for the Australia market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to au market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-41",
+    "title": "Forex trading basics in Vietnam",
+    "slug": "forex-trading-basics-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex trading basics Vietnam",
+    "seoTitle": "Forex trading basics in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex trading basics in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/articles/forex-trading-basics-vn/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/articles/pips-lots-margin-leverage-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-trading-basics",
+    "body": "# Forex trading basics in Vietnam\n\nThis draft targets forex trading basics for the Vietnam market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-42",
+    "title": "Pips lots margin and leverage in Vietnam",
+    "slug": "pips-lots-margin-leverage-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "pips lots margin leverage Vietnam",
+    "seoTitle": "Pips lots margin and leverage in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for pips lots margin leverage in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/articles/pips-lots-margin-leverage-vn/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/articles/forex-trading-basics-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "pips-lots-margin-leverage",
+    "body": "# Pips lots margin and leverage in Vietnam\n\nThis draft targets pips lots margin leverage for the Vietnam market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-43",
+    "title": "How to read forex quotes in Vietnam",
+    "slug": "how-to-read-forex-quotes-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to read forex quotes Vietnam",
+    "seoTitle": "How to read forex quotes in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to read forex quotes in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/guides/how-to-read-forex-quotes-vn/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/articles/forex-trading-basics-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-read-forex-quotes",
+    "body": "# How to read forex quotes in Vietnam\n\nThis draft targets how to read forex quotes for the Vietnam market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-44",
+    "title": "Forex risk management checklist in Vietnam",
+    "slug": "forex-risk-management-checklist-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex risk management Vietnam",
+    "seoTitle": "Forex risk management checklist in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex risk management in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/articles/forex-risk-management-checklist-vn/",
+    "topicCluster": "forex-basics",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/articles/forex-trading-basics-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-risk-management-checklist",
+    "body": "# Forex risk management checklist in Vietnam\n\nThis draft targets forex risk management for the Vietnam market. It belongs to the Forex basics topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-45",
+    "title": "How to open a forex account in Vietnam",
+    "slug": "how-to-open-a-forex-account-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "how to open a forex account Vietnam",
+    "seoTitle": "How to open a forex account in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for how to open a forex account in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/guides/how-to-open-a-forex-account-vn/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/guides/forex-kyc-documents-checklist-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-open-a-forex-account",
+    "body": "# How to open a forex account in Vietnam\n\nThis draft targets how to open a forex account for the Vietnam market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-46",
+    "title": "Forex KYC documents checklist in Vietnam",
+    "slug": "forex-kyc-documents-checklist-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "forex kyc documents Vietnam",
+    "seoTitle": "Forex KYC documents checklist in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex kyc documents in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/guides/forex-kyc-documents-checklist-vn/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/guides/how-to-open-a-forex-account-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-kyc-documents-checklist",
+    "body": "# Forex KYC documents checklist in Vietnam\n\nThis draft targets forex kyc documents for the Vietnam market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-47",
+    "title": "Demo vs live forex account in Vietnam",
+    "slug": "demo-vs-live-forex-account-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "demo vs live forex account Vietnam",
+    "seoTitle": "Demo vs live forex account in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for demo vs live forex account in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/articles/demo-vs-live-forex-account-vn/",
+    "topicCluster": "account-opening",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/guides/how-to-open-a-forex-account-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "demo-vs-live-forex-account",
+    "body": "# Demo vs live forex account in Vietnam\n\nThis draft targets demo vs live forex account for the Vietnam market. It belongs to the Account opening topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-48",
+    "title": "How to verify a forex broker in Vietnam",
+    "slug": "how-to-verify-a-forex-broker-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "GUIDE",
+    "template": "guide",
+    "status": "DRAFT",
+    "targetKeyword": "verify forex broker Vietnam",
+    "seoTitle": "How to verify a forex broker in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for verify forex broker in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/guides/how-to-verify-a-forex-broker-vn/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/articles/forex-broker-fees-explained-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "how-to-verify-a-forex-broker",
+    "body": "# How to verify a forex broker in Vietnam\n\nThis draft targets verify forex broker for the Vietnam market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-49",
+    "title": "Forex broker fees explained in Vietnam",
+    "slug": "forex-broker-fees-explained-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "ARTICLE",
+    "template": "article",
+    "status": "DRAFT",
+    "targetKeyword": "forex broker fees Vietnam",
+    "seoTitle": "Forex broker fees explained in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for forex broker fees in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/articles/forex-broker-fees-explained-vn/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/guides/how-to-verify-a-forex-broker-vn/"
+    ],
+    "affiliateTokens": [],
+    "brokerMentions": [],
+    "translationGroupKey": "forex-broker-fees-explained",
+    "body": "# Forex broker fees explained in Vietnam\n\nThis draft targets forex broker fees for the Vietnam market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  },
+  {
+    "id": "pilot-50",
+    "title": "Best forex brokers for beginners in Vietnam",
+    "slug": "best-forex-brokers-for-beginners-vn",
+    "market": "vn",
+    "language": "vi",
+    "contentType": "BEST_BROKER_LIST",
+    "template": "best-broker-list",
+    "status": "DRAFT",
+    "targetKeyword": "best forex brokers for beginners Vietnam",
+    "seoTitle": "Best forex brokers for beginners in Vietnam: Draft SEO Brief",
+    "metaDescription": "Draft brief for best forex brokers for beginners in Vietnam, covering SEO, internal links, FAQ, and affiliate validation.",
+    "canonicalPath": "/vn/best-brokers/best-forex-brokers-for-beginners-vn/",
+    "topicCluster": "broker-research",
+    "schemaTypes": [
+      "ItemList",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage"
+    ],
+    "faq": [
+      {
+        "question": "What should be checked before publishing?",
+        "answer": "SEO metadata, canonical path, schema, affiliate tokens, and internal links should all pass validation."
+      },
+      {
+        "question": "Can this draft include affiliate URLs?",
+        "answer": "No. It may include broker and campaign tokens only."
+      }
+    ],
+    "internalLinkTargets": [
+      "/vn/guides/how-to-verify-a-forex-broker-vn/"
+    ],
+    "affiliateTokens": [
+      {
+        "broker": "exness",
+        "market": "vn",
+        "language": "vi",
+        "campaign": "review_top_cta"
+      }
+    ],
+    "brokerMentions": [],
+    "translationGroupKey": "best-forex-brokers-for-beginners",
+    "body": "# Best forex brokers for beginners in Vietnam\n\nThis draft targets best forex brokers for beginners for the Vietnam market. It belongs to the Broker research topic cluster and should remain draft until editorial and compliance review are complete.\n\n## Key Takeaways\n\n- Match the article to vn market intent.\n- Keep internal links inside the same market and language.\n- Use Broker and Affiliate Manager tokens instead of destination URLs.\n\n\n## Main checklist\n\nExplain the search intent, practical next steps, and risk controls in plain language. This draft does not contain affiliate destination URLs.\n\n## Internal links to include\n\nLink to the assigned targets naturally in the body after import review.\n\n## FAQ\n\n### What should be checked before publishing?\n\nCheck SEO metadata, canonical path, FAQ schema, affiliate tokens, and internal links.\n\n### Can this draft include affiliate URLs?\n\nNo. Affiliate destinations must stay in Affiliate Manager records."
+  }
+]

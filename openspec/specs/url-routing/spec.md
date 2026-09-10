@@ -47,3 +47,19 @@ Next.js `trailingSlash` is enabled so the trailing slash canonical pattern remai
 ## Implementation note 2026-09-09 - Canonical guard
 
 Public content metadata and sitemap generation now resolve canonical URLs through a market-scoped guard. If saved SEO metadata contains a canonical path outside the content market prefix, the renderer falls back to `ContentItem.canonicalPath`.
+
+## Implementation note 2026-09-09 - Market activation
+
+Change `openspec/changes/011-multi-market-language/` keeps public content routing on `/{market}/{content-type}/{slug}/` and does not add any root `/{slug}` route.
+
+Public content routes and sitemap entries now require the related market to be `ACTIVE`.
+
+## Implementation note 2026-09-09 - Internal link targets
+
+Internal link suggestions introduced in `openspec/changes/012-internal-link-automation/` point to `ContentItem.canonicalPath`.
+
+The suggestion engine and public renderer require target content to stay in the same market/language scope as the source content, so internal links do not cross locale-specific routes accidentally.
+
+## Implementation note 2026-09-09 - Duplicate and canonical hardening
+
+Change `openspec/changes/018-system-audit-admin-workflow-hardening/` adds a pre-write duplicate check in the Content Manager for `(market, content type, slug)` and `canonicalPath`. Canonical paths continue to be generated from the established `/{market}/{content-type}/{slug}/` helper instead of being entered manually.

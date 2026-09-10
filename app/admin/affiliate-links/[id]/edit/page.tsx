@@ -6,13 +6,17 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 async function getAffiliateEditData(id: string) {
-  const [item, brokers, markets] = await Promise.all([
-    prisma.affiliateLink.findUnique({ where: { id } }),
+  const item = await prisma.affiliateLink.findUnique({ where: { id } });
+
+  const [brokers, markets] = await Promise.all([
     prisma.broker.findMany({
       orderBy: { name: "asc" },
       select: { id: true, name: true, slug: true, status: true },
     }),
     prisma.market.findMany({
+      where: {
+        OR: [{ status: "ACTIVE" }, ...(item ? [{ id: item.marketId }] : [])],
+      },
       orderBy: [{ isGlobal: "desc" }, { code: "asc" }],
       select: {
         id: true,

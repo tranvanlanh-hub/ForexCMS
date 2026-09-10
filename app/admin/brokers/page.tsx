@@ -1,7 +1,9 @@
 import { BrokerStatus } from "@prisma/client";
 import Link from "next/link";
+import { DemoModeBanner } from "@/components/admin/demo-mode-banner";
 import { brokerStatusLabels } from "@/lib/affiliate";
 import { prisma } from "@/lib/db";
+import { getDemoBrokerRows, getDemoPilotDrafts } from "@/lib/demo/content-scale";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +17,7 @@ async function getBrokers() {
         select: {
           affiliateLinks: true,
           contentItems: true,
+          factItems: true,
         },
       },
     },
@@ -45,15 +48,45 @@ export default async function AdminBrokersPage() {
   }
 
   if (!isDatabaseReady) {
+    const demoRows = getDemoBrokerRows(await getDemoPilotDrafts());
+
     return (
-      <div className="rounded-lg border border-[#f0b8a8] bg-[#fff7f4] p-5">
-        <h1 className="text-base font-semibold text-[#9a3412]">
-          Database is not ready
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-[#9a3412]">
-          Connect PostgreSQL and run the Prisma migration before using Broker
-          Manager.
-        </p>
+      <div className="flex flex-col gap-6">
+        <DemoModeBanner module="Broker Manager" />
+        <section className="grid gap-4 sm:grid-cols-3">
+          <div className="rounded-lg border border-[#d9ded7] bg-white p-4">
+            <p className="text-sm font-medium text-[#5f6268]">Demo brokers</p>
+            <p className="mt-2 text-2xl font-semibold text-[#111827]">
+              {demoRows.length}
+            </p>
+          </div>
+          <div className="rounded-lg border border-[#d9ded7] bg-white p-4">
+            <p className="text-sm font-medium text-[#5f6268]">Token mentions</p>
+            <p className="mt-2 text-2xl font-semibold text-[#111827]">
+              {demoRows.reduce((sum, row) => sum + row.tokenCount, 0)}
+            </p>
+          </div>
+          <div className="rounded-lg border border-[#d9ded7] bg-white p-4">
+            <p className="text-sm font-medium text-[#5f6268]">Review/list links</p>
+            <p className="mt-2 text-2xl font-semibold text-[#111827]">
+              {demoRows.reduce((sum, row) => sum + row.contentCount, 0)}
+            </p>
+          </div>
+        </section>
+        <section className="overflow-hidden rounded-lg border border-[#d9ded7] bg-white">
+          <div className="divide-y divide-[#eef1ed]">
+            {demoRows.map((row) => (
+              <div
+                className="grid gap-2 px-5 py-4 text-sm md:grid-cols-[1fr_140px_140px]"
+                key={row.slug}
+              >
+                <p className="font-semibold text-[#111827]">{row.slug}</p>
+                <p className="text-[#5f6268]">{row.tokenCount} CTA tokens</p>
+                <p className="text-[#5f6268]">{row.contentCount} mentions</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     );
   }
@@ -119,6 +152,7 @@ export default async function AdminBrokersPage() {
                   <th className="px-4 py-3 font-semibold">Broker</th>
                   <th className="px-4 py-3 font-semibold">Status</th>
                   <th className="px-4 py-3 font-semibold">Links</th>
+                  <th className="px-4 py-3 font-semibold">Facts</th>
                   <th className="px-4 py-3 font-semibold">Content</th>
                   <th className="px-4 py-3 font-semibold">Updated</th>
                 </tr>
@@ -154,6 +188,9 @@ export default async function AdminBrokersPage() {
                     </td>
                     <td className="px-4 py-4 text-[#374151]">
                       {broker._count.affiliateLinks}
+                    </td>
+                    <td className="px-4 py-4 text-[#374151]">
+                      {broker._count.factItems}
                     </td>
                     <td className="px-4 py-4 text-[#374151]">
                       {broker._count.contentItems}

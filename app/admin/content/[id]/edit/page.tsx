@@ -6,12 +6,20 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 async function getEditContentData(id: string) {
-  const [item, markets, templates] = await Promise.all([
-    prisma.contentItem.findUnique({
-      where: { id },
-      include: { seoMetadata: true },
-    }),
+  const item = await prisma.contentItem.findUnique({
+    where: { id },
+    include: {
+      brokers: { select: { id: true, name: true, slug: true } },
+      seoMetadata: true,
+      translationGroup: true,
+    },
+  });
+
+  const [markets, templates, brokers] = await Promise.all([
     prisma.market.findMany({
+      where: {
+        OR: [{ status: "ACTIVE" }, ...(item ? [{ id: item.marketId }] : [])],
+      },
       orderBy: [{ isGlobal: "desc" }, { code: "asc" }],
       select: {
         id: true,
@@ -33,9 +41,16 @@ async function getEditContentData(id: string) {
         isActive: true,
       },
     }),
+    prisma.broker.findMany({
+      where: {
+        OR: [{ status: "ACTIVE" }, ...(item ? [{ contentItems: { some: { id } } }] : [])],
+      },
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, slug: true },
+    }),
   ]);
 
-  return { item, markets, templates };
+  return { brokers, item, markets, templates };
 }
 
 export default async function EditContentPage({
@@ -77,6 +92,7 @@ export default async function EditContentPage({
   return (
     <ContentForm
       action={updateContentAction}
+      brokers={data.brokers}
       error={error}
       item={data.item}
       markets={data.markets}

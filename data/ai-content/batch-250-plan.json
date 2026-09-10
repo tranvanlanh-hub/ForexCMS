@@ -1,0 +1,2002 @@
+[
+  {
+    "id": "planned-001",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-002",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-003",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-004",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-005",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-006",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-007",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-008",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-009",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-010",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-011",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-012",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-013",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-014",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-015",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-016",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-017",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-018",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-019",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-020",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-021",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-022",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-023",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-024",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-025",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-026",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-027",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-028",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-029",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-030",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-031",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-032",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-033",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-034",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-035",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-036",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-037",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-038",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-039",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-040",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-041",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-042",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-043",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-044",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-045",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-046",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-047",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-048",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-049",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-050",
+    "status": "PLANNED_ONLY",
+    "market": "global",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-051",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-052",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-053",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-054",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-055",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-056",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-057",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-058",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-059",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-060",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-061",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-062",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-063",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-064",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-065",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-066",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-067",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-068",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-069",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-070",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-071",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-072",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-073",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-074",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-075",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-076",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-077",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-078",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-079",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-080",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-081",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-082",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-083",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-084",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-085",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-086",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-087",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-088",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-089",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-090",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-091",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-092",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-093",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-094",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-095",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-096",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-097",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-098",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-099",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-100",
+    "status": "PLANNED_ONLY",
+    "market": "us",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-101",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-102",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-103",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-104",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-105",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-106",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-107",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-108",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-109",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-110",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-111",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-112",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-113",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-114",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-115",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-116",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-117",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-118",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-119",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-120",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-121",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-122",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-123",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-124",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-125",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-126",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-127",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-128",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-129",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-130",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-131",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-132",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-133",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-134",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-135",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-136",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-137",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-138",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-139",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-140",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-141",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-142",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-143",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-144",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-145",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-146",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-147",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-148",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-149",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-150",
+    "status": "PLANNED_ONLY",
+    "market": "uk",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-151",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-152",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-153",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-154",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-155",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-156",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-157",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-158",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-159",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-160",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-161",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-162",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-163",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-164",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-165",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-166",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-167",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-168",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-169",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-170",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-171",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-172",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-173",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-174",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-175",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-176",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-177",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-178",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-179",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-180",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-181",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-182",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-183",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-184",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-185",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-186",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-187",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-188",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-189",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-190",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-191",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-192",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-193",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-194",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-195",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-196",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-197",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-198",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-199",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-200",
+    "status": "PLANNED_ONLY",
+    "market": "au",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-201",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-202",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-203",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-204",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-205",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-basics",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-206",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-207",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-208",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-209",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-210",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "account-opening",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-211",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-212",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-213",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-214",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-215",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-research",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-216",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-217",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-218",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-219",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-220",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "broker-reviews",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-221",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-222",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-223",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-224",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-225",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "best-broker-lists",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-226",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-227",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-228",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-229",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-230",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "risk-management",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-231",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-232",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-233",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-234",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-235",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "platform-guides",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-236",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-237",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-238",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-239",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-240",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "country-hubs",
+    "suggestedContentType": "COUNTRY_HUB",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-241",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-242",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-243",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-244",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-245",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "payment-methods",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-246",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-247",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "ARTICLE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-248",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "GUIDE",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-249",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BROKER_REVIEW",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  },
+  {
+    "id": "planned-250",
+    "status": "PLANNED_ONLY",
+    "market": "vn",
+    "topicCluster": "forex-faq",
+    "suggestedContentType": "BEST_BROKER_LIST",
+    "briefSource": "Generate only after DB-backed AI import, SEO, internal link, and affiliate validation pass."
+  }
+]

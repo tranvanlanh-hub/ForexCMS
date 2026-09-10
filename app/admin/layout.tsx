@@ -1,8 +1,14 @@
 import Link from "next/link";
+import { headers } from "next/headers";
 import type { ReactNode } from "react";
 import { AdminNavigation } from "@/components/admin/admin-navigation";
+import { normalizeAdminRole } from "@/lib/admin/auth";
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const adminRole = normalizeAdminRole(
+    (await headers()).get("x-forexcms-admin-role"),
+  );
+
   return (
     <main className="min-h-screen bg-[#f4f6f3] text-[#111827]">
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
@@ -19,7 +25,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             className="inline-flex h-10 w-fit items-center rounded-md border border-[#cbd5ce] bg-white px-4 text-sm font-semibold text-[#111827] transition hover:border-[#0f766e]"
             href="/"
           >
-            View public site
+            View public site - {adminRole}
           </Link>
         </header>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { ContentType, RobotsIndex } from "@prisma/client";
+import type { Broker, ContentType, RobotsIndex } from "@prisma/client";
 import { contentTypeLabels } from "@/lib/content";
 
 export type SeoDefaults = {
@@ -35,8 +35,20 @@ export type PublicContentSeoInput = {
   };
   authorName?: string | null;
   reviewerName?: string | null;
-  publishedAt?: Date | null;
-  updatedAt?: Date | null;
+  publishedAt?: Date | string | null;
+  updatedAt?: Date | string | null;
+  keySections?: string[];
+  alternateContent?: LanguageAlternateContent[];
+};
+
+export type LanguageAlternateContent = {
+  canonicalPath: string;
+  market: {
+    code: string;
+    languageCode: string;
+    locale: string;
+    isGlobal?: boolean;
+  };
 };
 
 export const SITEMAP_URL_LIMIT = 4000;
@@ -68,6 +80,14 @@ export function escapeXml(value: string) {
 
 export function stringifyJsonLd(data: unknown) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+function toIsoDateString(value: Date | string | null | undefined) {
+  if (!value) {
+    return undefined;
+  }
+
+  return value instanceof Date ? value.toISOString() : value;
 }
 
 export function buildRobotsMetadata(input: {
@@ -108,13 +128,50 @@ export function buildLanguageAlternates(input: {
     isGlobal?: boolean;
   };
 }) {
-  const locale = input.market.locale || input.market.languageCode;
-  const languages: Record<string, string> = {
-    [locale]: absoluteUrl(input.canonicalPath),
-  };
+  return buildLanguageAlternatesFromContent({
+    current: {
+      canonicalPath: input.canonicalPath,
+      market: input.market,
+    },
+  });
+}
 
-  if (input.market.isGlobal) {
-    languages["x-default"] = absoluteUrl(input.canonicalPath);
+export function buildLanguageAlternatesFromContent(input: {
+  current: LanguageAlternateContent;
+  alternates?: LanguageAlternateContent[];
+}) {
+  const languages: Record<string, string> = {};
+  const alternateItems =
+    input.alternates && input.alternates.length > 0
+      ? input.alternates
+      : [input.current];
+
+  for (const item of alternateItems) {
+    const canonicalPath = resolveMarketScopedCanonicalPath({
+      canonicalPath: item.canonicalPath,
+      fallbackCanonicalPath: input.current.canonicalPath,
+      marketCode: item.market.code,
+    });
+    const isScopedToItemMarket = canonicalPath.startsWith(
+      `/${item.market.code}/`,
+    );
+
+    if (!isScopedToItemMarket) {
+      continue;
+    }
+
+    const locale = item.market.locale || item.market.languageCode;
+    languages[locale] = absoluteUrl(canonicalPath);
+
+    if (item.market.isGlobal) {
+      languages["x-default"] = absoluteUrl(canonicalPath);
+    }
+  }
+
+  if (Object.keys(languages).length === 0) {
+    const locale =
+      input.current.market.locale || input.current.market.languageCode;
+    languages[locale] = absoluteUrl(input.current.canonicalPath);
   }
 
   return languages;
@@ -133,9 +190,12 @@ export function buildPublicContentMetadata(
     description,
     alternates: {
       canonical: absoluteUrl(input.canonicalPath),
-      languages: buildLanguageAlternates({
-        canonicalPath: input.canonicalPath,
-        market: input.market,
+      languages: buildLanguageAlternatesFromContent({
+        current: {
+          canonicalPath: input.canonicalPath,
+          market: input.market,
+        },
+        alternates: input.alternateContent,
       }),
     },
     robots: buildRobotsMetadata(input),
@@ -190,8 +250,8 @@ export function buildArticleJsonLd(input: PublicContentSeoInput) {
     description,
     inLanguage: input.market.locale || input.market.languageCode,
     mainEntityOfPage: absoluteUrl(input.canonicalPath),
-    datePublished: input.publishedAt?.toISOString(),
-    dateModified: input.updatedAt?.toISOString(),
+    datePublished: toIsoDateString(input.publishedAt),
+    dateModified: toIsoDateString(input.updatedAt),
     author: input.authorName
       ? {
           "@type": "Person",
@@ -211,6 +271,108 @@ export function buildArticleJsonLd(input: PublicContentSeoInput) {
       "@type": "Organization",
       name: siteName,
     },
+    articleSection:
+      input.keySections && input.keySections.length > 0
+        ? input.keySections
+        : undefined,
+  };
+}
+
+export function buildReviewJsonLd(input: {
+  title: string;
+  summary: string | null;
+  canonicalPath: string;
+  seoDescription?: string | null;
+  market: {
+    languageCode: string;
+    locale: string;
+  };
+  broker?: Pick<Broker, "name" | "slug" | "description" | "websiteUrl"> | null;
+  reviewRating?: {
+    value: string;
+    bestRating?: string;
+    worstRating?: string;
+  } | null;
+  authorName?: string | null;
+  reviewerName?: string | null;
+  publishedAt?: Date | string | null;
+  updatedAt?: Date | string | null;
+}) {
+  if (!input.broker) {
+    return null;
+  }
+
+  const description =
+    input.seoDescription ??
+    input.summary ??
+    input.broker.description ??
+    `${input.broker.name} broker review.`;
+  const { siteName } = getSeoDefaults();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    name: input.title,
+    reviewBody: description,
+    inLanguage: input.market.locale || input.market.languageCode,
+    url: absoluteUrl(input.canonicalPath),
+    datePublished: toIsoDateString(input.publishedAt),
+    dateModified: toIsoDateString(input.updatedAt),
+    author: input.authorName
+      ? {
+          "@type": "Person",
+          name: input.authorName,
+        }
+      : {
+          "@type": "Organization",
+          name: siteName,
+        },
+    reviewedBy: input.reviewerName
+      ? {
+          "@type": "Person",
+          name: input.reviewerName,
+        }
+      : undefined,
+    itemReviewed: {
+      "@type": "Organization",
+      name: input.broker.name,
+      url: input.broker.websiteUrl || undefined,
+      description: input.broker.description || undefined,
+    },
+    reviewRating: input.reviewRating
+      ? {
+          "@type": "Rating",
+          ratingValue: input.reviewRating.value,
+          bestRating: input.reviewRating.bestRating,
+          worstRating: input.reviewRating.worstRating,
+        }
+      : undefined,
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+    },
+  };
+}
+
+export function buildItemListJsonLd(input: {
+  canonicalPath: string;
+  name: string;
+  items: Array<{
+    name: string;
+    path?: string;
+  }>;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: input.name,
+    url: absoluteUrl(input.canonicalPath),
+    itemListElement: input.items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: item.path ? absoluteUrl(item.path) : undefined,
+    })),
   };
 }
 

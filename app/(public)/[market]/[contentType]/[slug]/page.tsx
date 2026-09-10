@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AffiliateCta } from "@/components/public/affiliate-cta";
+import { TemplateBlockRenderer } from "@/components/public/template-block-renderer";
+import { getCachedPublishedContentByRoute } from "@/lib/cache/public";
+import {
+  getContentBlocks,
+  getFaqItemsFromBlocks,
+  getKeySectionsFromBlocks,
+} from "@/lib/content/blocks";
 import {
   contentTypeLabels,
   contentTypePathSegments,
   getMarkdownBody,
 } from "@/lib/content";
-import { MarkdownContent } from "@/lib/content/markdown";
+import { getSourcedBrokerFactHighlights } from "@/lib/broker-facts";
+import { getRenderableInternalLinksForContent } from "@/lib/internal-links";
 import { getPublishedContentByRoute } from "@/lib/routing/content";
 import {
   absoluteUrl,
@@ -16,12 +23,10 @@ import {
   buildFaqPageJsonLd,
   buildPublicContentBreadcrumbs,
   buildPublicContentMetadata,
-  extractFaqFromMarkdown,
+  buildReviewJsonLd,
   resolveMarketScopedCanonicalPath,
   stringifyJsonLd,
 } from "@/lib/seo";
-
-export const dynamic = "force-dynamic";
 
 type PublicContentPageProps = {
   params: Promise<{
@@ -31,11 +36,34 @@ type PublicContentPageProps = {
   }>;
 };
 
+type PublicContent = NonNullable<
+  Awaited<ReturnType<typeof getPublishedContentByRoute>>
+>;
+
+function getSafeAlternateContent(content: PublicContent) {
+  const groupItems = content.translationGroup?.contentItems ?? [];
+
+  if (groupItems.length === 0) {
+    return undefined;
+  }
+
+  return groupItems
+    .map((item) => ({
+      canonicalPath: resolveMarketScopedCanonicalPath({
+        canonicalPath: item.seoMetadata?.canonicalPath,
+        fallbackCanonicalPath: item.canonicalPath,
+        marketCode: item.market.code,
+      }),
+      market: item.market,
+    }))
+    .filter((item) => item.canonicalPath.startsWith(`/${item.market.code}/`));
+}
+
 export async function generateMetadata({
   params,
 }: PublicContentPageProps): Promise<Metadata> {
   const routeParams = await params;
-  const content = await getPublishedContentByRoute(routeParams);
+  const content = await getCachedPublishedContentByRoute(routeParams);
 
   if (!content) {
     return {
@@ -68,6 +96,7 @@ export async function generateMetadata({
     reviewerName: content.reviewerName,
     publishedAt: content.publishedAt,
     updatedAt: content.updatedAt,
+    alternateContent: getSafeAlternateContent(content),
   });
 }
 
@@ -75,7 +104,7 @@ export default async function PublicContentPage({
   params,
 }: PublicContentPageProps) {
   const routeParams = await params;
-  const content = await getPublishedContentByRoute(routeParams);
+  const content = await getCachedPublishedContentByRoute(routeParams);
 
   if (!content) {
     notFound();
@@ -89,6 +118,14 @@ export default async function PublicContentPage({
   });
   const canonicalUrl = absoluteUrl(canonicalPath);
   const typeLabel = contentTypeLabels[content.contentType];
+  const blocks = getContentBlocks(content.body, content.template);
+  const internalLinks = await getRenderableInternalLinksForContent(content.id);
+  const faqItems = getFaqItemsFromBlocks(blocks);
+  const keySections = getKeySectionsFromBlocks(blocks);
+  const reviewRatingFact =
+    content.contentType === "BROKER_REVIEW" && content.brokers[0]?.factItems
+      ? getSourcedBrokerFactHighlights(content.brokers[0].factItems).rating
+      : null;
   const seoInput = {
     title: content.title,
     summary: content.summary,
@@ -104,6 +141,8 @@ export default async function PublicContentPage({
     reviewerName: content.reviewerName,
     publishedAt: content.publishedAt,
     updatedAt: content.updatedAt,
+    keySections,
+    alternateContent: getSafeAlternateContent(content),
   };
   const breadcrumbItems = buildPublicContentBreadcrumbs({
     title: content.title,
@@ -114,8 +153,28 @@ export default async function PublicContentPage({
   });
   const jsonLdSchemas = [
     buildArticleJsonLd(seoInput),
+    content.contentType === "BROKER_REVIEW"
+      ? buildReviewJsonLd({
+          title: content.title,
+          summary: content.summary,
+          canonicalPath,
+          seoDescription: content.seoMetadata?.description,
+          market: content.market,
+          broker: content.brokers[0],
+          reviewRating: reviewRatingFact
+            ? {
+                value: reviewRatingFact.value,
+                bestRating: reviewRatingFact.unit ?? undefined,
+              }
+            : null,
+          authorName: content.authorName,
+          reviewerName: content.reviewerName,
+          publishedAt: content.publishedAt,
+          updatedAt: content.updatedAt,
+        })
+      : null,
     buildBreadcrumbJsonLd(breadcrumbItems),
-    buildFaqPageJsonLd(extractFaqFromMarkdown(markdown)),
+    buildFaqPageJsonLd(faqItems),
   ].filter(Boolean);
 
   return (
@@ -180,19 +239,14 @@ export default async function PublicContentPage({
               {content.summary}
             </p>
           ) : null}
-          <div className="mt-8 border-t border-[var(--border)] pt-3">
-            <MarkdownContent markdown={markdown} />
-          </div>
-          {content.brokers.length > 0 ? (
-            <div className="mt-8 border-t border-[var(--border)] pt-6">
-              <AffiliateCta
-                broker={content.brokers[0].slug}
-                campaign="review_top_cta"
-                language={content.market.languageCode}
-                market={content.market.code}
-              />
-            </div>
-          ) : null}
+          <TemplateBlockRenderer
+            blocks={blocks}
+            brokers={content.brokers}
+            contentId={content.id}
+            contentType={content.contentType}
+            internalLinks={internalLinks}
+            market={content.market}
+          />
         </article>
 
         {jsonLdSchemas.map((schema, index) => (

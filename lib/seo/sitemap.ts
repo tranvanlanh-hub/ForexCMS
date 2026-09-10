@@ -1,4 +1,4 @@
-import { ContentStatus } from "@prisma/client";
+import { ContentStatus, MarketStatus } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import {
   absoluteUrl,
@@ -6,10 +6,11 @@ import {
   resolveMarketScopedCanonicalPath,
   SITEMAP_URL_LIMIT,
 } from "@/lib/seo";
+import { logEvent } from "@/lib/observability/logging";
 
 export type SitemapEntry = {
   url: string;
-  lastModified: Date;
+  lastModified: Date | string;
 };
 
 export async function countPublishedContentSitemapPages() {
@@ -17,6 +18,9 @@ export async function countPublishedContentSitemapPages() {
     const count = await prisma.contentItem.count({
       where: {
         status: ContentStatus.PUBLISHED,
+        market: {
+          status: MarketStatus.ACTIVE,
+        },
         OR: [
           {
             seoMetadata: {
@@ -35,7 +39,8 @@ export async function countPublishedContentSitemapPages() {
     });
 
     return Math.max(1, Math.ceil(count / SITEMAP_URL_LIMIT));
-  } catch {
+  } catch (error) {
+    logEvent("error", "sitemap_page_count_failed", { error });
     return 1;
   }
 }
@@ -49,6 +54,9 @@ export async function getPublishedContentSitemapEntries(pageIndex: number) {
     const contentItems = await prisma.contentItem.findMany({
       where: {
         status: ContentStatus.PUBLISHED,
+        market: {
+          status: MarketStatus.ACTIVE,
+        },
         OR: [
           {
             seoMetadata: {
@@ -85,7 +93,8 @@ export async function getPublishedContentSitemapEntries(pageIndex: number) {
         lastModified: item.updatedAt,
       };
     });
-  } catch {
+  } catch (error) {
+    logEvent("error", "sitemap_entries_failed", { error, pageIndex });
     return [];
   }
 }
@@ -111,10 +120,15 @@ export function renderSitemapIndex(pageCount: number) {
 
 export function renderUrlSet(entries: SitemapEntry[]) {
   const urlNodes = entries.map((entry) => {
+    const lastModified =
+      entry.lastModified instanceof Date
+        ? entry.lastModified.toISOString()
+        : entry.lastModified;
+
     return [
       "  <url>",
       `    <loc>${escapeXml(entry.url)}</loc>`,
-      `    <lastmod>${entry.lastModified.toISOString()}</lastmod>`,
+      `    <lastmod>${lastModified}</lastmod>`,
       "  </url>",
     ].join("\n");
   }).join("\n");

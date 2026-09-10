@@ -1,0 +1,320 @@
+{
+  "at": "2026-09-10T00:58:03.253Z",
+  "origin": "https://content-hub-cms-preview.content-hub-stack.workers.dev",
+  "results": [
+    {
+      "name": "sitemap index",
+      "pass": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "sitemap content",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "urls": 16
+      }
+    },
+    {
+      "name": "homepage",
+      "pass": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "robots",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "body": "User-Agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: https://content-hub-cms-preview.content-hub-stack.workers.dev/sitemap.xml\n"
+      }
+    },
+    {
+      "name": "admin missing",
+      "pass": true,
+      "detail": {
+        "status": 401
+      }
+    },
+    {
+      "name": "admin invalid",
+      "pass": true,
+      "detail": {
+        "status": 401
+      }
+    },
+    {
+      "name": "admin authenticated",
+      "pass": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "/vn/articles/cau-hoi-thuong-gap-ve-forex/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/vn/articles/cau-hoi-thuong-gap-ve-forex/"
+      }
+    },
+    {
+      "name": "/vn/articles/forex-la-gi/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/vn/articles/forex-la-gi/"
+      }
+    },
+    {
+      "name": "/vn/articles/pip-lot-va-don-bay-trong-forex/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/vn/articles/pip-lot-va-don-bay-trong-forex/"
+      }
+    },
+    {
+      "name": "/vn/guides/cach-mo-tai-khoan-forex/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/vn/guides/cach-mo-tai-khoan-forex/"
+      }
+    },
+    {
+      "name": "/vn/broker-reviews/exness-review-vietnam/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/vn/broker-reviews/exness-review-vietnam/"
+      }
+    },
+    {
+      "name": "/vn/best-brokers/san-forex-uy-tin-cho-nguoi-moi/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/vn/best-brokers/san-forex-uy-tin-cho-nguoi-moi/"
+      }
+    },
+    {
+      "name": "/global/articles/forex-risk-management-checklist/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/articles/forex-risk-management-checklist/"
+      }
+    },
+    {
+      "name": "/global/articles/forex-trading-basics/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/articles/forex-trading-basics/"
+      }
+    },
+    {
+      "name": "/global/articles/forex-trading-faq/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/articles/forex-trading-faq/"
+      }
+    },
+    {
+      "name": "/global/articles/pips-lots-margin-leverage/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/articles/pips-lots-margin-leverage/"
+      }
+    },
+    {
+      "name": "/global/guides/how-to-open-a-forex-trading-account/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/guides/how-to-open-a-forex-trading-account/"
+      }
+    },
+    {
+      "name": "/global/guides/how-to-verify-a-forex-broker/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/guides/how-to-verify-a-forex-broker/"
+      }
+    },
+    {
+      "name": "/global/broker-reviews/exness-review/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/broker-reviews/exness-review/"
+      }
+    },
+    {
+      "name": "/global/broker-reviews/samplefx-review/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/broker-reviews/samplefx-review/"
+      }
+    },
+    {
+      "name": "/global/best-brokers/best-forex-brokers-for-beginners/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/best-brokers/best-forex-brokers-for-beginners/"
+      }
+    },
+    {
+      "name": "/global/best-brokers/best-forex-brokers-low-minimum-deposit/",
+      "pass": true,
+      "detail": {
+        "status": 200,
+        "canonical": "https://content-hub-cms-preview.content-hub-stack.workers.dev/global/best-brokers/best-forex-brokers-low-minimum-deposit/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/guides/how-to-open-a-forex-trading-account/",
+      "pass": true,
+      "detail": {
+        "source": "/global/articles/forex-trading-basics/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/articles/forex-risk-management-checklist/",
+      "pass": true,
+      "detail": {
+        "source": "/global/articles/pips-lots-margin-leverage/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/guides/how-to-verify-a-forex-broker/",
+      "pass": true,
+      "detail": {
+        "source": "/global/guides/how-to-open-a-forex-trading-account/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/articles/pips-lots-margin-leverage/",
+      "pass": true,
+      "detail": {
+        "source": "/global/articles/forex-risk-management-checklist/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/broker-reviews/exness-review/",
+      "pass": true,
+      "detail": {
+        "source": "/global/guides/how-to-verify-a-forex-broker/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/broker-reviews/samplefx-review/",
+      "pass": true,
+      "detail": {
+        "source": "/global/broker-reviews/exness-review/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/articles/forex-trading-faq/",
+      "pass": true,
+      "detail": {
+        "source": "/global/broker-reviews/samplefx-review/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/best-brokers/best-forex-brokers-low-minimum-deposit/",
+      "pass": true,
+      "detail": {
+        "source": "/global/best-brokers/best-forex-brokers-for-beginners/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/best-brokers/best-forex-brokers-for-beginners/",
+      "pass": true,
+      "detail": {
+        "source": "/global/articles/forex-trading-faq/"
+      }
+    },
+    {
+      "name": "rendered internal link /vn/guides/cach-mo-tai-khoan-forex/",
+      "pass": true,
+      "detail": {
+        "source": "/vn/articles/forex-la-gi/"
+      }
+    },
+    {
+      "name": "rendered internal link /vn/articles/pip-lot-va-don-bay-trong-forex/",
+      "pass": true,
+      "detail": {
+        "source": "/vn/guides/cach-mo-tai-khoan-forex/"
+      }
+    },
+    {
+      "name": "rendered internal link /vn/articles/cau-hoi-thuong-gap-ve-forex/",
+      "pass": true,
+      "detail": {
+        "source": "/vn/broker-reviews/exness-review-vietnam/"
+      }
+    },
+    {
+      "name": "rendered internal link /vn/broker-reviews/exness-review-vietnam/",
+      "pass": true,
+      "detail": {
+        "source": "/vn/best-brokers/san-forex-uy-tin-cho-nguoi-moi/"
+      }
+    },
+    {
+      "name": "rendered internal link /vn/best-brokers/san-forex-uy-tin-cho-nguoi-moi/",
+      "pass": true,
+      "detail": {
+        "source": "/vn/articles/cau-hoi-thuong-gap-ve-forex/"
+      }
+    },
+    {
+      "name": "rendered internal link /vn/articles/forex-la-gi/",
+      "pass": true,
+      "detail": {
+        "source": "/vn/articles/pip-lot-va-don-bay-trong-forex/"
+      }
+    },
+    {
+      "name": "rendered internal link /global/articles/forex-trading-basics/",
+      "pass": true,
+      "detail": {
+        "source": "/global/best-brokers/best-forex-brokers-low-minimum-deposit/"
+      }
+    },
+    {
+      "name": "comparison",
+      "pass": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "name": "draft private",
+      "pass": true,
+      "detail": {
+        "status": 404
+      }
+    },
+    {
+      "name": "affiliate test redirect",
+      "pass": true,
+      "detail": {
+        "status": 302,
+        "destinationMatchesConfiguredTest": true,
+        "followed": false
+      }
+    }
+  ]
+}

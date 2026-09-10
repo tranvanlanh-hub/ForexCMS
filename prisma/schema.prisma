@@ -3,8 +3,15 @@ generator client {
   previewFeatures = ["driverAdapters"]
 }
 
+generator edgeClient {
+  provider        = "prisma-client-js"
+  output          = "../node_modules/.prisma/client-edge"
+  engineType      = "client"
+  previewFeatures = ["driverAdapters", "queryCompiler"]
+}
+
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -51,6 +58,19 @@ enum BrokerStatus {
   ARCHIVED
 }
 
+enum BrokerFactCategory {
+  REGULATION_LICENSE
+  MINIMUM_DEPOSIT
+  SPREAD
+  LEVERAGE
+  PLATFORM
+  ACCOUNT_TYPE
+  PAYMENT_METHOD
+  SUPPORT_LANGUAGE
+  RESTRICTED_COUNTRY
+  OTHER
+}
+
 enum AffiliateLinkStatus {
   DRAFT
   ACTIVE
@@ -61,6 +81,37 @@ enum AffiliateLinkStatus {
 enum RobotsIndex {
   INDEX
   NOINDEX
+}
+
+enum TopicClusterStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum AnchorTextStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum InternalLinkRuleStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum InternalLinkRuleMode {
+  SUGGEST_ONLY
+  AUTO_APPROVE
+}
+
+enum InternalLinkSuggestionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  ARCHIVED
 }
 
 model Market {
@@ -77,9 +128,14 @@ model Market {
   updatedAt    DateTime     @updatedAt
 
   affiliateLinks AffiliateLink[]
+  brokerFacts    BrokerFact[]
   categories     Category[]
   contentItems   ContentItem[]
+  anchorTexts    AnchorText[]
+  internalLinkRules InternalLinkRule[]
+  internalLinkSuggestions InternalLinkSuggestion[]
   seoMetadata    SeoMetadata[]
+  topicClusters  TopicCluster[]
   topics         Topic[]
 
   @@index([languageCode])
@@ -131,6 +187,7 @@ model Topic {
   id          String   @id @default(cuid())
   marketId    String
   parentId    String?
+  topicClusterId String?
   slug        String
   name        String
   description String?
@@ -140,47 +197,177 @@ model Topic {
   market         Market        @relation(fields: [marketId], references: [id], onDelete: Cascade)
   parent         Topic?        @relation("TopicTree", fields: [parentId], references: [id], onDelete: SetNull)
   children       Topic[]       @relation("TopicTree")
+  topicCluster   TopicCluster? @relation(fields: [topicClusterId], references: [id], onDelete: SetNull)
   primaryContent ContentItem[] @relation("PrimaryContentTopic")
   contentItems   ContentItem[] @relation("ContentTopics")
 
   @@unique([marketId, slug])
+  @@index([topicClusterId])
   @@index([marketId, parentId])
 }
 
-model ContentItem {
-  id                String        @id @default(cuid())
-  marketId          String
-  templateId        String
-  primaryCategoryId String?
-  primaryTopicId    String?
-  title             String
-  slug              String
-  contentType       ContentType
-  status            ContentStatus @default(DRAFT)
-  summary           String?
-  body              Json          @default("{}")
-  canonicalPath     String
-  authorName        String?
-  reviewerName      String?
-  publishedAt       DateTime?
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
+model TopicCluster {
+  id                    String             @id @default(cuid())
+  marketId              String
+  priorityContentItemId String?
+  slug                  String
+  name                  String
+  languageCode          String
+  description           String?
+  status                TopicClusterStatus @default(ACTIVE)
+  priority              Int                @default(100)
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
 
-  market          Market            @relation(fields: [marketId], references: [id], onDelete: Restrict)
-  template        Template          @relation(fields: [templateId], references: [id], onDelete: Restrict)
-  primaryCategory Category?         @relation("PrimaryContentCategory", fields: [primaryCategoryId], references: [id], onDelete: SetNull)
-  primaryTopic    Topic?            @relation("PrimaryContentTopic", fields: [primaryTopicId], references: [id], onDelete: SetNull)
-  brokers         Broker[]          @relation("ContentBrokers")
-  categories      Category[]        @relation("ContentCategories")
-  revisions       ContentRevision[]
-  seoMetadata     SeoMetadata?
-  topics          Topic[]           @relation("ContentTopics")
+  market              Market               @relation(fields: [marketId], references: [id], onDelete: Cascade)
+  priorityContentItem ContentItem?          @relation("TopicClusterPriorityContent", fields: [priorityContentItemId], references: [id], onDelete: SetNull)
+  anchorTexts         AnchorText[]
+  internalLinkRules   InternalLinkRule[]
+  topics              Topic[]
+
+  @@unique([marketId, languageCode, slug])
+  @@index([marketId, languageCode, status])
+  @@index([priorityContentItemId])
+}
+
+model ContentItem {
+  id                 String        @id @default(cuid())
+  marketId           String
+  templateId         String
+  translationGroupId String?
+  primaryCategoryId  String?
+  primaryTopicId     String?
+  title              String
+  slug               String
+  contentType        ContentType
+  status             ContentStatus @default(DRAFT)
+  summary            String?
+  body               Json          @default("{}")
+  canonicalPath      String
+  authorName         String?
+  reviewerName       String?
+  publishedAt        DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  market           Market                   @relation(fields: [marketId], references: [id], onDelete: Restrict)
+  template         Template                 @relation(fields: [templateId], references: [id], onDelete: Restrict)
+  translationGroup ContentTranslationGroup? @relation(fields: [translationGroupId], references: [id], onDelete: SetNull)
+  primaryCategory  Category?                @relation("PrimaryContentCategory", fields: [primaryCategoryId], references: [id], onDelete: SetNull)
+  primaryTopic     Topic?                   @relation("PrimaryContentTopic", fields: [primaryTopicId], references: [id], onDelete: SetNull)
+  brokers          Broker[]                 @relation("ContentBrokers")
+  anchorTexts      AnchorText[]             @relation("AnchorTextTarget")
+  categories       Category[]               @relation("ContentCategories")
+  priorityForClusters TopicCluster[]        @relation("TopicClusterPriorityContent")
+  internalLinkRuleTargets InternalLinkRule[] @relation("InternalLinkRuleTarget")
+  internalLinkSourceSuggestions InternalLinkSuggestion[] @relation("InternalLinkSource")
+  internalLinkTargetSuggestions InternalLinkSuggestion[] @relation("InternalLinkTarget")
+  affiliateClickEvents AffiliateClickEvent[]
+  revisions        ContentRevision[]
+  seoMetadata      SeoMetadata?
+  topics           Topic[]                  @relation("ContentTopics")
 
   @@unique([marketId, contentType, slug])
+  @@unique([translationGroupId, marketId])
   @@unique([canonicalPath])
   @@index([marketId, status])
+  @@index([marketId, contentType, status, slug], map: "idx_content_public_lookup")
+  @@index([marketId, status, publishedAt, createdAt], map: "idx_content_sitemap_market")
+  @@index([translationGroupId])
   @@index([contentType])
+  @@index([status, publishedAt, createdAt], map: "idx_content_sitemap_status")
   @@index([publishedAt])
+}
+
+model AnchorText {
+  id                  String           @id @default(cuid())
+  marketId            String
+  topicClusterId      String?
+  targetContentItemId String?
+  text                String
+  languageCode        String
+  contentTypes        Json             @default("[]")
+  status              AnchorTextStatus @default(ACTIVE)
+  priority            Int              @default(100)
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+
+  market            Market       @relation(fields: [marketId], references: [id], onDelete: Cascade)
+  topicCluster      TopicCluster? @relation(fields: [topicClusterId], references: [id], onDelete: SetNull)
+  targetContentItem ContentItem?  @relation("AnchorTextTarget", fields: [targetContentItemId], references: [id], onDelete: Cascade)
+  suggestions       InternalLinkSuggestion[]
+
+  @@unique([marketId, languageCode, text, targetContentItemId])
+  @@index([marketId, languageCode, status])
+  @@index([topicClusterId])
+  @@index([targetContentItemId])
+}
+
+model InternalLinkRule {
+  id                  String                 @id @default(cuid())
+  marketId            String
+  topicClusterId      String?
+  targetContentItemId String?
+  name                String
+  languageCode        String
+  sourceContentType   ContentType?
+  targetContentType   ContentType?
+  status              InternalLinkRuleStatus @default(DRAFT)
+  mode                InternalLinkRuleMode   @default(SUGGEST_ONLY)
+  maxLinksPerContent  Int                    @default(6)
+  minWordsBetweenLinks Int                   @default(120)
+  priority            Int                    @default(100)
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
+
+  market            Market       @relation(fields: [marketId], references: [id], onDelete: Cascade)
+  topicCluster      TopicCluster? @relation(fields: [topicClusterId], references: [id], onDelete: SetNull)
+  targetContentItem ContentItem?  @relation("InternalLinkRuleTarget", fields: [targetContentItemId], references: [id], onDelete: Cascade)
+  suggestions       InternalLinkSuggestion[]
+
+  @@index([marketId, languageCode, status])
+  @@index([topicClusterId])
+  @@index([targetContentItemId])
+  @@index([sourceContentType, targetContentType])
+}
+
+model InternalLinkSuggestion {
+  id                  String                       @id @default(cuid())
+  marketId            String
+  sourceContentItemId String
+  targetContentItemId String
+  anchorTextId        String?
+  ruleId              String?
+  anchorText          String
+  languageCode        String
+  status              InternalLinkSuggestionStatus @default(PENDING)
+  reason              String?
+  score               Int                          @default(0)
+  createdAt           DateTime                     @default(now())
+  updatedAt           DateTime                     @updatedAt
+
+  market            Market            @relation(fields: [marketId], references: [id], onDelete: Cascade)
+  sourceContentItem ContentItem       @relation("InternalLinkSource", fields: [sourceContentItemId], references: [id], onDelete: Cascade)
+  targetContentItem ContentItem       @relation("InternalLinkTarget", fields: [targetContentItemId], references: [id], onDelete: Cascade)
+  anchor            AnchorText?       @relation(fields: [anchorTextId], references: [id], onDelete: SetNull)
+  rule              InternalLinkRule? @relation(fields: [ruleId], references: [id], onDelete: SetNull)
+
+  @@unique([sourceContentItemId, targetContentItemId, anchorText])
+  @@index([marketId, languageCode, status])
+  @@index([sourceContentItemId, status])
+  @@index([targetContentItemId])
+  @@index([ruleId])
+}
+
+model ContentTranslationGroup {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String?
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  contentItems ContentItem[]
 }
 
 model ContentRevision {
@@ -239,10 +426,39 @@ model Broker {
   updatedAt    DateTime     @updatedAt
 
   affiliateLinks AffiliateLink[]
+  affiliateClickEvents AffiliateClickEvent[]
   contentItems   ContentItem[]   @relation("ContentBrokers")
+  factItems      BrokerFact[]
   seoMetadata    SeoMetadata[]
 
   @@index([status])
+}
+
+model BrokerFact {
+  id                String             @id @default(cuid())
+  brokerId          String
+  marketId          String?
+  category          BrokerFactCategory
+  label             String
+  value             String
+  unit              String?
+  appliesTo         String?
+  sourceName        String
+  sourceUrl         String
+  citationText      String?
+  sourceRetrievedAt DateTime?
+  displayOrder      Int                @default(100)
+  isPrimary         Boolean            @default(false)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  broker Broker  @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+  market Market? @relation(fields: [marketId], references: [id], onDelete: SetNull)
+
+  @@unique([brokerId, marketId, category, label, value])
+  @@index([brokerId, category])
+  @@index([marketId, category])
+  @@index([sourceUrl])
 }
 
 model AffiliateLink {
@@ -264,9 +480,32 @@ model AffiliateLink {
 
   broker Broker @relation(fields: [brokerId], references: [id], onDelete: Cascade)
   market Market @relation(fields: [marketId], references: [id], onDelete: Cascade)
+  clickEvents AffiliateClickEvent[]
 
   @@unique([brokerId, marketId, languageCode, campaign, priority])
   @@index([brokerId, marketId, campaign, status])
+  @@index([brokerId, marketId, languageCode, campaign, status, priority, updatedAt], map: "idx_affiliate_resolver")
   @@index([languageCode])
   @@index([startsAt, endsAt])
+}
+
+model AffiliateClickEvent {
+  id              String   @id @default(cuid())
+  affiliateLinkId String
+  brokerId        String?
+  contentItemId   String?
+  market          String
+  campaign        String
+  referrer        String?
+  clickedAt       DateTime @default(now())
+
+  affiliateLink AffiliateLink @relation(fields: [affiliateLinkId], references: [id], onDelete: Cascade)
+  broker        Broker?       @relation(fields: [brokerId], references: [id], onDelete: SetNull)
+  contentItem   ContentItem?  @relation(fields: [contentItemId], references: [id], onDelete: SetNull)
+
+  @@index([affiliateLinkId, clickedAt])
+  @@index([brokerId, clickedAt])
+  @@index([contentItemId, clickedAt])
+  @@index([market, campaign, clickedAt])
+  @@index([clickedAt])
 }

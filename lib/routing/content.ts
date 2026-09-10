@@ -1,6 +1,7 @@
-import { ContentStatus } from "@prisma/client";
+import { ContentStatus, MarketStatus } from "@prisma/client";
 import { getContentTypeFromPathSegment, normalizeSlug } from "@/lib/content";
 import { prisma } from "@/lib/db";
+import { logEvent } from "@/lib/observability/logging";
 
 export async function getPublishedContentByRoute(args: {
   market: string;
@@ -23,16 +24,62 @@ export async function getPublishedContentByRoute(args: {
         status: ContentStatus.PUBLISHED,
         market: {
           code: marketCode,
+          status: MarketStatus.ACTIVE,
         },
       },
       include: {
-        brokers: true,
+        brokers: {
+          include: {
+            factItems: {
+              include: {
+                market: true,
+              },
+              orderBy: [{ displayOrder: "asc" }, { createdAt: "asc" }],
+            },
+          },
+        },
         market: true,
         seoMetadata: true,
         template: true,
+        translationGroup: {
+          include: {
+            contentItems: {
+              where: {
+                status: ContentStatus.PUBLISHED,
+                market: {
+                  status: MarketStatus.ACTIVE,
+                },
+                OR: [
+                  {
+                    seoMetadata: {
+                      is: {
+                        robotsIndex: "INDEX",
+                      },
+                    },
+                  },
+                  {
+                    seoMetadata: {
+                      is: null,
+                    },
+                  },
+                ],
+              },
+              include: {
+                market: true,
+                seoMetadata: true,
+              },
+            },
+          },
+        },
       },
     });
-  } catch {
+  } catch (error) {
+    logEvent("error", "public_content_lookup_failed", {
+      contentType: args.contentType,
+      error,
+      market: args.market,
+      slug: args.slug,
+    });
     return null;
   }
 }

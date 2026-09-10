@@ -7,6 +7,7 @@ import {
   affiliateLinkStatusLabels,
   normalizeCampaignToken,
 } from "@/lib/affiliate";
+import { revalidateAffiliateResolverCache } from "@/lib/cache/public";
 import { prisma } from "@/lib/db";
 
 const allowedStatuses = new Set<AffiliateLinkStatus>(
@@ -88,6 +89,7 @@ export async function createAffiliateLinkAction(formData: FormData) {
   try {
     const link = await prisma.affiliateLink.create({ data: input.data });
     revalidatePath("/admin/affiliate-links");
+    revalidateAffiliateResolverCache();
     redirect(`/admin/affiliate-links/${link.id}/edit?saved=1`);
   } catch {
     redirectWithError("/admin/affiliate-links/new", [
@@ -119,6 +121,7 @@ export async function updateAffiliateLinkAction(formData: FormData) {
     });
     revalidatePath("/admin/affiliate-links");
     revalidatePath(editPath);
+    revalidateAffiliateResolverCache();
     redirect(`${editPath}?saved=1`);
   } catch {
     redirectWithError(editPath, [

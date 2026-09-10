@@ -1,11 +1,35 @@
-import { BrokerStatus, type Broker } from "@prisma/client";
+import { BrokerFactCategory, BrokerStatus, type Broker, type BrokerFact, type Market } from "@prisma/client";
 import Link from "next/link";
 import { brokerStatusLabels } from "@/lib/affiliate";
+import {
+  brokerFactCategoryExamples,
+  brokerFactCategoryLabels,
+  serializeBrokerFactsForForm,
+} from "@/lib/broker-facts";
 
 type BrokerFormItem = Pick<
   Broker,
   "id" | "name" | "slug" | "status" | "logoUrl" | "description"
->;
+> & {
+  factItems?: Array<
+    Pick<
+      BrokerFact,
+      | "category"
+      | "label"
+      | "value"
+      | "unit"
+      | "appliesTo"
+      | "sourceName"
+      | "sourceUrl"
+      | "citationText"
+      | "sourceRetrievedAt"
+      | "displayOrder"
+      | "isPrimary"
+    > & {
+      market?: Pick<Market, "code"> | null;
+    }
+  >;
+};
 
 type BrokerFormProps = {
   action: (formData: FormData) => void | Promise<void>;
@@ -16,6 +40,9 @@ type BrokerFormProps = {
 
 export function BrokerForm({ action, error, item, saved }: BrokerFormProps) {
   const isEditing = Boolean(item);
+  const factsValue = serializeBrokerFactsForForm(
+    item?.factItems?.sort((a, b) => a.displayOrder - b.displayOrder) ?? [],
+  );
 
   return (
     <form action={action} className="flex flex-col gap-6">
@@ -134,6 +161,52 @@ export function BrokerForm({ action, error, item, saved }: BrokerFormProps) {
             </label>
           </div>
         </aside>
+      </section>
+
+      <section className="rounded-lg border border-[#d9ded7] bg-white p-5">
+        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+          <div>
+            <h2 className="text-base font-semibold text-[#111827]">
+              Sourced broker facts
+            </h2>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-[#5f6268]">
+              Add one sourced fact per line. Public broker reviews and
+              comparisons only show fact rows with source fields.
+            </p>
+          </div>
+          <span className="rounded-md border border-[#b7dfca] bg-[#f0fdf6] px-3 py-2 text-xs font-semibold text-[#166534]">
+            Source required
+          </span>
+        </div>
+
+        <label className="mt-4 block text-sm font-semibold text-[#111827]" htmlFor="facts">
+          Facts
+          <textarea
+            className="mt-2 min-h-48 w-full resize-y rounded-md border border-[#cbd5ce] px-3 py-3 font-mono text-xs font-normal leading-6 outline-none transition focus:border-[#0f766e]"
+            defaultValue={factsValue}
+            id="facts"
+            name="facts"
+            placeholder={brokerFactCategoryExamples.REGULATION_LICENSE}
+          />
+        </label>
+
+        <div className="mt-4 grid gap-3 text-xs leading-5 text-[#5f6268] md:grid-cols-2">
+          <div className="rounded-md border border-[#eef1ed] bg-[#fbfcfb] p-3">
+            <p className="font-semibold text-[#374151]">Line format</p>
+            <p className="mt-1 font-mono">
+              CATEGORY | label | value | unit | source name | source URL |
+              market | applies to | citation | primary
+            </p>
+          </div>
+          <div className="rounded-md border border-[#eef1ed] bg-[#fbfcfb] p-3">
+            <p className="font-semibold text-[#374151]">Categories</p>
+            <p className="mt-1">
+              {Object.values(BrokerFactCategory)
+                .map((category) => brokerFactCategoryLabels[category])
+                .join(", ")}
+            </p>
+          </div>
+        </div>
       </section>
     </form>
   );

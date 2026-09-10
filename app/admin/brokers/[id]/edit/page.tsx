@@ -18,7 +18,21 @@ export default async function EditBrokerPage({
   let isDatabaseReady = true;
 
   try {
-    broker = await prisma.broker.findUnique({ where: { id } });
+    broker = await prisma.broker.findUnique({
+      where: { id },
+      include: {
+        factItems: {
+          include: {
+            market: {
+              select: {
+                code: true,
+              },
+            },
+          },
+          orderBy: [{ displayOrder: "asc" }, { createdAt: "asc" }],
+        },
+      },
+    });
   } catch {
     isDatabaseReady = false;
   }

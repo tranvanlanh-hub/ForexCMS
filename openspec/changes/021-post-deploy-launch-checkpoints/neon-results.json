@@ -1,0 +1,56 @@
+{
+  "at": "2026-09-10T00:55:10.845Z",
+  "local": {
+    "neon": true,
+    "pooled": true,
+    "tls": "require"
+  },
+  "migrations": [
+    {
+      "name": "202609090001_initial_cms_schema",
+      "applied": true,
+      "checksumMatches": true
+    },
+    {
+      "name": "202609090006_basic_broker_affiliate_manager",
+      "applied": true,
+      "checksumMatches": true
+    },
+    {
+      "name": "202609090011_multi_market_language",
+      "applied": true,
+      "checksumMatches": true
+    },
+    {
+      "name": "202609090012_internal_link_automation",
+      "applied": true,
+      "checksumMatches": true
+    },
+    {
+      "name": "202609090014_broker_data_review_comparison",
+      "applied": true,
+      "checksumMatches": true
+    },
+    {
+      "name": "202609090015_analytics_click_quality_dashboard",
+      "applied": true,
+      "checksumMatches": true
+    },
+    {
+      "name": "202609100020_production_readiness_scale_indexes",
+      "applied": true,
+      "checksumMatches": true
+    }
+  ],
+  "statusCounts": [
+    {
+      "_count": 1,
+      "status": "DRAFT"
+    },
+    {
+      "_count": 16,
+      "status": "PUBLISHED"
+    }
+  ],
+  "seedRequired": false
+}

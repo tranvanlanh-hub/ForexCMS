@@ -11,6 +11,7 @@ async function getAffiliateFormOptions() {
       select: { id: true, name: true, slug: true, status: true },
     }),
     prisma.market.findMany({
+      where: { status: "ACTIVE" },
       orderBy: [{ isGlobal: "desc" }, { code: "asc" }],
       select: {
         id: true,

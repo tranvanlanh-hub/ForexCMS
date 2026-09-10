@@ -1,0 +1,156 @@
+ M .env.cloudflare.example
+ M .env.example
+ M .gitignore
+ M DEPLOYMENT.md
+ M app/(public)/[market]/[contentType]/[slug]/page.tsx
+ M app/admin/affiliate-links/[id]/edit/page.tsx
+ M app/admin/affiliate-links/actions.ts
+ M app/admin/affiliate-links/new/page.tsx
+ M app/admin/affiliate-links/page.tsx
+ M app/admin/brokers/[id]/edit/page.tsx
+ M app/admin/brokers/actions.ts
+ M app/admin/brokers/broker-form.tsx
+ M app/admin/brokers/page.tsx
+ M app/admin/content/[id]/edit/page.tsx
+ M app/admin/content/actions.ts
+ M app/admin/content/content-form.tsx
+ M app/admin/content/new/page.tsx
+ M app/admin/content/page.tsx
+ M app/admin/layout.tsx
+ M app/sitemap.xml/route.ts
+ M app/sitemaps/[sitemap]/route.ts
+ M components/public/affiliate-cta.tsx
+ M docs/CLOUDFLARE_DEPLOY.md
+ M docs/CODEX_HANDOFF.md
+ M docs/ROADMAP.md
+ M lib/admin/navigation.ts
+ M lib/affiliate/index.ts
+ M lib/content/index.ts
+ M lib/content/markdown.tsx
+ M lib/db/index.ts
+ M lib/routing/content.ts
+ M lib/seo/index.ts
+ M lib/seo/sitemap.ts
+ M next-env.d.ts
+ M openspec/specs/affiliate-manager/spec.md
+ M openspec/specs/ai-import-pipeline/spec.md
+ M openspec/specs/content-cms/spec.md
+ M openspec/specs/seo-engine/spec.md
+ M openspec/specs/template-system/spec.md
+ M openspec/specs/url-routing/spec.md
+ M package-lock.json
+ M package.json
+ D prisma/d1/0001_init.sql
+ D prisma/d1/0002_seed_basics.sql
+ M prisma/schema.prisma
+ M prisma/seed.mjs
+ M types/cloudflare-workers.d.ts
+ M wrangler.jsonc
+?? app/(public)/[market]/compare/[pair]/page.tsx
+?? app/(public)/demo/content-scale/[draftId]/page.tsx
+?? app/(public)/demo/content-scale/page.tsx
+?? app/admin/ai-import/actions.ts
+?? app/admin/ai-import/ai-import-form.tsx
+?? app/admin/ai-import/page.tsx
+?? app/admin/analytics/page.tsx
+?? app/admin/content-scale/[draftId]/page.tsx
+?? app/admin/content-scale/page.tsx
+?? app/admin/error.tsx
+?? app/admin/internal-links/actions.ts
+?? app/admin/internal-links/page.tsx
+?? app/admin/markets/[id]/edit/page.tsx
+?? app/admin/markets/actions.ts
+?? app/admin/markets/market-form.tsx
+?? app/admin/markets/new/page.tsx
+?? app/admin/markets/page.tsx
+?? app/admin/seo/page.tsx
+?? app/affiliate/click/[affiliateLinkId]/route.ts
+?? app/error.tsx
+?? components/admin/demo-mode-banner.tsx
+?? components/public/template-block-renderer.tsx
+?? data/ai-content/batch-250-plan.json
+?? data/ai-content/pilot-50-drafts.json
+?? docs/AI_CONTENT_BRIEF_SCHEMA.md
+?? docs/BACKUP_RESTORE_VPS.md
+?? docs/CONTENT_SCALE_OPERATIONS.md
+?? docs/POST_LAUNCH_CONTENT_PLAN.md
+?? docs/PRODUCTION_LAUNCH_CHECKLIST.md
+?? docs/PRODUCTION_READINESS.md
+?? lib/admin/auth.ts
+?? lib/ai-import/index.ts
+?? lib/analytics/index.ts
+?? lib/broker-facts/index.ts
+?? lib/cache/public.ts
+?? lib/content/blocks.ts
+?? lib/demo/content-scale.ts
+?? lib/internal-links/index.ts
+?? lib/market/index.ts
+?? lib/observability/logging.ts
+?? lib/routing/broker-comparison.ts
+?? lib/seo/audit.ts
+?? openspec/changes/009-security-deployment-verification/design.md
+?? openspec/changes/009-security-deployment-verification/proposal.md
+?? openspec/changes/009-security-deployment-verification/tasks.md
+?? openspec/changes/010-template-block-renderer/design.md
+?? openspec/changes/010-template-block-renderer/proposal.md
+?? openspec/changes/010-template-block-renderer/tasks.md
+?? openspec/changes/011-multi-market-language/design.md
+?? openspec/changes/011-multi-market-language/proposal.md
+?? openspec/changes/011-multi-market-language/tasks.md
+?? openspec/changes/012-internal-link-automation/design.md
+?? openspec/changes/012-internal-link-automation/proposal.md
+?? openspec/changes/012-internal-link-automation/tasks.md
+?? openspec/changes/013-basic-ai-content-import-pipeline/design.md
+?? openspec/changes/013-basic-ai-content-import-pipeline/proposal.md
+?? openspec/changes/013-basic-ai-content-import-pipeline/tasks.md
+?? openspec/changes/014-broker-data-review-comparison/design.md
+?? openspec/changes/014-broker-data-review-comparison/proposal.md
+?? openspec/changes/014-broker-data-review-comparison/tasks.md
+?? openspec/changes/015-analytics-click-quality-dashboard/design.md
+?? openspec/changes/015-analytics-click-quality-dashboard/proposal.md
+?? openspec/changes/015-analytics-click-quality-dashboard/tasks.md
+?? openspec/changes/016-small-content-production-pilot/design.md
+?? openspec/changes/016-small-content-production-pilot/proposal.md
+?? openspec/changes/016-small-content-production-pilot/tasks.md
+?? openspec/changes/017-content-scale-operations/design.md
+?? openspec/changes/017-content-scale-operations/proposal.md
+?? openspec/changes/017-content-scale-operations/tasks.md
+?? openspec/changes/018-system-audit-admin-workflow-hardening/design.md
+?? openspec/changes/018-system-audit-admin-workflow-hardening/proposal.md
+?? openspec/changes/018-system-audit-admin-workflow-hardening/tasks.md
+?? openspec/changes/019-seo-broker-affiliate-link-ai-safety/design.md
+?? openspec/changes/019-seo-broker-affiliate-link-ai-safety/proposal.md
+?? openspec/changes/019-seo-broker-affiliate-link-ai-safety/tasks.md
+?? openspec/changes/020-production-readiness-scale/design.md
+?? openspec/changes/020-production-readiness-scale/proposal.md
+?? openspec/changes/020-production-readiness-scale/tasks.md
+?? openspec/changes/021-post-deploy-launch-checkpoints/design.md
+?? openspec/changes/021-post-deploy-launch-checkpoints/git-inventory-before.txt
+?? openspec/changes/021-post-deploy-launch-checkpoints/neon-results.json
+?? openspec/changes/021-post-deploy-launch-checkpoints/proposal.md
+?? openspec/changes/021-post-deploy-launch-checkpoints/repo-audit.md
+?? openspec/changes/021-post-deploy-launch-checkpoints/secret-scan.json
+?? openspec/changes/021-post-deploy-launch-checkpoints/smoke-results.json
+?? openspec/changes/021-post-deploy-launch-checkpoints/tasks.md
+?? openspec/changes/021-post-deploy-launch-checkpoints/verification.md
+?? openspec/specs/analytics-quality-dashboard/spec.md
+?? openspec/specs/broker-comparison/spec.md
+?? openspec/specs/internal-link-automation/spec.md
+?? openspec/specs/production-operations/spec.md
+?? prisma/migrations/202609090011_multi_market_language/migration.sql
+?? prisma/migrations/202609090012_internal_link_automation/migration.sql
+?? prisma/migrations/202609090014_broker_data_review_comparison/migration.sql
+?? prisma/migrations/202609090015_analytics_click_quality_dashboard/migration.sql
+?? prisma/migrations/202609100020_production_readiness_scale_indexes/migration.sql
+?? proxy.ts
+?? scripts/audit-content-batch.mjs
+?? scripts/backup-media.mjs
+?? scripts/backup-postgres.mjs
+?? scripts/check-content-pilot.mjs
+?? scripts/generate-content-pilot.mjs
+?? scripts/prepare-content-batch.mjs
+?? scripts/repair-preview-pilot-links.mjs
+?? scripts/restore-postgres.mjs
+?? scripts/seo-audit.mjs
+?? scripts/smoke-preview.mjs
+?? scripts/validate-ai-batch.mjs

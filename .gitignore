@@ -28,3 +28,11 @@ pnpm-debug.log*
 /dist/
 .vinext/
 .wrangler/
+
+# local runtime/build artifacts
+.next-dev*.log
+.wrangler-*.log
+*.tsbuildinfo
+.dev.vars.*
+/backups/
+/data/ai-content/last-batch-reject-report.json

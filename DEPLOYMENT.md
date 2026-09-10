@@ -11,7 +11,7 @@ This project is prepared for a Cloudflare Workers preview deployment using Vinex
 
 ## Readiness status
 
-The app is deploy-prepared, but a real preview deploy still needs Cloudflare account credentials and runtime secrets.
+The existing preview was verified on 2026-09-10 at https://content-hub-cms-preview.content-hub-stack.workers.dev. It reads Neon PostgreSQL and protects admin with Basic Auth. Production is NOT ready or authorized; follow `docs/PRODUCTION_LAUNCH_CHECKLIST.md`. The old remote `content-hub-cms` Worker still has a legacy D1 binding; do not copy its settings to the Neon production target.
 
 Ready:
 
@@ -27,6 +27,8 @@ Needs values before preview deploy:
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID` if the API token can access more than one account
 - `DATABASE_URL`
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
 - `APP_URL`
 - `S3_ENDPOINT`
 - `S3_REGION`
@@ -39,19 +41,22 @@ Needs values before preview deploy:
 
 PostgreSQL is the primary CMS database. Do not replace it with Cloudflare D1 for the core CMS.
 
-For Cloudflare Workers preview, `DATABASE_URL` must point to a Workers-compatible PostgreSQL connection path, such as Prisma Accelerate or another supported pooled/proxied PostgreSQL endpoint. A normal direct local PostgreSQL URL is fine for local Next.js development, but it is not enough for a deployed Worker.
+The implemented Worker path uses the generated Prisma edge client with the Neon adapter when APP_ENV is preview/production and DATABASE_URL is a Neon PostgreSQL URL. Local scripts use the Node Prisma client. Set APP_ENV explicitly; this implementation does not automatically configure Prisma Accelerate. Keep credentials in ignored UTF-8 environment files without a BOM or in the platform secret store.
 
-Run migrations against the PostgreSQL database before relying on dynamic CMS routes:
+Verify migrations against Neon before relying on dynamic CMS routes. Prisma CLI does not automatically load `.env.local`; these commands load it explicitly. For deployed/shared databases use migrate deploy, not migrate dev/reset:
 
 ```powershell
-npm.cmd run db:migrate
+node --env-file=.env.local node_modules/prisma/build/index.js migrate status
+node --env-file=.env.local node_modules/prisma/build/index.js migrate deploy
 ```
 
-If seed data is needed for preview smoke testing:
+All seven migrations were already applied with matching checksums in checkpoint 37; no migration write was needed. Existing pilot data also passed, so seed was not rerun. Only for an empty/reset preview database needing test fixtures:
 
 ```powershell
 npm.cmd run db:seed
 ```
+
+Seed affiliate destination data is written only into the centralized `AffiliateLink` table. Set `DEMO_AFFILIATE_DESTINATION_URL` only when a preview database needs a real test CTA; do not place affiliate URLs directly in Markdown content or templates.
 
 ## S3-compatible storage policy
 
@@ -78,11 +83,15 @@ Set required preview secrets:
 $env:CLOUDFLARE_API_TOKEN="paste-token-here"
 $env:CLOUDFLARE_ACCOUNT_ID="paste-account-id-here-if-needed"
 npx.cmd wrangler secret put DATABASE_URL --env preview
+npx.cmd wrangler secret put ADMIN_USERNAME --env preview
+npx.cmd wrangler secret put ADMIN_PASSWORD --env preview
 npx.cmd wrangler secret put S3_ACCESS_KEY_ID --env preview
 npx.cmd wrangler secret put S3_SECRET_ACCESS_KEY --env preview
 ```
 
-Keep `DATABASE_URL`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` as Cloudflare secrets, not committed files.
+Keep `DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` as Cloudflare secrets, not committed files.
+
+`/admin` uses minimal HTTP Basic Authentication. If `ADMIN_USERNAME` or `ADMIN_PASSWORD` is missing, `/admin` returns a locked response instead of exposing the CMS.
 
 Set non-secret values in the Cloudflare dashboard or `wrangler.jsonc` after the exact preview URL and bucket are known:
 

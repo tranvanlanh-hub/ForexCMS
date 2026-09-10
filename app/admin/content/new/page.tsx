@@ -5,8 +5,9 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 async function getContentFormOptions() {
-  const [markets, templates] = await Promise.all([
+  const [markets, templates, brokers] = await Promise.all([
     prisma.market.findMany({
+      where: { status: "ACTIVE" },
       orderBy: [{ isGlobal: "desc" }, { code: "asc" }],
       select: {
         id: true,
@@ -28,9 +29,14 @@ async function getContentFormOptions() {
         isActive: true,
       },
     }),
+    prisma.broker.findMany({
+      where: { status: "ACTIVE" },
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, slug: true },
+    }),
   ]);
 
-  return { markets, templates };
+  return { brokers, markets, templates };
 }
 
 export default async function NewContentPage({
@@ -79,6 +85,7 @@ export default async function NewContentPage({
   return (
     <ContentForm
       action={createContentAction}
+      brokers={options.brokers}
       error={error}
       markets={options.markets}
       templates={options.templates}
