@@ -229,7 +229,7 @@ export function TemplateBlockRenderer({
   const primaryBroker = brokers[0];
 
   return (
-    <div className="mt-8 border-t border-[var(--border)] pt-3">
+    <div className="article-blocks">
       {contentType === ContentType.BROKER_REVIEW && primaryBroker ? (
         <>
           <SourcedBrokerHighlights
@@ -274,7 +274,7 @@ export function TemplateBlockRenderer({
           return (
             <nav
               aria-label="Table of contents"
-              className="mt-7 rounded-md border border-[#d9ded7] bg-[#fbfcfb] p-5"
+              className="mobile-article-toc mt-7 rounded-md border border-[#d9ded7] bg-[#fbfcfb] p-5"
               key={index}
             >
               <h2 className="text-base font-semibold text-[#111827]">
@@ -350,7 +350,7 @@ export function TemplateBlockRenderer({
 
         if (block.type === "cta_slot" && brokers.length > 0) {
           return (
-            <div className="mt-8 border-t border-[var(--border)] pt-6" key={index}>
+            <div className="article-cta" key={index}>
               <AffiliateCta
                 broker={brokers[0].slug}
                 campaign={block.campaign}

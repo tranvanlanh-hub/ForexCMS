@@ -1,39 +1,15 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { adminNavItems } from "@/lib/admin/navigation";
-
+const groups = [
+    { title: "WORKSPACE", slugs: ["dashboard", "content", "ai-import", "content-scale"] },
+    { title: "MANAGE", slugs: ["brokers", "affiliate-links", "markets", "templates"] },
+    { title: "INSIGHTS & SETTINGS", slugs: ["analytics", "seo", "internal-links", "url-routing", "settings"] },
+];
+const icons: Record<string, string> = { dashboard: "▦", content: "▤", "ai-import": "↓", "content-scale": "▥", brokers: "◈", "affiliate-links": "↗", markets: "◎", templates: "▧", analytics: "▥", seo: "⌕", "internal-links": "⇄", "url-routing": "⌁", settings: "⚙" };
 export function AdminNavigation() {
-  const pathname = usePathname();
-
-  return (
-    <nav aria-label="Admin navigation" className="flex flex-col gap-1">
-      {adminNavItems.map((item) => {
-        const isActive =
-          item.href === "/admin"
-            ? pathname === "/admin"
-            : pathname === item.href || pathname.startsWith(`${item.href}/`);
-
-        return (
-          <Link
-            aria-current={isActive ? "page" : undefined}
-            className={[
-              "flex min-h-11 items-center justify-between gap-3 rounded-md px-3 py-2 text-sm font-semibold transition",
-              isActive
-                ? "bg-[#123c3a] text-white"
-                : "text-[#374151] hover:bg-[#edf4f1] hover:text-[#123c3a]",
-            ].join(" ")}
-            href={item.href}
-            key={item.href}
-          >
-            <span>{item.title}</span>
-            {isActive ? (
-              <span className="h-2 w-2 rounded-full bg-[#7dd3c7]" />
-            ) : null}
-          </Link>
-        );
-      })}
-    </nav>
-  );
+    const pathname = usePathname().replace(/\/$/, "");
+    return <nav aria-label="Admin navigation" className="admin-nav">{groups.map(group => <div className="nav-group" key={group.title}><p>{group.title}</p>{group.slugs.map(slug => { const item = adminNavItems.find(item => item.slug === slug); if (!item)
+        return null; const active = item.href === "/admin" ? pathname === "/admin" : pathname === item.href || pathname.startsWith(item.href + "/"); return <Link key={slug} href={item.href} aria-current={active ? "page" : undefined}><span className="nav-icon" aria-hidden="true">{icons[slug]}</span><span>{item.title}</span>{active && <span className="nav-active-dot"/>}</Link>; })}</div>)}</nav>;
 }

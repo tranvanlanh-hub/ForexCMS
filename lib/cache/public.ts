@@ -15,7 +15,7 @@ const PUBLIC_CONTENT_REVALIDATE_SECONDS = 300;
 const SITEMAP_REVALIDATE_SECONDS = 1800;
 const AFFILIATE_RESOLVER_REVALIDATE_SECONDS = 300;
 
-export const getCachedPublishedContentByRoute = unstable_cache(
+const getPublishedContentByRouteFromCache = unstable_cache(
   async (args: { market: string; contentType: string; slug: string }) =>
     getPublishedContentByRoute(args),
   ["published-content-by-route"],
@@ -25,7 +25,7 @@ export const getCachedPublishedContentByRoute = unstable_cache(
   },
 );
 
-export const countCachedPublishedContentSitemapPages = unstable_cache(
+const countPublishedContentSitemapPagesFromCache = unstable_cache(
   async () => countPublishedContentSitemapPages(),
   ["published-content-sitemap-page-count"],
   {
@@ -34,7 +34,7 @@ export const countCachedPublishedContentSitemapPages = unstable_cache(
   },
 );
 
-export const getCachedPublishedContentSitemapEntries = unstable_cache(
+const getPublishedContentSitemapEntriesFromCache = unstable_cache(
   async (pageIndex: number) => getPublishedContentSitemapEntries(pageIndex),
   ["published-content-sitemap-entries"],
   {
@@ -43,7 +43,7 @@ export const getCachedPublishedContentSitemapEntries = unstable_cache(
   },
 );
 
-export const resolveCachedAffiliateUrl = unstable_cache(
+const resolveAffiliateUrlFromCache = unstable_cache(
   async (token: AffiliateToken) => resolveAffiliateUrl(token),
   ["affiliate-resolver"],
   {
@@ -51,6 +51,37 @@ export const resolveCachedAffiliateUrl = unstable_cache(
     tags: [AFFILIATE_RESOLVER_CACHE_TAG],
   },
 );
+
+// Local editors should see database changes immediately. Bypassing the
+// persistent data cache in development also prevents a temporary connection
+// failure from leaving localhost stuck on an old 404 response.
+export function getCachedPublishedContentByRoute(args: {
+  market: string;
+  contentType: string;
+  slug: string;
+}) {
+  return process.env.NODE_ENV === "development"
+    ? getPublishedContentByRoute(args)
+    : getPublishedContentByRouteFromCache(args);
+}
+
+export function countCachedPublishedContentSitemapPages() {
+  return process.env.NODE_ENV === "development"
+    ? countPublishedContentSitemapPages()
+    : countPublishedContentSitemapPagesFromCache();
+}
+
+export function getCachedPublishedContentSitemapEntries(pageIndex: number) {
+  return process.env.NODE_ENV === "development"
+    ? getPublishedContentSitemapEntries(pageIndex)
+    : getPublishedContentSitemapEntriesFromCache(pageIndex);
+}
+
+export function resolveCachedAffiliateUrl(token: AffiliateToken) {
+  return process.env.NODE_ENV === "development"
+    ? resolveAffiliateUrl(token)
+    : resolveAffiliateUrlFromCache(token);
+}
 
 export function revalidatePublicContentCache() {
   revalidateTag(PUBLIC_CONTENT_CACHE_TAG, "max");

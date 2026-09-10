@@ -1,5 +1,15 @@
 # Roadmap Phát Triển
 
+## FINAL LAUNCH READINESS CHECK — roadmap đã dừng, 2026-09-10
+
+Theo yêu cầu owner, **đóng roadmap nhiều phiên ở đây**. Không tiếp tục phiên 41/42/43, không tạo kế hoạch 20–30 phiên. Mọi giai đoạn/checkpoint và “việc tiếp theo” bên dưới chỉ là lịch sử, không phải backlog được phép tự triển khai.
+
+**Kết luận: chưa launch production nhỏ nguyên trạng.** Build/lint/typecheck, Neon migration/pilot/SEO và phần lớn smoke preview đạt. Còn blocker cụ thể: Worker vượt CPU tại /admin/brokers/; dữ liệu broker/affiliate demo chưa dùng được cho độc giả; cấu hình và credentials production, chính sách index preview, điểm khôi phục dữ liệu chưa xác minh hoàn tất.
+
+Chỉ xử lý các điều kiện launch trong [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md). Không thêm feature/refactor/nâng cấp nhỏ để kéo dài dự án. Không bắt buộc 20/50/4.000 bài, R2 nếu chưa upload, VPS, role system hay kiểm thử tải quy mô lớn để launch nhỏ. Production deploy vẫn cần owner chỉ định target và xác nhận rõ; kiểm tra này không deploy.
+
+## Lịch sử roadmap — đã đóng
+
 ## Cập nhật checkpoint 36–40 — 2026-09-10
 
 **Preview kỹ thuật đã xác minh; production chưa sẵn sàng.** Mục này là trạng thái hiện hành; các kết quả cũ phía dưới là lịch sử.

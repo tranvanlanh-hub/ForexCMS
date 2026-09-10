@@ -1,103 +1,19 @@
 import Link from "next/link";
-
-const publicSections = [
-  "Broker reviews",
-  "Country hubs",
-  "Forex education",
-  "Comparison pages",
+import { SiteHeader, SiteFooter } from "@/components/public/site-chrome";
+const lessons = [
+    { tag: "THE ESSENTIALS", title: "Forex, without the complexity.", text: "Get familiar with currency pairs, how the market works and the language of trading.", href: "/global/articles/forex-trading-basics/", number: "01", label: "Forex basics" },
+    { tag: "KNOW THE NUMBERS", title: "Pips, lots & leverage.", text: "Understand the mechanics behind a trade before putting your money at risk.", href: "/global/articles/pips-lots-margin-leverage/", number: "02", label: "Trading concepts" },
+    { tag: "BUILD GOOD HABITS", title: "Put risk management first.", text: "A practical checklist to help you think about exposure, position size and your limits.", href: "/global/articles/forex-risk-management-checklist/", number: "03", label: "Risk management" },
 ];
-
-const platformSignals = [
-  "PostgreSQL-ready content model",
-  "Central affiliate resolver planned",
-  "S3-compatible media boundary",
-  "Portable from Cloudflare to VPS",
-];
-
 export default function HomePage() {
-  return (
-    <main className="min-h-screen">
-      <section className="border-b border-[var(--border)] bg-[var(--panel)]">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-16">
-          <div className="flex flex-col justify-center">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
-              Forex Affiliate CMS
-            </p>
-            <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-[var(--ink)] sm:text-5xl">
-              Scalable content foundation for global forex affiliate publishing.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--muted)] sm:text-lg">
-              A custom CMS shell for structured broker pages, education content,
-              market-specific hubs, and centralized affiliate operations.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                className="inline-flex h-11 items-center rounded-md bg-[var(--accent)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--accent-strong)]"
-                href="/admin"
-              >
-                Open admin shell
-              </Link>
-              <Link
-                className="inline-flex h-11 items-center rounded-md border border-[var(--border)] px-5 text-sm font-semibold text-[var(--ink)] transition hover:border-[var(--accent)]"
-                href="#site-foundation"
-              >
-                View foundation
-              </Link>
-            </div>
-          </div>
-
-          <div
-            aria-label="CMS foundation status"
-            className="grid content-start gap-3 rounded-lg border border-[var(--border)] bg-[#fbfaf7] p-5"
-          >
-            {platformSignals.map((signal) => (
-              <div
-                className="flex items-center justify-between gap-4 border-b border-[var(--border)] py-3 last:border-b-0"
-                key={signal}
-              >
-                <span className="text-sm font-medium text-[var(--ink)]">
-                  {signal}
-                </span>
-                <span className="rounded-full bg-[#dff3ee] px-3 py-1 text-xs font-semibold text-[var(--accent-strong)]">
-                  Ready
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="site-foundation" className="mx-auto max-w-6xl px-6 py-10 lg:px-8">
-        <div className="mb-5 flex items-end justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold text-[var(--ink)]">
-              Public site shell
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--muted)]">
-              The first public surface is intentionally simple while the CMS
-              data model, URL resolver, SEO layer, and affiliate resolver are
-              built in later phases.
-            </p>
-          </div>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {publicSections.map((section) => (
-            <article
-              className="rounded-lg border border-[var(--border)] bg-[var(--panel)] p-5"
-              key={section}
-            >
-              <h3 className="text-base font-semibold text-[var(--ink)]">
-                {section}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
-                Placeholder surface reserved for structured, non-root URL
-                content in future OpenSpec changes.
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+    return <div className="public-site"><SiteHeader /><main id="main-content">
+    <section className="home-hero site-container">
+      <div className="hero-copy"><p className="eyebrow"><span /> CLARITY BEFORE YOUR NEXT TRADE</p><h1>Understand the market.<br /><em>Find your way.</em></h1><p className="hero-description">Practical forex education, broker reviews and step-by-step guides. Start with the knowledge to make your own informed decisions.</p><div className="hero-actions"><Link className="button button-dark" href="/#brokers">Explore broker reviews <span aria-hidden="true">↗</span></Link><Link className="text-link" href="/global/articles/forex-trading-basics/">New to forex? Start here <span aria-hidden="true">→</span></Link></div><p className="hero-note">Learn the essentials. Understand the risks. Take your time.</p></div>
+      <Link className="hero-feature" href="/global/guides/how-to-verify-a-forex-broker/"><div className="feature-top"><span>THE BROKER CHECKLIST</span><span aria-hidden="true">↗</span></div><div className="feature-art" aria-hidden="true"><div className="art-orbit"/><div className="art-card"><span>BEFORE YOU CHOOSE</span><div><i>✓</i> Check the entity</div><div><i>✓</i> Understand the fees</div><div><i>✓</i> Read the terms</div></div></div><div className="feature-copy"><span className="eyebrow">A MORE INFORMED START</span><h2>What to look for<br />in a forex broker.</h2><p>A clear checklist to guide your research.</p><span className="feature-read">Read the guide <span aria-hidden="true">→</span></span></div></Link>
+    </section>
+    <div className="topic-strip"><div className="site-container"><span>YOUR NEXT STEP</span><Link href="/#brokers">Find a broker <b>↗</b></Link><Link href="/#education">Learn the basics <b>↗</b></Link><Link href="/#guides">Open an account <b>↗</b></Link></div></div>
+    <section className="site-container home-section" id="brokers"><div className="section-heading"><div><p className="eyebrow">BROKER RESEARCH</p><h2>Look beyond the headline.</h2></div><p>Explore what matters to you, from account conditions to the questions worth asking.</p></div><div className="broker-grid"><Link className="broker-feature" href="/global/best-brokers/best-forex-brokers-for-beginners/"><span className="eyebrow">START YOUR SHORTLIST</span><h3>Choosing your<br />first forex broker.</h3><p>Explore our beginner-focused broker guide and the criteria to consider.</p><span className="text-link">Explore best brokers <span>→</span></span></Link><div className="broker-links"><Link href="/global/broker-reviews/exness-review/"><span className="mini-mark">Ex</span><div><span className="eyebrow">BROKER REVIEW</span><h3>A closer look at Exness</h3><p>Account features, broker facts and considerations.</p></div><span aria-hidden="true">↗</span></Link><Link href="/global/best-brokers/best-forex-brokers-low-minimum-deposit/"><span className="mini-mark">↘</span><div><span className="eyebrow">COMPARE YOUR OPTIONS</span><h3>Starting with a smaller deposit</h3><p>Look at the full cost, beyond the minimum.</p></div><span aria-hidden="true">↗</span></Link></div></div></section>
+    <section className="education-section" id="education"><div className="site-container home-section"><div className="section-heading"><div><p className="eyebrow">THE LEARNING DESK</p><h2>A little knowledge. A clearer perspective.</h2></div><Link className="text-link" href="/global/articles/forex-trading-faq/">Common questions <span>→</span></Link></div><div className="lesson-grid">{lessons.map(lesson => <Link className="lesson-card" href={lesson.href} key={lesson.number}><div className="lesson-art" aria-hidden="true"><span>{lesson.number}</span><div className="lesson-bars"><i /><i /><i /><i /><i /></div></div><div className="lesson-copy"><p className="eyebrow">{lesson.tag}</p><h3>{lesson.title}</h3><p>{lesson.text}</p><span className="lesson-bottom">{lesson.label}<span aria-hidden="true">↗</span></span></div></Link>)}</div></div></section>
+    <section className="site-container home-section" id="guides"><div className="guide-banner"><div><p className="eyebrow">FROM RESEARCH TO PRACTICE</p><h2>Your first account.<br />One step at a time.</h2><p>Know what to prepare, what to check and what comes next.</p><Link className="button button-dark" href="/global/guides/how-to-open-a-forex-trading-account/">Read the account-opening guide <span>→</span></Link></div><ol><li><span>01</span><div><h3>Research your broker</h3><p>Review the entity, terms and account conditions.</p></div></li><li><span>02</span><div><h3>Prepare your documents</h3><p>Understand the verification process.</p></div></li><li><span>03</span><div><h3>Get to know the platform</h3><p>Explore the tools before placing a trade.</p></div></li></ol></div></section>
+  </main><SiteFooter /></div>;
 }

@@ -1,5 +1,49 @@
 # Codex Handoff
 
+## Localhost 404/cache fix — 2026-09-10
+
+- Fixed the reported false 404 on published content routes. The old local dev
+  process could not reach Neon and cached the resulting null lookup.
+- Public data caches are now bypassed in development so edits and recovered DB
+  connections appear immediately. Preview/production caching is unchanged.
+- Database lookup failures now throw instead of being converted to a cacheable
+  not-found result; genuinely missing or draft content still returns 404.
+- Restarted localhost with Neon access. Verified all 16 sitemap content URLs,
+  comparison, sitemap, and authenticated admin routes return 200. The pilot
+  draft still returns the expected 404; unauthenticated admin still returns 401.
+- Lint, typecheck, and production build pass. The existing Prisma WASM build
+  warning remains. No data, migration, secret, or deployment was changed.
+- Suppressed root hydration warnings caused by browser extensions injecting
+  attributes into `html`/`body`; the local dev error badge is no longer shown.
+
+## UI/UX RESCUE — 2026-09-10
+
+- Hoàn tất sprint UI theo yêu cầu mới: homepage Forex Journal với header/nav/hero/broker/education/guide sections; bỏ copy kỹ thuật. Link tới các bài hiện có, không tạo bài hoặc backend mới.
+- Public article: typography và chiều rộng đọc mới, byline/thời gian đọc, mục lục sidebar desktop và inline mobile, FAQ/CTA/facts rõ hơn; header/footer đồng bộ cả comparison. Ngày updated được chuẩn hóa từ Date/string để render đúng cả khi đọc cache.
+- Admin: sidebar chia nhóm, active state rõ, menu mobile; content editor có body 680px, publishing/SEO/route/editorial/template/broker panels, checkbox broker và pending save. Giữ nguyên tất cả field names, server actions, auth và validation.
+- Đã chạy lint/build/typecheck thành công; warning Prisma WASM cũ còn. Đã chụp/kiểm tra homepage, article và editor có dữ liệu Neon ở desktop/mobile 390px; không tràn ngang, anchor TOC đúng, body 680px. Article HTTP 200 ở hai lần đọc liên tiếp sau sửa Date/string. Không thử lưu/publish nội dung Neon trong sprint.
+- Không deploy, commit/push hoặc mở roadmap mới. Các blocker launch về dữ liệu demo, CPU Cloudflare và cấu hình production chưa được sprint UI này giải quyết. Nhận xét homepage shell trong báo cáo readiness trước đây đã được thay thế bởi giao diện mới ở workspace; remote preview vẫn là bản cũ.
+- Code sửa/thêm: app/(public)/page.tsx; app/(public)/[market]/[contentType]/[slug]/page.tsx; app/(public)/[market]/compare/[pair]/page.tsx; app/admin/content/content-form.tsx; app/admin/layout.tsx; app/globals.css; app/layout.tsx; components/admin/admin-navigation.tsx; components/admin/save-content-button.tsx; components/public/site-chrome.tsx; components/public/template-block-renderer.tsx; components/public/affiliate-cta.tsx.
+- Spec ngắn của sprint: openspec/changes/022-ui-ux-rescue/{proposal,design,tasks}.md. docs/ROADMAP.md và docs/PRODUCTION_READINESS.md có thay đổi từ phiên trước, được giữ nguyên trong sprint này.
+
+
+## FINAL LAUNCH READINESS CHECK — 2026-09-10
+
+**Dừng roadmap nhiều phiên tại đây. Không có phiên 41/42/43 hoặc chuỗi công việc mới. Chưa thể launch production nhỏ nguyên trạng.** Mục này thay thế mọi trạng thái và gợi ý việc tiếp theo trong lịch sử bên dưới.
+
+- Git đầu phiên sạch tại commit 09a320eb. Phiên này chỉ sửa ba tài liệu handoff/roadmap/readiness; không đổi code, commit, push hay deploy. File generated do build đã trả về nguyên trạng.
+- Lint, typecheck, Next build và Vinext build đạt. Next có warning Prisma WASM import rộng; Vinext có lỗi ghi log ngoài sandbox nhưng build hoàn tất, exit 0.
+- Scan file Git hiện tại và toàn bộ 3 commit (257 historical blobs; tổng 464 lượt file): không thấy credential đang dùng hoặc mẫu secret phổ biến. .env.local/.env.cloudflare đều ignored. Đây là kiểm tra trong phạm vi, không bảo đảm mọi loại secret.
+- Neon reachable khi chạy ngoài sandbox: migrate status báo đủ 7 migration, schema up to date; pilot 16 published, 18 affiliate active, 16 internal links; SEO audit 16 bài, 0 issues. Không migrate/seed lại vì dữ liệu đã tồn tại.
+- Preview: 16 bài có HTTP 200, canonical đúng preview origin, một H1; sitemap 16 URL; comparison 200, draft 404; redirect thử nghiệm 302/no-store, không follow destination. Thiếu/sai auth 401; các trang admin content/new, affiliate, SEO và dashboard có auth 200/no-store.
+- Blocker runtime thật: /admin/brokers/ có auth trả 503 lặp lại. Cloudflare tail xác nhận outcome exceededCpu, Worker exceeded CPU time limit. Biến thể query trả 200 không được xem là đã sửa. Cần xử lý CPU/runtime hoặc tối ưu đúng nguyên nhân rồi kiểm tra URL gốc trước launch; không tự đổi gói dịch vụ/deploy.
+- Blocker dữ liệu: 9/9 broker fact sources là example.com; SampleFX/Example Markets là giả; 18/18 affiliate dùng đích test. Homepage còn CMS shell. Không copy nguyên bộ pilot lên production; chỉ đưa nội dung đã duyệt lên public và ẩn dữ liệu demo liên quan.
+- Chốt production Worker/Neon, origin HTTPS và APP_ENV/APP_URL, secrets/mật khẩu mạnh; ngăn index preview (hiện index, follow); có điểm khôi phục dữ liệu và kiểm tra lại trên target production trước phát hành. Không cần đủ 20/50/4.000 bài.
+
+Phân loại cuối cùng và bằng chứng: [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md). Báo cáo HTTP bổ sung và log được lưu private trong backups/final-launch-check/ (ignored). Smoke redirect tạo một click thử nghiệm; không sửa nội dung/seed/migration. Chưa thực hiện kiểm thử ghi admin hoặc restore trong phiên này.
+
+## Lịch sử — không phải kế hoạch tiếp tục
+
 ## Trạng thái mới nhất — checkpoint 36–40, 2026-09-10
 
 **Preview ready cho kiểm thử kỹ thuật; production CHƯA ready.** Kết quả phiên này thay thế các ghi chú trạng thái cũ bên dưới; các mục cũ được giữ làm lịch sử.

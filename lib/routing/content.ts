@@ -80,6 +80,9 @@ export async function getPublishedContentByRoute(args: {
       market: args.market,
       slug: args.slug,
     });
-    return null;
+
+    // A temporary database outage is not a missing article. Let the request
+    // fail so Next.js does not cache a false 404 for the public content key.
+    throw error;
   }
 }
