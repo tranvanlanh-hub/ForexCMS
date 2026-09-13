@@ -31,10 +31,6 @@ function createPrismaClient() {
 }
 
 function getPrismaClient() {
-  if (process.env.APP_ENV === "preview" || process.env.APP_ENV === "production") {
-    return Promise.resolve(createPrismaClient());
-  }
-
   globalForPrisma.prisma ??= Promise.resolve(createPrismaClient());
   return globalForPrisma.prisma;
 }
