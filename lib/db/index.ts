@@ -1,6 +1,7 @@
 import { PrismaClient as NodePrismaClient, type PrismaClient, type Prisma } from "@prisma/client";
 import { PrismaClient as EdgePrismaClient } from "../../node_modules/.prisma/client-edge/wasm.js";
 import { PrismaNeon } from "@prisma/adapter-neon";
+import { cache } from "react";
 import { logEvent } from "@/lib/observability/logging";
 
 const globalForPrisma = globalThis as unknown as {
@@ -30,7 +31,13 @@ function createPrismaClient() {
   return new NodePrismaClient({ log });
 }
 
+const getRequestPrismaClient = cache(() => Promise.resolve(createPrismaClient()));
+
 function getPrismaClient() {
+  if (process.env.APP_ENV === "preview" || process.env.APP_ENV === "production") {
+    return getRequestPrismaClient();
+  }
+
   globalForPrisma.prisma ??= Promise.resolve(createPrismaClient());
   return globalForPrisma.prisma;
 }
