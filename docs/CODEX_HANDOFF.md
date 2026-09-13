@@ -12,8 +12,8 @@ chưa được deploy hoặc admin còn dùng Basic Auth.**
   `820a424` (password verification trên Workers), `33c5c1c` và `456f986`
   (ổn định Prisma/Neon theo request), `2369c3c0` (tự tạo slug + inline media
   picker) và `df8685e6` (tài liệu UX). Version Worker đã kiểm tra cuối cùng là
-  `ec6d90eb-75cf-46ef-b5b5-ef729ea96b18`, nhận 100% traffic và được build từ
-  `main` tại `df8685e6`.
+  `fcd15280-fbbd-4411-8f74-9556c02df8ee`, nhận 100% traffic và chứa bản sửa
+  Content Editor tại commit `7e9e5fb`.
 - Admin production dùng tài khoản database-backed với password + TOTP. Owner đã
   cập nhật `ADMIN_USERNAME` và `ADMIN_PASSWORD` trong `.env.local`, sau đó account
   tương ứng đã được đồng bộ vào Neon. Không ghi giá trị credential vào tài liệu
