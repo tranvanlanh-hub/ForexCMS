@@ -1,12 +1,11 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ContentStatus, ContentType, type Market, type Prisma, type SeoMetadata, type Template, type Broker, } from "@prisma/client";
 import Link from "next/link";
 import { SaveContentButton } from "@/components/admin/save-content-button";
 import { TitleSlugFields } from "@/components/admin/title-slug-fields";
 import { InlineMediaPicker } from "@/components/admin/inline-media-picker";
-import type { ContentActionState } from "@/app/admin/content/actions";
 import { contentStatusLabels, contentTypeLabels, getMarkdownBody, } from "@/lib/content";
 type ContentFormItem = {
     id: string;
@@ -35,7 +34,7 @@ type ContentFormItem = {
     socialMediaId: string | null;
 };
 type ContentFormProps = {
-    action: (state: ContentActionState, formData: FormData) => Promise<ContentActionState>;
+    action: (formData: FormData) => Promise<void>;
     error?: string;
     item?: ContentFormItem;
     markets: Pick<Market, "id" | "code" | "name" | "languageCode" | "locale" | "isGlobal">[];
@@ -54,35 +53,42 @@ const editableStatuses = [
 ] as const;
 export function ContentForm({ action, error, item, brokers, markets, mediaAssets, saved, templates, categories, topics, csrfToken, storageReady, maxBytes }: ContentFormProps & { csrfToken: string; storageReady: boolean; maxBytes: number; }) {
     const isEditing = Boolean(item);
-    const [actionState, formAction] = useActionState(action, { error: error ?? "" });
     const formRef = useRef<HTMLFormElement>(null);
-    const submittedValuesRef = useRef<FormData | null>(null);
 
     useEffect(() => {
       const form = formRef.current;
-      const submitted = submittedValuesRef.current;
-      if (!form || !submitted || !actionState.error) return;
+      if (!form || !error) return;
+      const stored = sessionStorage.getItem(`content-form:${location.pathname}`);
+      if (!stored) return;
+      const submitted = new Map<string, string[]>(JSON.parse(stored));
 
       for (const control of Array.from(form.elements)) {
         if (control instanceof HTMLInputElement) {
           if (control.type === "file") continue;
-          const values = submitted.getAll(control.name).map(String);
+          const values = submitted.get(control.name) ?? [];
           if (control.type === "checkbox" || control.type === "radio") control.checked = values.includes(control.value);
           else if (control.name) control.value = values[0] ?? "";
         } else if (control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement) {
-          const values = submitted.getAll(control.name).map(String);
+          const values = submitted.get(control.name) ?? [];
           if (control instanceof HTMLSelectElement && control.multiple) {
             for (const option of Array.from(control.options)) option.selected = values.includes(option.value);
           } else if (control.name) control.value = values[0] ?? "";
         }
       }
-    }, [actionState]);
+    }, [error]);
 
-    return <form action={formAction} className="content-editor" onSubmitCapture={(event) => { submittedValuesRef.current = new FormData(event.currentTarget); }} ref={formRef}>
+    return <form action={action} className="content-editor" onSubmitCapture={(event) => {
+      const values = new Map<string, string[]>();
+      for (const [name, value] of new FormData(event.currentTarget)) {
+        if (value instanceof File) continue;
+        values.set(name, [...(values.get(name) ?? []), value]);
+      }
+      sessionStorage.setItem(`content-form:${location.pathname}`, JSON.stringify([...values]));
+    }} ref={formRef}>
     <input name="_csrf" type="hidden" value={csrfToken}/>
     {item && <input name="id" type="hidden" value={item.id}/>}
     <header className="editor-heading"><div><Link className="editor-back" href="/admin/content">← All content</Link><h1>{isEditing ? "Edit article" : "Create an article"}</h1><p>Your workspace for writing, reviewing and publishing.</p></div><div className="editor-heading-actions">{item?.status === ContentStatus.PUBLISHED && <Link className="button button-outline" href={item.canonicalPath} target="_blank" rel="noopener noreferrer">View article ↗</Link>}<SaveContentButton editing={isEditing}/></div></header>
-    {actionState.error && <div role="alert" className="editor-alert error">{actionState.error}</div>}
+    {error && <div role="alert" className="editor-alert error">{error}</div>}
     {saved && <div role="status" className="editor-alert success">✓ Content saved successfully.</div>}
     <div className="editor-grid"><div className="editor-main">
       <section className="editor-paper"><div className="paper-label"><span>ARTICLE CONTENT</span><span>Markdown</span></div><TitleSlugFields initialTitle={item?.title ?? ""} initialSlug={item?.slug ?? ""}/><div className="body-label" style={{ marginTop: 19 }}><label htmlFor="body">Body content</label><span>Use ## for headings · **bold** · - for lists</span></div><textarea className="body-editor" defaultValue={getMarkdownBody(item?.body)} id="body" name="body" placeholder="Start writing your article…" aria-describedby="body-help"/><p id="body-help" className="field-help">Write in Markdown. Affiliate links are managed through the attached brokers and campaigns.</p></section>

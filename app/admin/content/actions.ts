@@ -56,12 +56,6 @@ function redirectWithError(path: string, errors: string[]): never {
   redirect(`${path}?error=${message}`);
 }
 
-export type ContentActionState = { error: string };
-
-function errorState(errors: string[]): ContentActionState {
-  return { error: errors.join(" ") };
-}
-
 type ContentWriteData = {
   marketId: string;
   templateId: string;
@@ -333,14 +327,13 @@ async function buildWriteInput(
 }
 
 export async function createContentAction(
-  _previousState: ContentActionState,
   formData: FormData,
-): Promise<ContentActionState> {
+): Promise<void> {
   await requireAdminMutation(formData);
   const input = await buildWriteInput(formData);
 
   if ("errors" in input) {
-    return errorState(input.errors);
+    redirectWithError("/admin/content/new", input.errors);
   }
 
   let createdItemId = "";
@@ -394,7 +387,7 @@ export async function createContentAction(
     createdItemId = item.id;
   } catch (error) {
     logEvent("error", "admin_content_create_failed", { error });
-    return errorState([
+    redirectWithError("/admin/content/new", [
       "Content could not be saved. Check for duplicate slug or canonical path.",
     ]);
   }
@@ -405,21 +398,20 @@ export async function createContentAction(
 }
 
 export async function updateContentAction(
-  _previousState: ContentActionState,
   formData: FormData,
-): Promise<ContentActionState> {
+): Promise<void> {
   await requireAdminMutation(formData);
   const id = field(formData, "id");
   const editPath = `/admin/content/${id}/edit`;
 
   if (!id) {
-    return errorState(["Content ID is missing."]);
+    redirectWithError("/admin/content", ["Content ID is missing."]);
   }
 
   const input = await buildWriteInput(formData, id);
 
   if ("errors" in input) {
-    return errorState(input.errors);
+    redirectWithError(editPath, input.errors);
   }
 
   try {
@@ -494,7 +486,7 @@ export async function updateContentAction(
 
   } catch (error) {
     logEvent("error", "admin_content_update_failed", { error, contentId: id });
-    return errorState([
+    redirectWithError(editPath, [
       "Content could not be updated. Check for duplicate slug or canonical path.",
     ]);
   }

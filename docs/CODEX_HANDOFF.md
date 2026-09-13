@@ -11,9 +11,10 @@ chưa được deploy hoặc admin còn dùng Basic Auth.**
   `4e2d7416` (CMS workflows + launch), `79c5c987` (Cloudflare deploy),
   `820a424` (password verification trên Workers), `33c5c1c` và `456f986`
   (ổn định Prisma/Neon theo request), `2369c3c0` (tự tạo slug + inline media
-  picker) và `df8685e6` (tài liệu UX). Version Worker đã kiểm tra cuối cùng là
-  `fcd15280-fbbd-4411-8f74-9556c02df8ee`, nhận 100% traffic và chứa bản sửa
-  Content Editor tại commit `7e9e5fb`.
+  picker), `7e9e5fb` (content tối thiểu + SEO tùy chọn), và `9fdae76`
+  (form tương thích Cloudflare). Version Worker hiện hành là
+  `a0cb7b6d-42da-4f91-9602-69f817f9a5c5`, nhận 100% traffic; cần xem commit mới
+  hơn `9fdae76` về cơ chế build sạch và form action ổn định.
 - Admin production dùng tài khoản database-backed với password + TOTP. Owner đã
   cập nhật `ADMIN_USERNAME` và `ADMIN_PASSWORD` trong `.env.local`, sau đó account
   tương ứng đã được đồng bộ vào Neon. Không ghi giá trị credential vào tài liệu
@@ -42,11 +43,13 @@ chưa được deploy hoặc admin còn dùng Basic Auth.**
   body khi để trống. Taxonomy, ảnh, author/reviewer, translation group và broker
   đều tùy chọn, kể cả khi publish. Public metadata/Article JSON-LD cũng fallback
   khi gặp record cũ có SEO rỗng.
-- Validation của Content Editor trả lỗi ngay trong form và khôi phục toàn bộ giá
-  trị vừa submit, không redirect về form trống. Redirect thành công được đặt
-  ngoài `try/catch`; trước đây `NEXT_REDIRECT` bị bắt nhầm và hiển thị lỗi dù
-  transaction đã lưu thành công. Bài owner nhập trong lần lỗi đó (`cmu06g3we...`)
-  vẫn tồn tại an toàn dưới dạng Draft; không tự sửa hoặc xóa record này.
+- Validation của Content Editor redirect về cùng form với thông báo lỗi rồi khôi
+  phục toàn bộ giá trị vừa submit từ `sessionStorage`, nên không xóa nội dung đã
+  nhập. Form không dùng `useActionState` vì Vinext/Cloudflare hiện gây lỗi render
+  503 với cơ chế đó. Redirect thành công nằm ngoài `try/catch`; trước đây
+  `NEXT_REDIRECT` bị bắt nhầm và hiển thị lỗi dù transaction đã lưu thành công.
+  Bài owner nhập trong lần lỗi đó (`cmu06g3we...`) vẫn tồn tại an toàn dưới dạng
+  Draft; không tự sửa hoặc xóa record này.
 - URL Redirect Manager, Taxonomy Manager (Category cha-con tối đa 3 cấp, Topic,
   Topic Cluster và gắn taxonomy vào content) cùng migration tương ứng đã có trên
   Neon production. Media Manager/schema cũng đã triển khai, dùng key
@@ -64,6 +67,16 @@ chưa được deploy hoặc admin còn dùng Basic Auth.**
   Custom domain đã gắn sẵn vẫn được giữ. Script upload có thể in
   `No targets deployed`; khi đó lấy `Current Version ID` rồi chạy
   `wrangler versions deploy <version>@100%` để chuyển traffic.
+- Ngày 2026-09-14 phát hiện custom domain từng trỏ nhầm vào Worker
+  `content-hub-cms-preview`, nên deploy production không xuất hiện trên domain và
+  request trả xen kẽ mã cũ/503. Domain đã được Cloudflare Workers Domains API
+  chuyển sang đúng service `content-hub-cms`. Sau đó 6/6 request admin có session
+  đều trả 200 và bundle mới. Smoke create production với chỉ title + body trả 303
+  tới trang edit, tự sinh slug, SEO title, meta description, URL và revision;
+  category để null hợp lệ. Record và session smoke đã được xóa sạch sau kiểm tra.
+- `scripts/build-vinext-safe.mjs` phải xóa `dist` và `.next` trước mỗi build. Nếu
+  giữ `.next` từ build/dev cũ, Vinext có thể ghép server bundle cũ với client
+  bundle mới và Server Action sẽ sập sau khi submit.
 - `.env.local` và `.env.cloudflare` là file private/ignored. Không commit, không
   in token/credential vào log hoặc handoff. Token Cloudflare hiện đủ deploy
   Worker/secrets nhưng thiếu quyền quản lý route và chưa đủ quyền/cấu hình R2.

@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, renameSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, renameSync, readdirSync, rmSync } from "node:fs";
 import { resolve, join } from "node:path";
 
 const localEnv = resolve(".env.local");
@@ -43,6 +43,12 @@ let moved = false;
 let exitCode = 1;
 
 try {
+  // Vinext can otherwise reuse Next/Vite artifacts from a previous source tree,
+  // producing mismatched server and client bundles that fail only after deploy.
+  for (const outputDirectory of [resolve("dist"), resolve(".next")]) {
+    rmSync(outputDirectory, { recursive: true, force: true });
+  }
+
   if (existsSync(localEnv)) {
     renameSync(localEnv, heldEnv);
     moved = true;
