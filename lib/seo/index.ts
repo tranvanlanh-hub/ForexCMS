@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { Broker, ContentType, RobotsIndex } from "@prisma/client";
-import { contentTypeLabels } from "@/lib/content";
+import { buildDefaultMetaDescription, contentTypeLabels } from "@/lib/content";
 
 export type SeoDefaults = {
   siteName: string;
@@ -182,12 +182,13 @@ export function buildPublicContentMetadata(
   input: PublicContentSeoInput,
 ): Metadata {
   const description =
-    input.seoDescription ??
-    input.summary ??
+    input.seoDescription?.trim() ||
+    input.summary?.trim() ||
+    buildDefaultMetaDescription(input.bodyMarkdown) ||
     "Forex market guide and broker education.";
 
   return {
-    title: input.seoTitle ?? input.title,
+    title: input.seoTitle?.trim() || input.title,
     description,
     alternates: {
       canonical: absoluteUrl(input.canonicalPath),
@@ -241,15 +242,16 @@ export function buildBreadcrumbJsonLd(items: BreadcrumbItem[]) {
 
 export function buildArticleJsonLd(input: PublicContentSeoInput) {
   const description =
-    input.seoDescription ??
-    input.summary ??
+    input.seoDescription?.trim() ||
+    input.summary?.trim() ||
+    buildDefaultMetaDescription(input.bodyMarkdown) ||
     "Forex market guide and broker education.";
   const { siteName } = getSeoDefaults();
 
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: input.seoTitle ?? input.title,
+    headline: input.seoTitle?.trim() || input.title,
     description,
     inLanguage: input.market.locale || input.market.languageCode,
     mainEntityOfPage: absoluteUrl(input.canonicalPath),
@@ -307,9 +309,9 @@ export function buildReviewJsonLd(input: {
   }
 
   const description =
-    input.seoDescription ??
-    input.summary ??
-    input.broker.description ??
+    input.seoDescription?.trim() ||
+    input.summary?.trim() ||
+    input.broker.description?.trim() ||
     `${input.broker.name} broker review.`;
   const { siteName } = getSeoDefaults();
 

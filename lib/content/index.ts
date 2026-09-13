@@ -47,6 +47,9 @@ export function normalizeSlug(value: string) {
   return value
     .trim()
     .toLowerCase()
+    .replace(/đ/g, "d")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
     .replace(/['"]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
@@ -103,24 +106,25 @@ export type ContentPublishValidationInput = {
 
 export function validateContentForSave(input: ContentPublishValidationInput) {
   const errors: string[] = [];
-  const isPublishing = input.status === "PUBLISHED";
 
-  if (!input.title.trim() && isPublishing) errors.push("Title is required.");
-  if (!normalizeSlug(input.slug) && isPublishing) errors.push("Slug is required.");
-  if (!input.marketId && isPublishing) errors.push("Market is required.");
-  if (!input.contentType && isPublishing) errors.push("Content type is required.");
-  if (!input.templateId && isPublishing) errors.push("Template is required.");
-  if (!input.markdown.trim() && isPublishing) errors.push("Body is required.");
-  if (!input.seoTitle.trim() && isPublishing) errors.push("SEO title is required.");
-  if (!input.metaDescription.trim() && isPublishing) {
-    errors.push("Meta description is required.");
-  }
-
-  if (/https?:\/\//i.test(input.markdown)) {
-    errors.push(
-      "Raw links are not allowed in content body yet. Use broker/campaign tokens when affiliate resolution is added.",
-    );
-  }
+  if (!input.title.trim()) errors.push("Title is required.");
+  if (!input.markdown.trim()) errors.push("Body content is required.");
 
   return errors;
+}
+
+export function buildDefaultMetaDescription(markdown: string, maxLength = 160) {
+  const plainText = markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[#>*_`~|\-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (plainText.length <= maxLength) return plainText;
+  const shortened = plainText.slice(0, maxLength + 1);
+  const lastSpace = shortened.lastIndexOf(" ");
+  return `${shortened.slice(0, lastSpace > 80 ? lastSpace : maxLength).trim()}…`;
 }

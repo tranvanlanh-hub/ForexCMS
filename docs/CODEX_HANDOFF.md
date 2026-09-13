@@ -36,6 +36,17 @@ chưa được deploy hoặc admin còn dùng Basic Auth.**
   lượt điều hướng. Cloudflare tail sau bản request-scoped không còn lỗi I/O chéo
   request trong lượt smoke này. Typecheck đạt; lint không có error và còn hai
   warning `<img>` đã biết.
+- Content create/update chỉ bắt buộc `title` và `body`. Slug tự sinh (có hỗ trợ
+  bỏ dấu tiếng Việt và hậu tố khi trùng); market/content type/template lấy mặc
+  định tương thích; SEO title lấy title và meta description lấy đoạn văn bản từ
+  body khi để trống. Taxonomy, ảnh, author/reviewer, translation group và broker
+  đều tùy chọn, kể cả khi publish. Public metadata/Article JSON-LD cũng fallback
+  khi gặp record cũ có SEO rỗng.
+- Validation của Content Editor trả lỗi ngay trong form và khôi phục toàn bộ giá
+  trị vừa submit, không redirect về form trống. Redirect thành công được đặt
+  ngoài `try/catch`; trước đây `NEXT_REDIRECT` bị bắt nhầm và hiển thị lỗi dù
+  transaction đã lưu thành công. Bài owner nhập trong lần lỗi đó (`cmu06g3we...`)
+  vẫn tồn tại an toàn dưới dạng Draft; không tự sửa hoặc xóa record này.
 - URL Redirect Manager, Taxonomy Manager (Category cha-con tối đa 3 cấp, Topic,
   Topic Cluster và gắn taxonomy vào content) cùng migration tương ứng đã có trên
   Neon production. Media Manager/schema cũng đã triển khai, dùng key

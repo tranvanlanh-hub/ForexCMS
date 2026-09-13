@@ -17,8 +17,8 @@ import {
   resolveAffiliateUrl,
 } from "@/lib/affiliate";
 import { prisma } from "@/lib/db";
-import { validateRequiredTemplateBlocks } from "@/lib/content/blocks";
 import {
+  buildDefaultMetaDescription,
   buildContentCanonicalPath,
   normalizeSlug,
   toMarkdownBody,
@@ -26,6 +26,7 @@ import {
 } from "@/lib/content";
 import { claimContentUrl, releaseUnpublishedContentUrl } from "@/lib/routing/content-urls";
 import { validateContentTaxonomy } from "@/lib/taxonomy";
+import { logEvent } from "@/lib/observability/logging";
 
 const allowedStatuses = new Set<ContentStatus>([
   ContentStatus.DRAFT,
@@ -53,6 +54,12 @@ function field(formData: FormData, name: string) {
 function redirectWithError(path: string, errors: string[]): never {
   const message = encodeURIComponent(errors.join(" "));
   redirect(`${path}?error=${message}`);
+}
+
+export type ContentActionState = { error: string };
+
+function errorState(errors: string[]): ContentActionState {
+  return { error: errors.join(" ") };
 }
 
 type ContentWriteData = {
@@ -98,11 +105,11 @@ async function buildWriteInput(
   existingContentId?: string,
 ): Promise<ContentWriteInput> {
   const title = field(formData, "title");
-  const slug = normalizeSlug(field(formData, "slug"));
-  const marketId = field(formData, "marketId");
-  const templateId = field(formData, "templateId");
+  const requestedSlug = normalizeSlug(field(formData, "slug") || title) || `content-${crypto.randomUUID().slice(0, 8)}`;
+  let marketId = field(formData, "marketId");
+  let templateId = field(formData, "templateId");
   const translationGroupKey = normalizeSlug(field(formData, "translationGroupKey"));
-  const contentType = asContentType(formData.get("contentType"));
+  const contentType = asContentType(formData.get("contentType")) || ContentType.ARTICLE;
   const status = asContentStatus(formData.get("status"));
   const markdown = field(formData, "body");
   const seoTitle = field(formData, "seoTitle");
@@ -122,7 +129,7 @@ async function buildWriteInput(
 
   const errors = validateContentForSave({
     title,
-    slug,
+    slug: requestedSlug,
     marketId,
     templateId,
     contentType,
@@ -132,26 +139,30 @@ async function buildWriteInput(
     metaDescription,
   });
 
-  if (!marketId) errors.push("Market is required to build a safe URL.");
-  if (!templateId) errors.push("Template is required.");
-  if (!contentType) errors.push("Content type is required.");
-  if (!title) errors.push("Title is required.");
-  if (!slug) errors.push("Slug is required.");
-
-  if (errors.length > 0 || !contentType) {
+  if (errors.length > 0) {
     return { errors };
   }
 
-  const [market, template] = await Promise.all([
-    prisma.market.findUnique({ where: { id: marketId } }),
-    prisma.template.findUnique({ where: { id: templateId } }),
+  const [selectedMarket, selectedTemplate] = await Promise.all([
+    marketId ? prisma.market.findUnique({ where: { id: marketId } }) : null,
+    templateId ? prisma.template.findUnique({ where: { id: templateId } }) : null,
   ]);
+  const market = selectedMarket ?? await prisma.market.findFirst({
+    where: { status: "ACTIVE" },
+    orderBy: [{ isGlobal: "desc" }, { code: "asc" }],
+  });
+  const template = selectedTemplate && String(selectedTemplate.kind) === String(contentType)
+    ? selectedTemplate
+    : await prisma.template.findFirst({
+        where: { kind: contentType, isActive: true },
+        orderBy: { name: "asc" },
+      });
+
+  marketId = market?.id ?? "";
+  templateId = template?.id ?? "";
 
   if (!market) errors.push("Selected market was not found.");
   if (!template) errors.push("Selected template was not found.");
-  if (template && String(template.kind) !== String(contentType)) {
-    errors.push("Selected template must match the content type.");
-  }
   if (status === ContentStatus.PUBLISHED && market?.status !== "ACTIVE") {
     errors.push("Selected market must be active before publishing.");
   }
@@ -168,7 +179,8 @@ async function buildWriteInput(
     return { errors };
   }
 
-  const canonicalPath = buildContentCanonicalPath({
+  let slug = requestedSlug;
+  let canonicalPath = buildContentCanonicalPath({
     marketCode: market.code,
     contentType,
     slug,
@@ -176,16 +188,6 @@ async function buildWriteInput(
 
   if (!canonicalPath || canonicalPath === `/${slug}/`) {
     errors.push("Canonical path must include market and content type.");
-  }
-
-  if (status === ContentStatus.PUBLISHED) {
-    errors.push(
-      ...validateRequiredTemplateBlocks({
-        markdown,
-        requiredBlocks: template.requiredBlocks,
-        template,
-      }),
-    );
   }
 
   const duplicate = await prisma.contentItem.findFirst({
@@ -200,7 +202,26 @@ async function buildWriteInput(
   });
 
   if (duplicate) {
-    errors.push("Slug or canonical path already exists for this market and type.");
+    if (!existingContentId && requestedSlug === normalizeSlug(title)) {
+      let uniqueSlugFound = false;
+      for (let suffix = 2; suffix <= 999; suffix += 1) {
+        const candidateSlug = `${requestedSlug}-${suffix}`;
+        const candidatePath = buildContentCanonicalPath({ marketCode: market.code, contentType, slug: candidateSlug });
+        const conflict = await prisma.contentItem.findFirst({
+          where: { OR: [{ marketId, contentType, slug: candidateSlug }, { canonicalPath: candidatePath }] },
+          select: { id: true },
+        });
+        if (!conflict) {
+          slug = candidateSlug;
+          canonicalPath = candidatePath;
+          uniqueSlugFound = true;
+          break;
+        }
+      }
+      if (!uniqueSlugFound) errors.push("Could not generate a unique URL slug.");
+    } else {
+      errors.push("Slug or canonical path already exists for this market and type.");
+    }
   }
 
   const ownedUrl = await prisma.contentUrl.findUnique({
@@ -213,10 +234,7 @@ async function buildWriteInput(
 
   const ctaSlots = asStringArray(template.ctaSlots);
 
-  if (status === ContentStatus.PUBLISHED && ctaSlots.length > 0) {
-    if (brokerIds.length === 0) {
-      errors.push("Select at least one broker before publishing a CTA template.");
-    } else {
+  if (status === ContentStatus.PUBLISHED && ctaSlots.length > 0 && brokerIds.length > 0) {
       const brokers = await prisma.broker.findMany({
         where: { id: { in: brokerIds }, status: "ACTIVE" },
         select: { slug: true },
@@ -244,7 +262,6 @@ async function buildWriteInput(
           }
         }
       }
-    }
   }
 
   for (const token of extractAffiliateTokensFromText(markdown)) {
@@ -306,7 +323,7 @@ async function buildWriteInput(
   const seoData = {
     marketId,
     title: seoTitle || title,
-    description: metaDescription,
+    description: metaDescription || buildDefaultMetaDescription(markdown),
     canonicalPath,
     robotsIndex: RobotsIndex.INDEX,
     robotsFollow: true,
@@ -315,14 +332,18 @@ async function buildWriteInput(
   return { brokerIds, categoryIds, topicIds, contentData, seoData };
 }
 
-export async function createContentAction(formData: FormData) {
+export async function createContentAction(
+  _previousState: ContentActionState,
+  formData: FormData,
+): Promise<ContentActionState> {
   await requireAdminMutation(formData);
   const input = await buildWriteInput(formData);
 
   if ("errors" in input) {
-    redirectWithError("/admin/content/new", input.errors);
+    return errorState(input.errors);
   }
 
+  let createdItemId = "";
   try {
     const item = await prisma.$transaction(async (tx) => {
       const taxonomy = await validateContentTaxonomy(tx, {
@@ -331,7 +352,7 @@ export async function createContentAction(formData: FormData) {
         topicIds: input.topicIds,
         primaryCategoryId: input.contentData.primaryCategoryId,
         primaryTopicId: input.contentData.primaryTopicId,
-        requirePrimaryCategory: input.contentData.status === ContentStatus.PUBLISHED,
+        requirePrimaryCategory: false,
       });
       const createdItem = await tx.contentItem.create({
         data: {
@@ -370,30 +391,35 @@ export async function createContentAction(formData: FormData) {
 
       return createdItem;
     });
-
-    revalidatePath("/admin/content");
-    revalidatePublicContentCache();
-    redirect(`/admin/content/${item.id}/edit?saved=1`);
-  } catch {
-    redirectWithError("/admin/content/new", [
+    createdItemId = item.id;
+  } catch (error) {
+    logEvent("error", "admin_content_create_failed", { error });
+    return errorState([
       "Content could not be saved. Check for duplicate slug or canonical path.",
     ]);
   }
+
+  revalidatePath("/admin/content");
+  revalidatePublicContentCache();
+  redirect(`/admin/content/${createdItemId}/edit?saved=1`);
 }
 
-export async function updateContentAction(formData: FormData) {
+export async function updateContentAction(
+  _previousState: ContentActionState,
+  formData: FormData,
+): Promise<ContentActionState> {
   await requireAdminMutation(formData);
   const id = field(formData, "id");
   const editPath = `/admin/content/${id}/edit`;
 
   if (!id) {
-    redirectWithError("/admin/content", ["Content ID is missing."]);
+    return errorState(["Content ID is missing."]);
   }
 
   const input = await buildWriteInput(formData, id);
 
   if ("errors" in input) {
-    redirectWithError(editPath, input.errors);
+    return errorState(input.errors);
   }
 
   try {
@@ -408,7 +434,7 @@ export async function updateContentAction(formData: FormData) {
         topicIds: input.topicIds,
         primaryCategoryId: input.contentData.primaryCategoryId,
         primaryTopicId: input.contentData.primaryTopicId,
-        requirePrimaryCategory: input.contentData.status === ContentStatus.PUBLISHED && existingItem.status !== ContentStatus.PUBLISHED,
+        requirePrimaryCategory: false,
       });
       const latestRevision = await tx.contentRevision.findFirst({
         where: { contentItemId: id },
@@ -466,15 +492,17 @@ export async function updateContentAction(formData: FormData) {
       }
     });
 
-    revalidatePath("/admin/content");
-    revalidatePath(editPath);
-    revalidatePublicContentCache();
-    redirect(`${editPath}?saved=1`);
-  } catch {
-    redirectWithError(editPath, [
+  } catch (error) {
+    logEvent("error", "admin_content_update_failed", { error, contentId: id });
+    return errorState([
       "Content could not be updated. Check for duplicate slug or canonical path.",
     ]);
   }
+
+  revalidatePath("/admin/content");
+  revalidatePath(editPath);
+  revalidatePublicContentCache();
+  redirect(`${editPath}?saved=1`);
 }
 
 const bulkStatuses = new Set<ContentStatus>([

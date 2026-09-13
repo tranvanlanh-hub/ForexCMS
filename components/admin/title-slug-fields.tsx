@@ -8,6 +8,9 @@ function slugify(value: string) {
   return value
     .trim()
     .toLowerCase()
+    .replace(/đ/g, "d")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
     .replace(/['"]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
@@ -75,7 +78,7 @@ export function TitleSlugFields({
           </button>
         )}
       </label>
-      <input id="slug" name="slug" onChange={onSlugChange} required value={slug} />
+      <input id="slug" name="slug" onChange={onSlugChange} value={slug} />
       <p className="field-help">
         Auto-generated from the title. Edit to override — lowercase letters,
         numbers and dashes only.
