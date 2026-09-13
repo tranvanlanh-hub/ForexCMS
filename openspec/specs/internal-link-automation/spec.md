@@ -50,3 +50,10 @@ Change `openspec/changes/015-analytics-click-quality-dashboard/` surfaces orphan
 Change `openspec/changes/019-seo-broker-affiliate-link-ai-safety/` adds a rule creation surface in `/admin/internal-links`.
 
 Operators can create rules scoped by market, language, optional topic cluster, optional priority target page, source content type, target content type, mode, status, maximum links per content, minimum word spacing, and priority. Server-side validation requires the rule language to match the selected market and rejects topic clusters or priority target pages from another market/language.
+
+## Implementation note 2026-09-13 - Managed taxonomy
+
+Change `openspec/changes/026-taxonomy-manager/` provides the management surface
+for topics and topic clusters that feed this engine. New suggestion generation
+only loads active clusters. Topic and priority-page assignments are validated
+against the same market and language scope.

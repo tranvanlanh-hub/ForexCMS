@@ -15,6 +15,7 @@ export default async function EditBrokerPage({
   const { id } = await params;
   const { error, saved } = await searchParams;
   let broker: Awaited<ReturnType<typeof prisma.broker.findUnique>> | null = null;
+  let mediaAssets: Array<{ id: string; originalFilename: string }> = [];
   let isDatabaseReady = true;
 
   try {
@@ -33,6 +34,7 @@ export default async function EditBrokerPage({
         },
       },
     });
+    mediaAssets = await prisma.mediaAsset.findMany({ where: { OR: [{ status: "READY" }, { brokerLogos: { some: { id } } }] }, orderBy: { createdAt: "desc" }, select: { id: true, originalFilename: true } });
   } catch {
     isDatabaseReady = false;
   }
@@ -60,6 +62,7 @@ export default async function EditBrokerPage({
       action={updateBrokerAction}
       error={error}
       item={broker}
+      mediaAssets={mediaAssets}
       saved={saved === "1"}
     />
   );

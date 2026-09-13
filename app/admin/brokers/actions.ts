@@ -8,6 +8,7 @@ import { parseBrokerFactLines } from "@/lib/broker-facts";
 import { revalidatePublicOperationalCache } from "@/lib/cache/public";
 import { normalizeSlug } from "@/lib/content";
 import { prisma } from "@/lib/db";
+import { requireAdminMutation } from "@/lib/admin/session";
 
 const allowedStatuses = new Set<BrokerStatus>(Object.values(BrokerStatus));
 
@@ -36,11 +37,12 @@ function redirectWithError(path: string, errors: string[]): never {
   redirect(`${path}?error=${encodeURIComponent(errors.join(" "))}`);
 }
 
-function buildBrokerInput(formData: FormData) {
+async function buildBrokerInput(formData: FormData) {
   const name = field(formData, "name");
   const slug = normalizeSlug(field(formData, "slug"));
   const status = asBrokerStatus(formData.get("status"));
   const logoUrl = field(formData, "logoUrl");
+  const logoMediaId = field(formData, "logoMediaId") || null;
   const description = field(formData, "description");
   const factsInput = parseBrokerFactLines(field(formData, "facts"));
   const errors: string[] = [];
@@ -53,6 +55,10 @@ function buildBrokerInput(formData: FormData) {
   if (description.length > 280) {
     errors.push("Short description must be 280 characters or less.");
   }
+  if (logoMediaId) {
+    const media = await prisma.mediaAsset.findFirst({ where: { id: logoMediaId, status: "READY" }, select: { id: true } });
+    if (!media) errors.push("Selected media library logo is not ready.");
+  }
 
   return {
     data: {
@@ -60,6 +66,7 @@ function buildBrokerInput(formData: FormData) {
       slug,
       status,
       logoUrl: logoUrl || null,
+      logoMediaId,
       description: description || null,
     },
     facts: factsInput.facts,
@@ -126,7 +133,8 @@ function buildFactCreateInput(args: {
 }
 
 export async function createBrokerAction(formData: FormData) {
-  const input = buildBrokerInput(formData);
+  await requireAdminMutation(formData);
+  const input = await buildBrokerInput(formData);
 
   if (input.errors.length > 0) {
     redirectWithError("/admin/brokers/new", input.errors);
@@ -168,6 +176,7 @@ export async function createBrokerAction(formData: FormData) {
 }
 
 export async function updateBrokerAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const id = field(formData, "id");
   const editPath = `/admin/brokers/${id}/edit`;
 
@@ -175,7 +184,7 @@ export async function updateBrokerAction(formData: FormData) {
     redirectWithError("/admin/brokers", ["Broker ID is missing."]);
   }
 
-  const input = buildBrokerInput(formData);
+  const input = await buildBrokerInput(formData);
 
   if (input.errors.length > 0) {
     redirectWithError(editPath, input.errors);

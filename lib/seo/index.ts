@@ -39,6 +39,7 @@ export type PublicContentSeoInput = {
   updatedAt?: Date | string | null;
   keySections?: string[];
   alternateContent?: LanguageAlternateContent[];
+  imageUrl?: string;
 };
 
 export type LanguageAlternateContent = {
@@ -55,7 +56,7 @@ export const SITEMAP_URL_LIMIT = 4000;
 
 export function getSeoDefaults(): SeoDefaults {
   return {
-    siteName: "Forex Affiliate CMS",
+    siteName: "MarketGB",
     appUrl: normalizeAppUrl(process.env.APP_URL ?? "http://localhost:3000"),
   };
 }
@@ -199,6 +200,8 @@ export function buildPublicContentMetadata(
       }),
     },
     robots: buildRobotsMetadata(input),
+    openGraph: input.imageUrl ? { images: [{ url: input.imageUrl }] } : undefined,
+    twitter: input.imageUrl ? { card: "summary_large_image", images: [input.imageUrl] } : undefined,
   };
 }
 
@@ -271,6 +274,7 @@ export function buildArticleJsonLd(input: PublicContentSeoInput) {
       "@type": "Organization",
       name: siteName,
     },
+    image: input.imageUrl ? [input.imageUrl] : undefined,
     articleSection:
       input.keySections && input.keySections.length > 0
         ? input.keySections

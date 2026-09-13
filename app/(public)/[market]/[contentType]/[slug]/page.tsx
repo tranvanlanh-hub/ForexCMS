@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader, SiteFooter } from "@/components/public/site-chrome";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { TemplateBlockRenderer } from "@/components/public/template-block-renderer";
 import { getCachedPublishedContentByRoute } from "@/lib/cache/public";
 import { getContentBlocks, getFaqItemsFromBlocks, getKeySectionsFromBlocks, } from "@/lib/content/blocks";
@@ -9,7 +9,9 @@ import { contentTypeLabels, contentTypePathSegments, getMarkdownBody, } from "@/
 import { getSourcedBrokerFactHighlights } from "@/lib/broker-facts";
 import { getRenderableInternalLinksForContent } from "@/lib/internal-links";
 import { getPublishedContentByRoute } from "@/lib/routing/content";
+import { getPublishedRedirectByPath } from "@/lib/routing/content-urls";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildFaqPageJsonLd, buildPublicContentBreadcrumbs, buildPublicContentMetadata, buildReviewJsonLd, resolveMarketScopedCanonicalPath, stringifyJsonLd, } from "@/lib/seo";
+import { buildMediaPublicUrl } from "@/lib/storage";
 type PublicContentPageProps = {
     params: Promise<{
         market: string;
@@ -51,6 +53,7 @@ export async function generateMetadata({ params, }: PublicContentPageProps): Pro
         fallbackCanonicalPath: content.canonicalPath,
         marketCode: content.market.code,
     });
+    const imageUrl = content.socialMedia || content.featuredMedia ? buildMediaPublicUrl((content.socialMedia ?? content.featuredMedia)!.storageKey) : undefined;
     return buildPublicContentMetadata({
         title: content.title,
         summary: content.summary,
@@ -67,12 +70,15 @@ export async function generateMetadata({ params, }: PublicContentPageProps): Pro
         publishedAt: content.publishedAt,
         updatedAt: content.updatedAt,
         alternateContent: getSafeAlternateContent(content),
+        imageUrl,
     });
 }
 export default async function PublicContentPage({ params, }: PublicContentPageProps) {
     const routeParams = await params;
     const content = await getCachedPublishedContentByRoute(routeParams);
     if (!content) {
+        const target = await getPublishedRedirectByPath(`/${routeParams.market}/${routeParams.contentType}/${routeParams.slug}/`);
+        if (target) permanentRedirect(target);
         notFound();
     }
     const markdown = getMarkdownBody(content.body);
@@ -82,6 +88,7 @@ export default async function PublicContentPage({ params, }: PublicContentPagePr
         marketCode: content.market.code,
     });
     const typeLabel = contentTypeLabels[content.contentType];
+    const featuredImageUrl = content.featuredMedia ? buildMediaPublicUrl(content.featuredMedia.storageKey) : "";
     const blocks = getContentBlocks(content.body, content.template);
     const internalLinks = await getRenderableInternalLinksForContent(content.id);
     const faqItems = getFaqItemsFromBlocks(blocks);
@@ -106,6 +113,7 @@ export default async function PublicContentPage({ params, }: PublicContentPagePr
         updatedAt: content.updatedAt,
         keySections,
         alternateContent: getSafeAlternateContent(content),
+        imageUrl: featuredImageUrl || undefined,
     };
     const breadcrumbItems = buildPublicContentBreadcrumbs({
         title: content.title,
@@ -143,7 +151,7 @@ export default async function PublicContentPage({ params, }: PublicContentPagePr
     const readingMinutes = Math.max(1, Math.ceil(markdown.split(/\s+/).length / 220));
     return <div className="public-site article-site"><SiteHeader /><main className="site-container article-main" id="main-content">
     <nav aria-label="Breadcrumb" className="article-breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><span>{content.market.name}</span><span aria-hidden="true">/</span><span>{typeLabel}</span></nav>
-    <header className="article-heading"><p className="eyebrow">{typeLabel} <span> / </span> {content.market.locale}</p><h1>{content.title}</h1>{content.summary && <p className="article-deck">{content.summary}</p>}<div className="article-byline">{content.authorName && <span className="author-avatar" aria-hidden="true">{content.authorName.slice(0, 1)}</span>}<div>{content.authorName && <strong>{content.authorName}</strong>}<span>Updated {new Date(content.updatedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} · {readingMinutes} min read</span></div>{content.reviewerName && <p>Reviewed by <strong>{content.reviewerName}</strong></p>}</div></header>
+    <header className="article-heading"><p className="eyebrow">{typeLabel} <span> / </span> {content.market.locale}</p><h1>{content.title}</h1>{content.summary && <p className="article-deck">{content.summary}</p>}{featuredImageUrl && <img alt={content.featuredMedia?.altText || content.title} className="mt-6 max-h-[520px] w-full rounded-lg object-cover" src={featuredImageUrl}/>}<div className="article-byline">{content.authorName && <span className="author-avatar" aria-hidden="true">{content.authorName.slice(0, 1)}</span>}<div>{content.authorName && <strong>{content.authorName}</strong>}<span>Updated {new Date(content.updatedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} · {readingMinutes} min read</span></div>{content.reviewerName && <p>Reviewed by <strong>{content.reviewerName}</strong></p>}</div></header>
     <div className="article-layout"><article className="article-body"><TemplateBlockRenderer blocks={blocks} brokers={content.brokers} contentId={content.id} contentType={content.contentType} internalLinks={internalLinks} market={content.market}/></article><aside className="reading-sidebar"><div className="reading-sidebar-inner">{toc.length > 0 && <nav aria-label="On this page"><p className="eyebrow">ON THIS PAGE</p><ol>{toc.map((item, index) => <li key={item.id}><a href={"#" + item.id}><span>{String(index + 1).padStart(2, "0")}</span>{item.title}</a></li>)}</ol></nav>}<div className="reading-next"><p className="eyebrow">KEEP LEARNING</p><h2>Research before<br />you choose.</h2><p>Know the questions to ask when reviewing a broker.</p><Link className="text-link" href="/global/guides/how-to-verify-a-forex-broker/">The broker checklist →</Link></div><p className="reading-disclosure">Educational content. Forex trading carries risk. Some links may earn us an affiliate commission.</p></div></aside></div>
     {jsonLdSchemas.map((schema, index) => <script dangerouslySetInnerHTML={{ __html: stringifyJsonLd(schema) }} key={index} type="application/ld+json"/>)}
   </main><SiteFooter /></div>;

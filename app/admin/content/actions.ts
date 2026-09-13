@@ -7,9 +7,9 @@ import {
   type Prisma,
 } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { canBulkChangeContentStatus, normalizeAdminRole } from "@/lib/admin/auth";
+import { canBulkChangeContentStatus } from "@/lib/admin/auth";
+import { requireAdminMutation } from "@/lib/admin/session";
 import { revalidatePublicContentCache } from "@/lib/cache/public";
 import {
   extractAffiliateTokensFromText,
@@ -24,6 +24,8 @@ import {
   toMarkdownBody,
   validateContentForSave,
 } from "@/lib/content";
+import { claimContentUrl, releaseUnpublishedContentUrl } from "@/lib/routing/content-urls";
+import { validateContentTaxonomy } from "@/lib/taxonomy";
 
 const allowedStatuses = new Set<ContentStatus>([
   ContentStatus.DRAFT,
@@ -66,6 +68,10 @@ type ContentWriteData = {
   authorName: string | null;
   reviewerName: string | null;
   publishedAt: Date | null;
+  primaryCategoryId: string | null;
+  primaryTopicId: string | null;
+  featuredMediaId: string | null;
+  socialMediaId: string | null;
 };
 
 type SeoWriteData = Omit<
@@ -75,7 +81,7 @@ type SeoWriteData = Omit<
 
 type ContentWriteInput =
   | { errors: string[] }
-  | { brokerIds: string[]; contentData: ContentWriteData; seoData: SeoWriteData };
+  | { brokerIds: string[]; categoryIds: string[]; topicIds: string[]; contentData: ContentWriteData; seoData: SeoWriteData };
 
 function asStringArray(value: Prisma.JsonValue | undefined) {
   return Array.isArray(value)
@@ -107,6 +113,12 @@ async function buildWriteInput(
     .getAll("brokerIds")
     .map((value) => String(value).trim())
     .filter(Boolean);
+  const categoryIds = formData.getAll("categoryIds").map(String).filter(Boolean);
+  const topicIds = formData.getAll("topicIds").map(String).filter(Boolean);
+  const primaryCategoryId = field(formData, "primaryCategoryId") || null;
+  const primaryTopicId = field(formData, "primaryTopicId") || null;
+  const featuredMediaId = field(formData, "featuredMediaId") || null;
+  const socialMediaId = field(formData, "socialMediaId") || null;
 
   const errors = validateContentForSave({
     title,
@@ -137,11 +149,19 @@ async function buildWriteInput(
 
   if (!market) errors.push("Selected market was not found.");
   if (!template) errors.push("Selected template was not found.");
+  if (template && String(template.kind) !== String(contentType)) {
+    errors.push("Selected template must match the content type.");
+  }
   if (status === ContentStatus.PUBLISHED && market?.status !== "ACTIVE") {
     errors.push("Selected market must be active before publishing.");
   }
   if (status === ContentStatus.PUBLISHED && template?.isActive !== true) {
     errors.push("Selected template must be active before publishing.");
+  }
+  const selectedMediaIds = [...new Set([featuredMediaId, socialMediaId].filter((id): id is string => Boolean(id)))];
+  if (selectedMediaIds.length) {
+    const readyMedia = await prisma.mediaAsset.count({ where: { id: { in: selectedMediaIds }, status: "READY" } });
+    if (readyMedia !== selectedMediaIds.length) errors.push("Selected content images must be ready media assets.");
   }
 
   if (errors.length > 0 || !market || !template) {
@@ -181,6 +201,14 @@ async function buildWriteInput(
 
   if (duplicate) {
     errors.push("Slug or canonical path already exists for this market and type.");
+  }
+
+  const ownedUrl = await prisma.contentUrl.findUnique({
+    where: { path: canonicalPath },
+    select: { contentItemId: true },
+  });
+  if (ownedUrl && ownedUrl.contentItemId !== existingContentId) {
+    errors.push("This URL belongs to another content item or its redirect history.");
   }
 
   const ctaSlots = asStringArray(template.ctaSlots);
@@ -269,6 +297,10 @@ async function buildWriteInput(
     reviewerName: reviewerName || null,
     publishedAt:
       status === ContentStatus.PUBLISHED ? (existing?.publishedAt ?? now) : null,
+    primaryCategoryId,
+    primaryTopicId,
+    featuredMediaId,
+    socialMediaId,
   };
 
   const seoData = {
@@ -280,10 +312,11 @@ async function buildWriteInput(
     robotsFollow: true,
   };
 
-  return { brokerIds, contentData, seoData };
+  return { brokerIds, categoryIds, topicIds, contentData, seoData };
 }
 
 export async function createContentAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const input = await buildWriteInput(formData);
 
   if ("errors" in input) {
@@ -292,13 +325,30 @@ export async function createContentAction(formData: FormData) {
 
   try {
     const item = await prisma.$transaction(async (tx) => {
+      const taxonomy = await validateContentTaxonomy(tx, {
+        marketId: input.contentData.marketId,
+        categoryIds: input.categoryIds,
+        topicIds: input.topicIds,
+        primaryCategoryId: input.contentData.primaryCategoryId,
+        primaryTopicId: input.contentData.primaryTopicId,
+        requirePrimaryCategory: input.contentData.status === ContentStatus.PUBLISHED,
+      });
       const createdItem = await tx.contentItem.create({
         data: {
           ...input.contentData,
           brokers: input.brokerIds.length
             ? { connect: input.brokerIds.map((id) => ({ id })) }
             : undefined,
+          categories: taxonomy.categoryIds.length ? { connect: taxonomy.categoryIds.map((id) => ({ id })) } : undefined,
+          topics: taxonomy.topicIds.length ? { connect: taxonomy.topicIds.map((id) => ({ id })) } : undefined,
         },
+      });
+
+      await claimContentUrl(tx, {
+        contentItemId: createdItem.id,
+        marketId: createdItem.marketId,
+        path: createdItem.canonicalPath,
+        published: createdItem.status === ContentStatus.PUBLISHED,
       });
 
       await tx.seoMetadata.create({
@@ -332,6 +382,7 @@ export async function createContentAction(formData: FormData) {
 }
 
 export async function updateContentAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const id = field(formData, "id");
   const editPath = `/admin/content/${id}/edit`;
 
@@ -347,10 +398,29 @@ export async function updateContentAction(formData: FormData) {
 
   try {
     await prisma.$transaction(async (tx) => {
+      const existingItem = await tx.contentItem.findUniqueOrThrow({
+        where: { id },
+        select: { canonicalPath: true, status: true },
+      });
+      const taxonomy = await validateContentTaxonomy(tx, {
+        marketId: input.contentData.marketId,
+        categoryIds: input.categoryIds,
+        topicIds: input.topicIds,
+        primaryCategoryId: input.contentData.primaryCategoryId,
+        primaryTopicId: input.contentData.primaryTopicId,
+        requirePrimaryCategory: input.contentData.status === ContentStatus.PUBLISHED && existingItem.status !== ContentStatus.PUBLISHED,
+      });
       const latestRevision = await tx.contentRevision.findFirst({
         where: { contentItemId: id },
         orderBy: { revisionNumber: "desc" },
         select: { revisionNumber: true },
+      });
+
+      await claimContentUrl(tx, {
+        contentItemId: id,
+        marketId: input.contentData.marketId,
+        path: input.contentData.canonicalPath,
+        published: input.contentData.status === ContentStatus.PUBLISHED,
       });
 
       await tx.contentItem.update({
@@ -358,6 +428,8 @@ export async function updateContentAction(formData: FormData) {
         data: {
           ...input.contentData,
           brokers: { set: input.brokerIds.map((brokerId) => ({ id: brokerId })) },
+          categories: { set: taxonomy.categoryIds.map((categoryId) => ({ id: categoryId })) },
+          topics: { set: taxonomy.topicIds.map((topicId) => ({ id: topicId })) },
         },
       });
 
@@ -379,6 +451,19 @@ export async function updateContentAction(formData: FormData) {
           status: input.contentData.status,
         },
       });
+
+      if (existingItem.canonicalPath !== input.contentData.canonicalPath) {
+        if (existingItem.status === ContentStatus.PUBLISHED) {
+          await tx.contentUrl.updateMany({
+            where: { contentItemId: id, path: existingItem.canonicalPath },
+            data: { publishedOnce: true },
+          });
+        }
+        await releaseUnpublishedContentUrl(tx, {
+          contentItemId: id,
+          path: existingItem.canonicalPath,
+        });
+      }
     });
 
     revalidatePath("/admin/content");
@@ -399,6 +484,7 @@ const bulkStatuses = new Set<ContentStatus>([
 ]);
 
 export async function bulkUpdateContentStatusAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const selectedIds = formData
     .getAll("contentId")
     .map((value) => String(value).trim())
@@ -406,9 +492,7 @@ export async function bulkUpdateContentStatusAction(formData: FormData) {
     .slice(0, 100);
   const status = asContentStatus(formData.get("bulkStatus"));
   const returnPath = field(formData, "returnPath") || "/admin/content";
-  const adminRole = normalizeAdminRole(
-    (await headers()).get("x-forexcms-admin-role"),
-  );
+  const adminRole = "admin" as const;
 
   if (!canBulkChangeContentStatus(adminRole)) {
     redirectWithError(returnPath, ["This admin role cannot bulk update content."]);

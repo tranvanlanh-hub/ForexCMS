@@ -255,6 +255,7 @@ export async function generateInternalLinkSuggestionsForContent(
       where: {
         marketId: source.marketId,
         languageCode: source.market.languageCode,
+        status: "ACTIVE",
       },
       select: { id: true, priorityContentItemId: true },
     }),

@@ -49,8 +49,8 @@ Set preview secrets before relying on dynamic CMS routes:
 ```powershell
 $env:CLOUDFLARE_API_TOKEN="paste-token-here"
 npx.cmd wrangler secret put DATABASE_URL --env preview
-npx.cmd wrangler secret put ADMIN_USERNAME --env preview
-npx.cmd wrangler secret put ADMIN_PASSWORD --env preview
+npx.cmd wrangler secret put AUTH_PASSWORD_PEPPER --env preview
+npx.cmd wrangler secret put AUTH_ENCRYPTION_KEY --env preview
 npx.cmd wrangler secret put S3_ACCESS_KEY_ID --env preview
 npx.cmd wrangler secret put S3_SECRET_ACCESS_KEY --env preview
 ```
@@ -59,4 +59,4 @@ The current app uses Prisma with PostgreSQL. On Cloudflare Workers, use a Worker
 
 Do not use Cloudflare D1 as the core CMS database.
 
-`/admin` is protected by minimal HTTP Basic Authentication. If admin credentials are missing, the route locks closed.
+`/admin` is protected by the password + TOTP flow in `docs/ADMIN_AUTH.md`. Apply the committed auth migration and run the interactive admin setup against the intended database before deployment. Missing configuration fails closed.

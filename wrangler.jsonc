@@ -6,6 +6,16 @@
     "nodejs_compat"
   ],
   "main": "vinext/server/fetch-handler",
+  "vars": {
+    "APP_ENV": "production",
+    "APP_URL": "https://marketgb.com"
+  },
+  "routes": [
+    {
+      "pattern": "marketgb.com",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "dist/client",
     "not_found_handling": "none",

@@ -36,6 +36,10 @@ export type AiImportDraft = {
   affiliateTokens: AiImportToken[];
   brokerMentions: string[];
   translationGroupKey: string;
+  primaryCategorySlug: string;
+  categorySlugs: string[];
+  primaryTopicSlug: string;
+  topicSlugs: string[];
 };
 
 export type AiImportValidationResult = {
@@ -66,7 +70,7 @@ type ParsedInput = {
   body: string;
 };
 
-const fieldAliases: Record<keyof Omit<AiImportDraft, "affiliateTokens" | "brokerMentions">, string[]> = {
+const fieldAliases: Record<keyof Omit<AiImportDraft, "affiliateTokens" | "brokerMentions" | "categorySlugs" | "topicSlugs">, string[]> = {
   title: ["title"],
   slug: ["slug"],
   market: ["market", "marketCode"],
@@ -86,6 +90,8 @@ const fieldAliases: Record<keyof Omit<AiImportDraft, "affiliateTokens" | "broker
     "translation_group_key",
     "translationGroup",
   ],
+  primaryCategorySlug: ["primaryCategorySlug", "primary_category_slug", "primaryCategory"],
+  primaryTopicSlug: ["primaryTopicSlug", "primary_topic_slug", "primaryTopic"],
 };
 
 function asRecord(value: unknown): Record<string, AiImportJsonValue> {
@@ -280,6 +286,10 @@ export function normalizeAiImportDraft(input: string): AiImportDraft {
     translationGroupKey: normalizeSlug(
       readString(fields, fieldAliases.translationGroupKey),
     ),
+    primaryCategorySlug: normalizeSlug(readString(fields, fieldAliases.primaryCategorySlug)),
+    categorySlugs: readStringList(fields, ["categorySlugs", "category_slugs", "categories"]).map(normalizeSlug),
+    primaryTopicSlug: normalizeSlug(readString(fields, fieldAliases.primaryTopicSlug)),
+    topicSlugs: readStringList(fields, ["topicSlugs", "topic_slugs", "topics"]).map(normalizeSlug),
   };
 }
 
@@ -409,6 +419,15 @@ export async function validateAiImportInput(
     if (duplicate) {
       errors.push("Slug or canonical path already exists for this market.");
     }
+
+    const categorySlugs = [...new Set([...draft.categorySlugs, ...(draft.primaryCategorySlug ? [draft.primaryCategorySlug] : [])])];
+    const topicSlugs = [...new Set([...draft.topicSlugs, ...(draft.primaryTopicSlug ? [draft.primaryTopicSlug] : [])])];
+    const [categoryCount, topicCount] = await Promise.all([
+      prisma.category.count({ where: { marketId: market.id, slug: { in: categorySlugs } } }),
+      prisma.topic.count({ where: { marketId: market.id, slug: { in: topicSlugs } } }),
+    ]);
+    if (categoryCount !== categorySlugs.length) errors.push("One or more category slugs were not found in this market.");
+    if (topicCount !== topicSlugs.length) errors.push("One or more topic slugs were not found in this market.");
   }
 
   const brokerSlugs = new Set(draft.brokerMentions);
@@ -516,5 +535,17 @@ export async function resolveAiImportReferences(draft: AiImportDraft) {
       })
     : [];
 
-  return { market, template, brokers };
+  const categorySlugs = [...new Set([...draft.categorySlugs, ...(draft.primaryCategorySlug ? [draft.primaryCategorySlug] : [])])];
+  const topicSlugs = [...new Set([...draft.topicSlugs, ...(draft.primaryTopicSlug ? [draft.primaryTopicSlug] : [])])];
+  const [categories, topics] = await Promise.all([
+    prisma.category.findMany({ where: { marketId: market.id, slug: { in: categorySlugs } }, select: { id: true, slug: true } }),
+    prisma.topic.findMany({ where: { marketId: market.id, slug: { in: topicSlugs } }, select: { id: true, slug: true } }),
+  ]);
+  if (categories.length !== categorySlugs.length || topics.length !== topicSlugs.length) return null;
+
+  return {
+    market, template, brokers, categories, topics,
+    primaryCategoryId: categories.find(item => item.slug === draft.primaryCategorySlug)?.id ?? null,
+    primaryTopicId: topics.find(item => item.slug === draft.primaryTopicSlug)?.id ?? null,
+  };
 }

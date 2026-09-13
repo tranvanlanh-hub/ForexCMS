@@ -67,7 +67,7 @@ Media:
 ## Cloudflare Notes
 
 - Use PostgreSQL through `DATABASE_URL`; do not add D1.
-- Store `DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` as secrets.
+- Store `DATABASE_URL`, `AUTH_PASSWORD_PEPPER`, `AUTH_ENCRYPTION_KEY`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` as secrets.
 - Keep `APP_URL`, `S3_ENDPOINT`, `S3_REGION`, `S3_BUCKET`, and `S3_PUBLIC_BASE_URL` environment-specific.
 - Preview deploy only after explicit confirmation.
 - Production deploy only after explicit confirmation.

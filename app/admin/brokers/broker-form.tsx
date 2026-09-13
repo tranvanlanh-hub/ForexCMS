@@ -1,5 +1,6 @@
 import { BrokerFactCategory, BrokerStatus, type Broker, type BrokerFact, type Market } from "@prisma/client";
 import Link from "next/link";
+import { CsrfField } from "@/components/admin/csrf-field";
 import { brokerStatusLabels } from "@/lib/affiliate";
 import {
   brokerFactCategoryExamples,
@@ -9,7 +10,7 @@ import {
 
 type BrokerFormItem = Pick<
   Broker,
-  "id" | "name" | "slug" | "status" | "logoUrl" | "description"
+  "id" | "name" | "slug" | "status" | "logoUrl" | "logoMediaId" | "description"
 > & {
   factItems?: Array<
     Pick<
@@ -36,9 +37,10 @@ type BrokerFormProps = {
   error?: string;
   item?: BrokerFormItem;
   saved?: boolean;
+  mediaAssets: Array<{ id: string; originalFilename: string }>;
 };
 
-export function BrokerForm({ action, error, item, saved }: BrokerFormProps) {
+export function BrokerForm({ action, error, item, mediaAssets, saved }: BrokerFormProps) {
   const isEditing = Boolean(item);
   const factsValue = serializeBrokerFactsForForm(
     item?.factItems?.sort((a, b) => a.displayOrder - b.displayOrder) ?? [],
@@ -46,6 +48,7 @@ export function BrokerForm({ action, error, item, saved }: BrokerFormProps) {
 
   return (
     <form action={action} className="flex flex-col gap-6">
+      <CsrfField />
       {item ? <input name="id" type="hidden" value={item.id} /> : null}
 
       <section className="border-b border-[#d9ded7] pb-5">
@@ -150,7 +153,7 @@ export function BrokerForm({ action, error, item, saved }: BrokerFormProps) {
               />
             </label>
             <label className="mt-4 block text-sm font-semibold text-[#111827]" htmlFor="logoUrl">
-              Logo / media URL
+              External logo URL
               <input
                 className="mt-2 h-11 w-full rounded-md border border-[#cbd5ce] px-3 text-sm font-normal outline-none transition focus:border-[#0f766e]"
                 defaultValue={item?.logoUrl ?? ""}
@@ -158,6 +161,13 @@ export function BrokerForm({ action, error, item, saved }: BrokerFormProps) {
                 name="logoUrl"
                 type="url"
               />
+            </label>
+            <label className="mt-4 block text-sm font-semibold text-[#111827]" htmlFor="logoMediaId">
+              Media library logo
+              <select className="mt-2 h-11 w-full rounded-md border border-[#cbd5ce] bg-white px-3 text-sm font-normal" defaultValue={item?.logoMediaId ?? ""} id="logoMediaId" name="logoMediaId">
+                <option value="">Use external URL or no logo</option>
+                {mediaAssets.map(asset => <option key={asset.id} value={asset.id}>{asset.originalFilename}</option>)}
+              </select>
             </label>
           </div>
         </aside>

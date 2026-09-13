@@ -9,6 +9,7 @@ Giup Forex CMS van hanh an toan khi chuan bi scale len 4.000+ URL, gom performan
 - He thong phai co index PostgreSQL phu hop cho public content lookup, sitemap published content query, va affiliate resolver.
 - Cache chi duoc ap dung cho public published/active data.
 - Admin/private/auth/mutation responses va affiliate click redirects khong duoc public-cache.
+- Admin CMS phai dung tai khoan owner duy nhat voi password hash, TOTP, recovery code mot lan, revocable database session, rate limit, va CSRF protection; khong luu plaintext password hoac raw session token.
 - Mutations lien quan content, broker, va affiliate link phai co revalidation strategy.
 - Backup PostgreSQL va media S3-compatible phai co checklist/script khong hard-code credential.
 - Migration tu Cloudflare/R2 sang VPS Linux phai giu kien truc portable va PostgreSQL la database chinh.

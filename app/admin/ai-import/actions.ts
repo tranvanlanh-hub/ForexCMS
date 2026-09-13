@@ -11,6 +11,8 @@ import {
 } from "@/lib/ai-import";
 import { buildContentCanonicalPath, toMarkdownBody } from "@/lib/content";
 import { prisma } from "@/lib/db";
+import { requireAdminMutation } from "@/lib/admin/session";
+import { claimContentUrl } from "@/lib/routing/content-urls";
 
 export type AiImportActionState = AiImportValidationResult & {
   input: string;
@@ -25,6 +27,7 @@ export async function aiImportAction(
   _previousState: AiImportActionState,
   formData: FormData,
 ): Promise<AiImportActionState> {
+  await requireAdminMutation(formData);
   const input = field(formData, "input");
   const intent = field(formData, "intent");
   const validation = await validateAiImportInput(input);
@@ -78,6 +81,8 @@ export async function aiImportAction(
           marketId: references.market.id,
           templateId: references.template.id,
           translationGroupId: translationGroup?.id ?? null,
+          primaryCategoryId: references.primaryCategoryId,
+          primaryTopicId: references.primaryTopicId,
           canonicalPath,
           body,
           brokers: references.brokers.length
@@ -85,7 +90,16 @@ export async function aiImportAction(
                 connect: references.brokers.map((broker) => ({ id: broker.id })),
               }
             : undefined,
+          categories: references.categories.length ? { connect: references.categories.map((category) => ({ id: category.id })) } : undefined,
+          topics: references.topics.length ? { connect: references.topics.map((topic) => ({ id: topic.id })) } : undefined,
         },
+      });
+
+      await claimContentUrl(tx, {
+        contentItemId: created.id,
+        marketId: created.marketId,
+        path: created.canonicalPath,
+        published: false,
       });
 
       await tx.seoMetadata.create({

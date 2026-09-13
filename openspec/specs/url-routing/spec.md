@@ -63,3 +63,14 @@ The suggestion engine and public renderer require target content to stay in the 
 ## Implementation note 2026-09-09 - Duplicate and canonical hardening
 
 Change `openspec/changes/018-system-audit-admin-workflow-hardening/` adds a pre-write duplicate check in the Content Manager for `(market, content type, slug)` and `canonicalPath`. Canonical paths continue to be generated from the established `/{market}/{content-type}/{slug}/` helper instead of being entered manually.
+
+## Implementation note 2026-09-13 - URL Redirect Manager
+
+Change `openspec/changes/025-url-redirect-manager/` adds a database-backed URL
+registry. Every canonical path is owned by one ContentItem. When a published URL
+changes, the old path remains owned by the same item and permanently redirects
+to its current canonical path.
+
+The admin URL Routing screen lists canonical and historical paths, supports safe
+manual aliases, and can enable or disable aliases. Redirect destinations must be
+published in an active market; aliases never expose draft or archived content.

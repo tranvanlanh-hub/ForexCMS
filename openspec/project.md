@@ -2,7 +2,7 @@
 
 ## Tên dự án
 
-Forex Affiliate CMS
+MarketGB
 
 ## Mục tiêu
 

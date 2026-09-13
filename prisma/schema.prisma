@@ -89,6 +89,12 @@ enum TopicClusterStatus {
   ARCHIVED
 }
 
+enum TaxonomyStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
 enum AnchorTextStatus {
   ACTIVE
   INACTIVE
@@ -114,6 +120,121 @@ enum InternalLinkSuggestionStatus {
   ARCHIVED
 }
 
+enum AdminSecurityEventType {
+  PASSWORD_VERIFIED
+  LOGIN_FAILED
+  LOGIN_BLOCKED
+  TWO_FACTOR_SUCCEEDED
+  TWO_FACTOR_FAILED
+  RECOVERY_CODE_USED
+  LOGOUT
+  SESSIONS_REVOKED
+}
+
+enum ContentUrlSource {
+  CONTENT
+  MANUAL
+}
+
+enum MediaStatus {
+  PENDING
+  READY
+  ERROR
+  DELETING
+  DELETED
+}
+
+enum MediaKind {
+  IMAGE
+}
+
+model AdminAccount {
+  id                    String   @id @default(cuid())
+  username              String   @unique
+  passwordHash          String
+  totpSecretCiphertext  String
+  totpLastCounter       BigInt?
+  isActive              Boolean  @default(true)
+  failedLoginCount      Int      @default(0)
+  lockedUntil           DateTime?
+  passwordChangedAt     DateTime @default(now())
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  challenges    AdminLoginChallenge[]
+  recoveryCodes AdminRecoveryCode[]
+  securityEvents AdminSecurityEvent[]
+  sessions      AdminSession[]
+}
+
+model AdminLoginChallenge {
+  id        String   @id @default(cuid())
+  accountId String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  account AdminAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId, expiresAt])
+  @@index([expiresAt])
+}
+
+model AdminSession {
+  id                String    @id @default(cuid())
+  accountId         String
+  tokenHash         String    @unique
+  createdAt         DateTime  @default(now())
+  lastSeenAt        DateTime  @default(now())
+  idleExpiresAt     DateTime
+  absoluteExpiresAt DateTime
+  revokedAt         DateTime?
+
+  account AdminAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId, revokedAt])
+  @@index([idleExpiresAt])
+  @@index([absoluteExpiresAt])
+}
+
+model AdminRecoveryCode {
+  id        String    @id @default(cuid())
+  accountId String
+  codeHash  String    @unique
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  account AdminAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId, usedAt])
+}
+
+model AdminLoginAttempt {
+  id             String   @id @default(cuid())
+  accountKeyHash String
+  networkKeyHash String
+  succeeded      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  @@index([accountKeyHash, createdAt])
+  @@index([networkKeyHash, createdAt])
+  @@index([createdAt])
+}
+
+model AdminSecurityEvent {
+  id             String                 @id @default(cuid())
+  accountId      String?
+  type           AdminSecurityEventType
+  networkKeyHash String?
+  createdAt      DateTime               @default(now())
+
+  account AdminAccount? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+
+  @@index([accountId, createdAt])
+  @@index([type, createdAt])
+  @@index([createdAt])
+}
+
 model Market {
   id           String       @id @default(cuid())
   code         String       @unique
@@ -131,6 +252,7 @@ model Market {
   brokerFacts    BrokerFact[]
   categories     Category[]
   contentItems   ContentItem[]
+  contentUrls    ContentUrl[]
   anchorTexts    AnchorText[]
   internalLinkRules InternalLinkRule[]
   internalLinkSuggestions InternalLinkSuggestion[]
@@ -170,6 +292,7 @@ model Category {
   slug        String
   name        String
   description String?
+  status      TaxonomyStatus @default(ACTIVE)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -181,6 +304,7 @@ model Category {
 
   @@unique([marketId, slug])
   @@index([marketId, parentId])
+  @@index([marketId, parentId, status, name])
 }
 
 model Topic {
@@ -191,6 +315,7 @@ model Topic {
   slug        String
   name        String
   description String?
+  status      TaxonomyStatus @default(ACTIVE)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -204,6 +329,7 @@ model Topic {
   @@unique([marketId, slug])
   @@index([topicClusterId])
   @@index([marketId, parentId])
+  @@index([marketId, topicClusterId, status, name])
 }
 
 model TopicCluster {
@@ -237,6 +363,8 @@ model ContentItem {
   translationGroupId String?
   primaryCategoryId  String?
   primaryTopicId     String?
+  featuredMediaId    String?
+  socialMediaId      String?
   title              String
   slug               String
   contentType        ContentType
@@ -255,6 +383,8 @@ model ContentItem {
   translationGroup ContentTranslationGroup? @relation(fields: [translationGroupId], references: [id], onDelete: SetNull)
   primaryCategory  Category?                @relation("PrimaryContentCategory", fields: [primaryCategoryId], references: [id], onDelete: SetNull)
   primaryTopic     Topic?                   @relation("PrimaryContentTopic", fields: [primaryTopicId], references: [id], onDelete: SetNull)
+  featuredMedia    MediaAsset?              @relation("ContentFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: Restrict)
+  socialMedia      MediaAsset?              @relation("ContentSocialMedia", fields: [socialMediaId], references: [id], onDelete: Restrict)
   brokers          Broker[]                 @relation("ContentBrokers")
   anchorTexts      AnchorText[]             @relation("AnchorTextTarget")
   categories       Category[]               @relation("ContentCategories")
@@ -264,6 +394,7 @@ model ContentItem {
   internalLinkTargetSuggestions InternalLinkSuggestion[] @relation("InternalLinkTarget")
   affiliateClickEvents AffiliateClickEvent[]
   revisions        ContentRevision[]
+  urls             ContentUrl[]
   seoMetadata      SeoMetadata?
   topics           Topic[]                  @relation("ContentTopics")
 
@@ -277,6 +408,26 @@ model ContentItem {
   @@index([contentType])
   @@index([status, publishedAt, createdAt], map: "idx_content_sitemap_status")
   @@index([publishedAt])
+  @@index([featuredMediaId])
+  @@index([socialMediaId])
+}
+
+model ContentUrl {
+  id              String           @id @default(cuid())
+  path            String           @unique
+  contentItemId   String
+  marketId        String
+  publishedOnce   Boolean          @default(false)
+  redirectEnabled Boolean          @default(true)
+  source          ContentUrlSource @default(CONTENT)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  contentItem ContentItem @relation(fields: [contentItemId], references: [id], onDelete: Restrict)
+  market      Market      @relation(fields: [marketId], references: [id], onDelete: Restrict)
+
+  @@index([contentItemId, createdAt])
+  @@index([marketId, redirectEnabled])
 }
 
 model AnchorText {
@@ -419,6 +570,7 @@ model Broker {
   websiteUrl   String?
   logoUrl      String?
   logoAssetKey String?
+  logoMediaId  String?
   description  String?
   status       BrokerStatus @default(DRAFT)
   facts        Json         @default("{}")
@@ -430,8 +582,60 @@ model Broker {
   contentItems   ContentItem[]   @relation("ContentBrokers")
   factItems      BrokerFact[]
   seoMetadata    SeoMetadata[]
+  logoMedia      MediaAsset?       @relation("BrokerLogoMedia", fields: [logoMediaId], references: [id], onDelete: Restrict)
 
   @@index([status])
+  @@index([logoMediaId])
+}
+
+model MediaAsset {
+  id               String      @id @default(cuid())
+  kind             MediaKind   @default(IMAGE)
+  status           MediaStatus @default(PENDING)
+  yyyymm           String
+  storageKey       String      @unique
+  pendingKey       String?     @unique
+  originalFilename String
+  mimeType         String
+  extension        String
+  sizeBytes        BigInt
+  width            Int?
+  height           Int?
+  etag             String?
+  altText          String?
+  caption          String?
+  createdBy        String?
+  errorMessage     String?
+  deletedAt        DateTime?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  variants        MediaVariant[]
+  featuredContent ContentItem[] @relation("ContentFeaturedMedia")
+  socialContent   ContentItem[] @relation("ContentSocialMedia")
+  brokerLogos     Broker[]      @relation("BrokerLogoMedia")
+
+  @@index([status, createdAt])
+  @@index([yyyymm, status])
+  @@index([mimeType])
+  @@index([originalFilename])
+}
+
+model MediaVariant {
+  id           String   @id @default(cuid())
+  mediaAssetId String
+  name         String
+  storageKey   String   @unique
+  mimeType     String
+  sizeBytes    BigInt
+  width        Int
+  height       Int
+  createdAt    DateTime @default(now())
+
+  mediaAsset MediaAsset @relation(fields: [mediaAssetId], references: [id], onDelete: Cascade)
+
+  @@unique([mediaAssetId, name])
+  @@index([mediaAssetId])
 }
 
 model BrokerFact {

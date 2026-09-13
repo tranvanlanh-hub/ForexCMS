@@ -5,6 +5,7 @@ import {
   type Market,
 } from "@prisma/client";
 import Link from "next/link";
+import { CsrfField } from "@/components/admin/csrf-field";
 import { affiliateLinkStatusLabels } from "@/lib/affiliate";
 
 type AffiliateLinkFormItem = Pick<
@@ -40,6 +41,7 @@ export function AffiliateLinkForm({
 
   return (
     <form action={action} className="flex flex-col gap-6">
+      <CsrfField />
       {item ? <input name="id" type="hidden" value={item.id} /> : null}
 
       <section className="border-b border-[#d9ded7] pb-5">

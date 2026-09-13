@@ -77,3 +77,23 @@ Change `openspec/changes/020-production-readiness-scale/` adds targeted indexes 
 - `idx_content_sitemap_status` on `ContentItem(status, publishedAt, createdAt)`
 
 Public content lookups now use a tag-based cache for published/active data. Content mutations revalidate the public content and sitemap cache tags. Admin content routes remain dynamic/private and are not public-cached.
+
+## Implementation note 2026-09-13 - Taxonomy Manager
+
+Change `openspec/changes/026-taxonomy-manager/` adds admin management for Category,
+Topic and TopicCluster and connects taxonomy assignment to Content Manager and
+AI Import. Categories are limited to three levels. Server validation prevents
+cycles, cross-market assignment and branch moves deeper than level three.
+
+Content supports one primary category plus related categories and one optional
+primary topic plus related topics. Primary records are always included in the
+many-to-many assignment. New publish transitions require an active primary
+category; already-published legacy content can still be edited while the admin
+shows its missing-category warning.
+## Media assets
+
+- Admin có Media Manager để upload JPEG, PNG, WebP và AVIF qua presigned S3-compatible PUT mà không chuyển file qua application server.
+- Object hoàn tất dùng key bất biến `uploads/{yyyymm}/{assetId}/original.{ext}`; bản upload tạm dùng prefix `pending/`.
+- Server phải xác minh kích thước, Content-Type, magic bytes và dimensions trước khi đánh dấu asset `READY`.
+- Content có thể chọn featured image và social sharing image; broker có thể chọn logo trong thư viện hoặc giữ external logo URL.
+- Chỉ asset `READY` xuất hiện trong bộ chọn. Asset đang được content hoặc broker dùng không được xóa.

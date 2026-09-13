@@ -12,10 +12,13 @@ async function getEditContentData(id: string) {
       brokers: { select: { id: true, name: true, slug: true } },
       seoMetadata: true,
       translationGroup: true,
+      urls: { orderBy: { createdAt: "desc" } },
+      categories: { select: { id: true } },
+      topics: { select: { id: true } },
     },
   });
 
-  const [markets, templates, brokers] = await Promise.all([
+  const [markets, templates, brokers, categories, topics, mediaAssets] = await Promise.all([
     prisma.market.findMany({
       where: {
         OR: [{ status: "ACTIVE" }, ...(item ? [{ id: item.marketId }] : [])],
@@ -31,7 +34,12 @@ async function getEditContentData(id: string) {
       },
     }),
     prisma.template.findMany({
-      where: { isActive: true },
+      where: {
+        OR: [
+          { isActive: true },
+          ...(item ? [{ id: item.templateId }] : []),
+        ],
+      },
       orderBy: { name: "asc" },
       select: {
         id: true,
@@ -48,9 +56,12 @@ async function getEditContentData(id: string) {
       orderBy: { name: "asc" },
       select: { id: true, name: true, slug: true },
     }),
+    prisma.category.findMany({ where: { OR: [{ status: "ACTIVE" }, { contentItems: { some: { id } } }, { primaryContent: { some: { id } } }] }, orderBy: { name: "asc" }, select: { id: true, marketId: true, name: true, parentId: true, status: true } }),
+    prisma.topic.findMany({ where: { OR: [{ status: "ACTIVE" }, { contentItems: { some: { id } } }, { primaryContent: { some: { id } } }] }, orderBy: { name: "asc" }, select: { id: true, marketId: true, name: true, status: true, topicCluster: { select: { name: true } } } }),
+    prisma.mediaAsset.findMany({ where: { OR: [{ status: "READY" }, { featuredContent: { some: { id } } }, { socialContent: { some: { id } } }] }, orderBy: { createdAt: "desc" }, select: { id: true, originalFilename: true } }),
   ]);
 
-  return { brokers, item, markets, templates };
+  return { brokers, categories, item, markets, mediaAssets, templates, topics };
 }
 
 export default async function EditContentPage({
@@ -93,11 +104,14 @@ export default async function EditContentPage({
     <ContentForm
       action={updateContentAction}
       brokers={data.brokers}
+      categories={data.categories}
       error={error}
       item={data.item}
       markets={data.markets}
+      mediaAssets={data.mediaAssets}
       saved={saved === "1"}
       templates={data.templates}
+      topics={data.topics}
     />
   );
 }

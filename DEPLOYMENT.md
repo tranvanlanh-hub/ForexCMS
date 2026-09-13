@@ -7,11 +7,11 @@ This project is prepared for a Cloudflare Workers preview deployment using Vinex
 - Worker config: `wrangler.jsonc`
 - Generated deploy config: `dist/server/wrangler.json`
 - Preview environment name: `content-hub-cms-preview`
-- Production deploy: do not run without explicit user confirmation.
+- Production deploy: `content-hub-cms` on the custom domain `marketgb.com`.
 
 ## Readiness status
 
-The existing preview was verified on 2026-09-10 at https://content-hub-cms-preview.content-hub-stack.workers.dev. It reads Neon PostgreSQL and protects admin with Basic Auth. Production is NOT ready or authorized; follow `docs/PRODUCTION_LAUNCH_CHECKLIST.md`. The old remote `content-hub-cms` Worker still has a legacy D1 binding; do not copy its settings to the Neon production target.
+The preview was verified on 2026-09-10 at https://content-hub-cms-preview.content-hub-stack.workers.dev. Production deployment to `marketgb.com` was authorized on 2026-09-13. The current source replaces its former Basic Auth with the database-backed password + TOTP flow documented in `docs/ADMIN_AUTH.md`. The old remote `content-hub-cms` Worker has a legacy D1 binding; the current production target uses Neon PostgreSQL instead.
 
 Ready:
 
@@ -27,8 +27,8 @@ Needs values before preview deploy:
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID` if the API token can access more than one account
 - `DATABASE_URL`
-- `ADMIN_USERNAME`
-- `ADMIN_PASSWORD`
+- `AUTH_PASSWORD_PEPPER`
+- `AUTH_ENCRYPTION_KEY`
 - `APP_URL`
 - `S3_ENDPOINT`
 - `S3_REGION`
@@ -42,6 +42,8 @@ Needs values before preview deploy:
 PostgreSQL is the primary CMS database. Do not replace it with Cloudflare D1 for the core CMS.
 
 The implemented Worker path uses the generated Prisma edge client with the Neon adapter when APP_ENV is preview/production and DATABASE_URL is a Neon PostgreSQL URL. Local scripts use the Node Prisma client. Set APP_ENV explicitly; this implementation does not automatically configure Prisma Accelerate. Keep credentials in ignored UTF-8 environment files without a BOM or in the platform secret store.
+
+`npm.cmd run build:vinext` temporarily removes `.env.local` from Vinext discovery, restores it even when the build fails, and scans generated output for known local secret values. Do not bypass this wrapper for deployment builds.
 
 Verify migrations against Neon before relying on dynamic CMS routes. Prisma CLI does not automatically load `.env.local`; these commands load it explicitly. For deployed/shared databases use migrate deploy, not migrate dev/reset:
 
@@ -83,15 +85,15 @@ Set required preview secrets:
 $env:CLOUDFLARE_API_TOKEN="paste-token-here"
 $env:CLOUDFLARE_ACCOUNT_ID="paste-account-id-here-if-needed"
 npx.cmd wrangler secret put DATABASE_URL --env preview
-npx.cmd wrangler secret put ADMIN_USERNAME --env preview
-npx.cmd wrangler secret put ADMIN_PASSWORD --env preview
+npx.cmd wrangler secret put AUTH_PASSWORD_PEPPER --env preview
+npx.cmd wrangler secret put AUTH_ENCRYPTION_KEY --env preview
 npx.cmd wrangler secret put S3_ACCESS_KEY_ID --env preview
 npx.cmd wrangler secret put S3_SECRET_ACCESS_KEY --env preview
 ```
 
-Keep `DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` as Cloudflare secrets, not committed files.
+Keep `DATABASE_URL`, `AUTH_PASSWORD_PEPPER`, `AUTH_ENCRYPTION_KEY`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` as Cloudflare secrets, not committed files.
 
-`/admin` uses minimal HTTP Basic Authentication. If `ADMIN_USERNAME` or `ADMIN_PASSWORD` is missing, `/admin` returns a locked response instead of exposing the CMS.
+`/admin` uses a single database-backed admin account with password hashing, TOTP, recovery codes, and revocable sessions. Apply the auth migration and complete `npm.cmd run admin:setup` before testing. Missing auth secrets or setup data fail closed. See `docs/ADMIN_AUTH.md`.
 
 Set non-secret values in the Cloudflare dashboard or `wrangler.jsonc` after the exact preview URL and bucket are known:
 
@@ -125,4 +127,4 @@ $env:CLOUDFLARE_ACCOUNT_ID="paste-account-id-here-if-needed"
 npm.cmd run deploy:preview
 ```
 
-Production deploy is intentionally not included as a default workflow. Get explicit confirmation before running any production deploy command.
+Production deploy uses `npm.cmd run deploy:cloudflare` after the production checks and secrets are complete.

@@ -162,7 +162,7 @@ function Preview({ state }: { state: AiImportActionState }) {
   );
 }
 
-export function AiImportForm() {
+export function AiImportForm({ csrfToken }: { csrfToken: string }) {
   const [state, formAction, isPending] = useActionState(
     aiImportAction,
     initialAiImportState,
@@ -171,6 +171,7 @@ export function AiImportForm() {
 
   return (
     <form action={formAction} className="grid gap-5 xl:grid-cols-[1fr_420px]">
+      <input name="_csrf" type="hidden" value={csrfToken} />
       <div className="rounded-lg border border-[#d9ded7] bg-white p-5">
         <label className="text-sm font-semibold text-[#111827]" htmlFor="input">
           Import input

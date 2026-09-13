@@ -8,6 +8,7 @@ import {
   marketStatusLabels,
 } from "@/lib/market";
 import { prisma } from "@/lib/db";
+import { requireAdminMutation } from "@/lib/admin/session";
 
 const allowedStatuses = new Set<MarketStatus>(Object.values(MarketStatus));
 
@@ -71,6 +72,7 @@ function buildMarketInput(formData: FormData) {
 }
 
 export async function createMarketAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const input = buildMarketInput(formData);
 
   if (input.errors.length > 0) {
@@ -89,6 +91,7 @@ export async function createMarketAction(formData: FormData) {
 }
 
 export async function updateMarketAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const id = field(formData, "id");
   const editPath = `/admin/markets/${id}/edit`;
 
@@ -100,6 +103,16 @@ export async function updateMarketAction(formData: FormData) {
 
   if (input.errors.length > 0) {
     redirectWithError(editPath, input.errors);
+  }
+
+  const existing = await prisma.market.findUnique({
+    where: { id },
+    select: { code: true, _count: { select: { contentItems: true } } },
+  });
+  if (existing && existing.code !== input.data.code && existing._count.contentItems > 0) {
+    redirectWithError(editPath, [
+      "Market code cannot change while the market owns content URLs.",
+    ]);
   }
 
   try {

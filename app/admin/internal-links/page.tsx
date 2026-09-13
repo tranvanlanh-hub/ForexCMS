@@ -10,6 +10,7 @@ import {
   updateInternalLinkSuggestionStatusAction,
 } from "@/app/admin/internal-links/actions";
 import { DemoModeBanner } from "@/components/admin/demo-mode-banner";
+import { CsrfField } from "@/components/admin/csrf-field";
 import { contentTypeLabels } from "@/lib/content";
 import { prisma } from "@/lib/db";
 import { getDemoPilotDrafts } from "@/lib/demo/content-scale";
@@ -209,6 +210,7 @@ export default async function AdminInternalLinksPage({
             action={generateInternalLinkSuggestionsAction}
             className="flex w-full flex-col gap-2 sm:flex-row lg:max-w-xl"
           >
+            <CsrfField />
             <select
               className="h-10 min-w-0 flex-1 rounded-md border border-[#cbd5ce] bg-white px-3 text-sm outline-none transition focus:border-[#0f766e]"
               name="contentItemId"
@@ -342,6 +344,7 @@ export default async function AdminInternalLinksPage({
                     <td className="px-4 py-4">
                       <div className="flex flex-wrap gap-2">
                         <form action={updateInternalLinkSuggestionStatusAction}>
+                          <CsrfField />
                           <input
                             name="suggestionId"
                             type="hidden"
@@ -360,6 +363,7 @@ export default async function AdminInternalLinksPage({
                           </button>
                         </form>
                         <form action={updateInternalLinkSuggestionStatusAction}>
+                          <CsrfField />
                           <input
                             name="suggestionId"
                             type="hidden"
@@ -395,6 +399,7 @@ export default async function AdminInternalLinksPage({
           action={createInternalLinkRuleAction}
           className="mt-4 grid gap-3 lg:grid-cols-4"
         >
+          <CsrfField />
           <input
             className="h-10 rounded-md border border-[#cbd5ce] px-3 text-sm outline-none focus:border-[#0f766e]"
             name="name"

@@ -1,5 +1,6 @@
 import { AiImportForm } from "@/app/admin/ai-import/ai-import-form";
 import { prisma } from "@/lib/db";
+import { getCsrfToken } from "@/lib/admin/session";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,7 @@ async function getReadiness() {
 }
 
 export default async function AdminAiImportPage() {
+  const csrfToken = await getCsrfToken();
   let isDatabaseReady = true;
   let readiness: Awaited<ReturnType<typeof getReadiness>> | null = null;
 
@@ -62,7 +64,7 @@ export default async function AdminAiImportPage() {
           </p>
         </div>
       ) : (
-        <AiImportForm />
+        <AiImportForm csrfToken={csrfToken} />
       )}
     </div>
   );

@@ -127,7 +127,7 @@ export default async function ContentScaleDemoPage({
       <header className="border-b border-[var(--border)] bg-[var(--panel)]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5 lg:px-8">
           <Link className="text-sm font-semibold text-[#123c3a]" href="/">
-            Forex Affiliate CMS
+            MarketGB
           </Link>
           <nav className="flex items-center gap-4 text-sm font-medium text-[#5f6268]">
             <Link className="hover:text-[#123c3a]" href="/demo/content-scale/">

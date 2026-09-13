@@ -25,6 +25,10 @@ Every draft must include:
 - `affiliateTokens`: broker/campaign tokens when CTA is needed.
 - `brokerMentions`: broker slugs mentioned or reviewed.
 - `translationGroupKey`: optional group key for hreflang siblings.
+- `primaryCategorySlug`: optional existing category slug in the draft market.
+- `categorySlugs`: optional existing related category slugs.
+- `primaryTopicSlug`: optional existing topic slug in the draft market.
+- `topicSlugs`: optional existing related topic slugs. Import never creates taxonomy.
 
 ## Affiliate Token Shape
 

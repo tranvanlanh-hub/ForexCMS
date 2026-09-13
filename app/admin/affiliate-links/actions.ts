@@ -9,6 +9,7 @@ import {
 } from "@/lib/affiliate";
 import { revalidateAffiliateResolverCache } from "@/lib/cache/public";
 import { prisma } from "@/lib/db";
+import { requireAdminMutation } from "@/lib/admin/session";
 
 const allowedStatuses = new Set<AffiliateLinkStatus>(
   Object.values(AffiliateLinkStatus),
@@ -80,6 +81,7 @@ function buildAffiliateLinkInput(formData: FormData) {
 }
 
 export async function createAffiliateLinkAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const input = buildAffiliateLinkInput(formData);
 
   if (input.errors.length > 0) {
@@ -99,6 +101,7 @@ export async function createAffiliateLinkAction(formData: FormData) {
 }
 
 export async function updateAffiliateLinkAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const id = field(formData, "id");
   const editPath = `/admin/affiliate-links/${id}/edit`;
 

@@ -1,5 +1,100 @@
 # Codex Handoff
 
+## Taxonomy Manager — 2026-09-13
+
+- Change 026 adds `/admin/taxonomy` for three-level Category trees, Topics and
+  Topic Clusters. It supports create/edit/status, safe deletion when unused,
+  market filtering, usage counts and dependency-aware controls.
+- Content create/edit now stores primary and related category/topic relations in
+  the existing content transaction. New publish transitions require an active
+  primary category. Existing 16 published records are grandfathered so editorial
+  edits remain possible; the editor shows a taxonomy warning until backfilled.
+- AI Import accepts existing category/topic slugs in the draft market and never
+  auto-creates taxonomy. Internal-link cluster loading now requires ACTIVE status.
+- Audit before migration: 0 categories, 6 topics, 4 clusters, 17 content items;
+  16 published items lack primary category and none lack primary topic.
+- Migration `202609130300_taxonomy_manager` was applied to configured Neon.
+  Prisma validate/generate, lint, typecheck, Next build and safe Vinext build pass.
+  Transactional DB smoke created a three-level tree and content assignments, then
+  rolled back cleanly (0 smoke rows). Authenticated browser checks passed for all
+  three manager views and the taxonomy panel in the content editor.
+
+## URL Redirect Manager — 2026-09-13
+
+- Change 025 adds `ContentUrl`, claims every canonical path, and keeps published
+  historical paths as permanent redirects to the latest canonical URL. Redirects
+  do not expose draft/archived content or inactive markets.
+- `/admin/url-routing` lists URL ownership, supports search/filter/pagination,
+  same-market/type manual aliases, and enable/disable controls with auth/CSRF.
+  The content editor shows redirect history and explains automatic redirects.
+- Migration `202609130200_url_redirect_manager` was applied to the configured Neon
+  database and backfilled 17 current paths (16 marked published).
+- Prisma validation/generation, lint, typecheck, Next build and safe Vinext build
+  pass. Local HTTP smoke passed: old alias 308 with the exact canonical Location,
+  canonical 200, disabled/draft aliases 404, and unauthenticated admin 307. All
+  temporary smoke records were removed; the registry remains at 17 rows.
+
+## MarketGB official identity — 2026-09-13
+
+- The owner approved MarketGB as the official brand and `MarketGB.com` as the
+  primary domain. English is the canonical brand and public-product language.
+- Official tagline: `Insights for a brighter tomorrow.` Brand values: clarity,
+  independence, progress, and responsibility.
+- Canonical guidelines live in `docs/BRAND_GUIDELINES.md`; approved web assets
+  live in `public/brand/marketgb/`. Earlier rejected design explorations were
+  removed.
+- Public header/footer, homepage messaging, root metadata, Open Graph/Twitter
+  image, favicon, SEO site name, admin shell, login screens, seed editorial names,
+  and package identity were updated to MarketGB.
+- The approved logo source is raster PNG. Obtain the designer's SVG/AI/EPS master
+  before professional print production or trademark filing.
+
+## Single-admin password + TOTP login — 2026-09-13
+
+- Current source replaces browser Basic Auth with one database-backed admin
+  account, PBKDF2 password hashing, AES-GCM encrypted TOTP, one-time recovery
+  codes, revocable 30-minute-idle/8-hour-absolute sessions, throttling, security
+  events, same-origin checks, and session-bound CSRF tokens on every admin mutation.
+- Added `/admin/login` and `/admin/login/verify`; unauthenticated `/admin/**`
+  redirects to login. Proxy strips spoofable auth headers, while the layout and
+  actions perform secure database checks. Admin responses include CSP/frame and
+  Cloudflare CDN no-store protections.
+- Operator workflow is in `docs/ADMIN_AUTH.md`: generate independent secrets,
+  apply migration `202609130100_admin_authentication`, then run interactive
+  `npm run admin:setup` to scan a QR and save offline recovery codes.
+- Added a safe Vinext build wrapper after detecting that raw Vinext automatically
+  loaded `.env.local`. The wrapper hides it during build, restores it on failure,
+  and scans `dist` for known local secret values. Rebuilt output contains none of
+  the checked local database/admin secrets.
+- Prisma validate/generate, lint, typecheck, Next build, Vinext build, npm audit,
+  script syntax, diff whitespace, login page HTTP 200, unauthenticated admin 307,
+  CSP/frame denial, and CDN no-store checks pass. Existing Prisma broad-pattern
+  warning remains. Browser Cache-Control in Next dev is `no-cache,
+  must-revalidate`; CDN headers explicitly use `no-store`.
+- No migration was applied, no admin account/secret was created, and nothing was
+  deployed. Existing uncommitted Template Manager/Content Manager work was preserved.
+
+## Product completeness audit + Template Manager — 2026-09-13
+
+- Owner làm rõ rằng cần rà phần sản phẩm chưa hoàn thiện và phát triển tiếp,
+  không chỉ xử lý launch checklist. Đã gỡ toàn bộ change noindex làm lệch ý trước
+  đó; không deploy hoặc thay dữ liệu.
+- Inventory hiện hành nằm ở đầu `docs/ROADMAP.md`. Các khoảng trống lớn còn lại:
+  taxonomy/content assignment, revision UI/restore, URL redirects, dashboard
+  thật, bulk AI import, media manager, template-specific public pages, settings
+  và multi-user roles.
+- Hoàn tất `openspec/changes/023-template-manager/`: `/admin/templates` có danh
+  sách database-backed, số content đang dùng, create/edit, active state, kind,
+  allowed/required blocks, schema, CTA và internal-link slots.
+- Validation chặn block/schema/CTA không hỗ trợ, required block nằm ngoài
+  allowed blocks, CTA slot thiếu CTA block, và đổi kind của template đang được
+  content sử dụng. Content save cũng chặn template kind không khớp content type;
+  edit content vẫn giữ được template hiện tại nếu template đã inactive.
+- Route list/new/edit có auth trả 200 với dữ liệu Neon; thiếu auth trả 401. Không
+  ghi hoặc thay template khi kiểm tra. Lint, typecheck, Next build và Vinext
+  build đều đạt; warning Prisma WASM broad-pattern cũ còn.
+- Localhost tiếp tục chạy tại `http://localhost:3000`. Không commit/push/deploy.
+
 ## Cloudflare preview UI deploy — 2026-09-10
 
 - Commit `9dead2d` deploy lên `content-hub-cms-preview` thành công, version
@@ -954,3 +1049,18 @@ Con bi chan:
 - `npm.cmd run seo:audit` fail vi khong reach duoc PostgreSQL tai `localhost:5432`.
 - `npm.cmd run pilot:check` fail vi khong reach duoc PostgreSQL tai `localhost:5432`.
 - Chua restore drill PostgreSQL/media tren VPS hoac staging.
+## Cap nhat 2026-09-13 - Media Manager va S3/R2 upload
+
+Da trien khai change `027-media-manager-s3-upload`:
+
+- Them `MediaAsset`, `MediaVariant`, featured/social image cho content va media logo cho broker.
+- Migration `202609130400_media_manager` da apply thanh cong len PostgreSQL.
+- `/admin/media` co upload progress, search, month/status filter, metadata edit, usage guard va soft-delete state machine.
+- Upload truc tiep bang presigned PUT; server finalize bang HEAD, magic bytes, dimensions, copy sang `uploads/yyyymm/assetId` va verify destination.
+- Content editor va broker editor chi chon asset READY; public article render featured image va them OG/Twitter image metadata.
+- Da pass Prisma generate, typecheck, lint (0 error), Next production build, safe Vinext build, database relation/rollback smoke va browser UI smoke.
+
+Con lai theo moi truong:
+
+- `.env.local` chua co S3/R2 endpoint, bucket, credentials va public base URL, nen chua the smoke upload/read/delete object that.
+- Can cau hinh bucket CORS cho origin admin va lifecycle cleanup prefix `pending/` truoc preview rollout.

@@ -33,6 +33,22 @@ export const adminNavItems: AdminNavItem[] = [
     plannedEntities: ["Template"],
   },
   {
+    title: "Taxonomy",
+    href: "/admin/taxonomy",
+    slug: "taxonomy",
+    summary: "Manage category trees, topics, and SEO topic clusters.",
+    scope: "Three-level categories, editorial topics, clusters, and content assignment.",
+    plannedEntities: ["Category", "Topic", "TopicCluster"],
+  },
+  {
+    title: "Media",
+    href: "/admin/media",
+    slug: "media",
+    summary: "Upload and reuse images stored in S3-compatible object storage.",
+    scope: "Monthly object paths, image metadata, usage tracking, and safe deletion.",
+    plannedEntities: ["MediaAsset", "MediaVariant"],
+  },
+  {
     title: "Brokers",
     href: "/admin/brokers",
     slug: "brokers",

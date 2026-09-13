@@ -1,4 +1,17 @@
-# Forex Affiliate CMS - Project Brief
+# MarketGB - Project Brief
+
+## Official brand
+
+- Brand name: `MarketGB`
+- Primary domain: `MarketGB.com`
+- Primary language: English
+- Tagline: `Insights for a brighter tomorrow.`
+- Brand guidelines: [`docs/BRAND_GUIDELINES.md`](BRAND_GUIDELINES.md)
+- Approved digital assets: `public/brand/marketgb/`
+
+MarketGB is the official public identity for this project. Legacy working names
+such as Forex Journal, ForexCMS, and Forex Affiliate CMS must not appear in
+public-facing product copy, metadata, or new branded assets.
 
 ## Mục tiêu
 

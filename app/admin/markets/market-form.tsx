@@ -1,5 +1,6 @@
 import { MarketStatus, type Market } from "@prisma/client";
 import Link from "next/link";
+import { CsrfField } from "@/components/admin/csrf-field";
 import {
   marketStatusLabels,
   supportedMarkets,
@@ -32,6 +33,7 @@ export function MarketForm({ action, error, item, saved }: MarketFormProps) {
 
   return (
     <form action={action} className="flex flex-col gap-6">
+      <CsrfField />
       {item ? <input name="id" type="hidden" value={item.id} /> : null}
 
       <section className="border-b border-[#d9ded7] pb-5">

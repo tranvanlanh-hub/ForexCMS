@@ -62,3 +62,19 @@ BrokerComparison now has a foundation route at `/{market}/compare/{broker-a}-vs-
 ## Implementation note 2026-09-10 - BrokerReview sourced claims
 
 Change `openspec/changes/019-seo-broker-affiliate-link-ai-safety/` keeps BrokerReview rendering citation-first. Broker facts, pros/cons, and rating-like values are rendered from sourced `BrokerFact` rows. Unsourced markdown pros/cons are not rendered for BrokerReview pages.
+
+## Implementation note 2026-09-13 - Template Manager
+
+Change `openspec/changes/023-template-manager/` replaces the admin template
+placeholder with database-backed list, create, and edit workflows.
+
+Operators can manage template name, key, kind, active state, allowed and
+required blocks, schema types, CTA positions, and internal-link slots. The
+server validates supported values, requires the body block, requires every
+required block to also be allowed, and prevents CTA positions without a CTA
+block. Template kind cannot change after content uses the template, and content
+saves now require the selected template kind to match the content type.
+
+The manager intentionally does not delete templates or add a visual page
+builder. Existing content relationships remain intact when a template is
+deactivated.

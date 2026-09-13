@@ -16,12 +16,10 @@ try{
  check('sitemap content',chunk.r.status===200 && locations.length===published.filter(i=>i.seoMetadata?.robotsIndex!=='NOINDEX').length && locations.every(u=>u.startsWith(origin+'/')),{status:chunk.r.status,urls:locations.length});
  const home=await get('/');check('homepage',home.r.status===200,{status:home.r.status});
  const robots=await get('/robots.txt');check('robots',robots.r.status===200&&robots.text.includes(origin+'/sitemap.xml')&&robots.text.includes('/admin/'),{status:robots.r.status,body:robots.text});
- for(const [label,auth] of [['missing',undefined],['invalid','Basic '+Buffer.from('invalid:invalid').toString('base64')]]){
-  const x=await get('/admin/content/',auth?{Authorization:auth}:{});
-  check('admin '+label,x.r.status===401&&!!x.r.headers.get('www-authenticate')&&x.r.headers.get('cache-control')?.includes('no-store'),{status:x.r.status});
- }
- const admin=await get('/admin/content/',{Authorization:'Basic '+Buffer.from(process.env.ADMIN_USERNAME+':'+process.env.ADMIN_PASSWORD).toString('base64')});
- check('admin authenticated',admin.r.status===200&&admin.text.includes('forex-trading-basics')&&!/demo mode|database is not configured/i.test(admin.text),{status:admin.r.status});
+ const admin=await get('/admin/content/');
+ check('admin redirects to sign-in',admin.r.status===307&&admin.r.headers.get('location')?.includes('/admin/login/')&&admin.r.headers.get('cache-control')?.includes('no-store'),{status:admin.r.status});
+ const login=await get('/admin/login/');
+ check('admin sign-in page',login.r.status===200&&login.text.includes('Welcome back')&&login.r.headers.get('cache-control')?.includes('no-store'),{status:login.r.status});
  const pages=new Map();
  for(const i of published){
   const x=await get(i.canonicalPath);pages.set(i.id,x.text);

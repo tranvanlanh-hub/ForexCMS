@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 async function getContentFormOptions() {
-  const [markets, templates, brokers] = await Promise.all([
+  const [markets, templates, brokers, categories, topics, mediaAssets] = await Promise.all([
     prisma.market.findMany({
       where: { status: "ACTIVE" },
       orderBy: [{ isGlobal: "desc" }, { code: "asc" }],
@@ -34,9 +34,12 @@ async function getContentFormOptions() {
       orderBy: { name: "asc" },
       select: { id: true, name: true, slug: true },
     }),
+    prisma.category.findMany({ where: { status: "ACTIVE" }, orderBy: { name: "asc" }, select: { id: true, marketId: true, name: true, parentId: true, status: true } }),
+    prisma.topic.findMany({ where: { status: "ACTIVE" }, orderBy: { name: "asc" }, select: { id: true, marketId: true, name: true, status: true, topicCluster: { select: { name: true } } } }),
+    prisma.mediaAsset.findMany({ where: { status: "READY" }, orderBy: { createdAt: "desc" }, select: { id: true, originalFilename: true } }),
   ]);
 
-  return { brokers, markets, templates };
+  return { brokers, categories, markets, mediaAssets, templates, topics };
 }
 
 export default async function NewContentPage({
@@ -86,9 +89,12 @@ export default async function NewContentPage({
     <ContentForm
       action={createContentAction}
       brokers={options.brokers}
+      categories={options.categories}
       error={error}
       markets={options.markets}
+      mediaAssets={options.mediaAssets}
       templates={options.templates}
+      topics={options.topics}
     />
   );
 }

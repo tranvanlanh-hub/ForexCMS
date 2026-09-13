@@ -1,6 +1,7 @@
 import { ContentStatus, ContentType, type Prisma } from "@prisma/client";
 import Link from "next/link";
 import { bulkUpdateContentStatusAction } from "@/app/admin/content/actions";
+import { CsrfField } from "@/components/admin/csrf-field";
 import { DemoModeBanner } from "@/components/admin/demo-mode-banner";
 import {
   contentStatusLabels,
@@ -370,6 +371,7 @@ export default async function AdminContentPage({
           </div>
         ) : (
           <form action={bulkUpdateContentStatusAction}>
+            <CsrfField />
             <input name="returnPath" type="hidden" value={returnPath} />
             <div className="flex flex-col gap-3 border-b border-[#d9ded7] bg-[#fbfcfb] px-4 py-3 md:flex-row md:items-center md:justify-between">
               <p className="text-sm font-medium text-[#5f6268]">

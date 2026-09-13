@@ -28,6 +28,8 @@ export async function getPublishedContentByRoute(args: {
         },
       },
       include: {
+        featuredMedia: true,
+        socialMedia: true,
         brokers: {
           include: {
             factItems: {

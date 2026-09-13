@@ -1,5 +1,59 @@
 # Roadmap Phát Triển
 
+## Secure owner login — 2026-09-13
+
+- Replaced source-level Basic Auth with a singleton admin password + TOTP flow.
+- Added hashed credentials, encrypted TOTP seed, offline recovery codes,
+  revocable server sessions, rate limits, CSRF protection, secure headers, logout,
+  operator setup, and deployment documentation.
+- Migration, real credentials, authenticated smoke test, and deployment remain
+  pending explicit environment selection/owner setup. See
+  `openspec/changes/024-single-admin-secure-login/` and `docs/ADMIN_AUTH.md`.
+
+## Inventory mức hoàn thiện sản phẩm — 2026-09-13
+
+Theo yêu cầu mới nhất của owner, trạng thái “đóng roadmap” bên dưới chỉ dừng
+chuỗi launch checklist cũ; nó không có nghĩa toàn bộ CMS đã hoàn thiện. Inventory
+hiện tại theo mã nguồn và OpenSpec:
+
+### Đã có luồng sử dụng thật
+
+- Content Manager: create/edit, workflow draft/review/published/archived,
+  validation publish, search/filter/pagination và bulk status an toàn.
+- Market, Broker/BrokerFact và Affiliate Link Manager có CRUD cơ bản.
+- Public content routing, comparison, SEO metadata/schema/sitemap, affiliate
+  resolver/click tracking, internal links và analytics/SEO audit đã hoạt động.
+- AI Import hỗ trợ preview và import từng draft; batch validator hiện là dry-run.
+- [x] Template Manager: change 023 đã thay placeholder bằng list/create/edit,
+  validation block/schema/CTA/internal-link slot và kiểm tra template kind.
+
+### Chưa hoàn thiện — ưu tiên tiếp theo
+
+- [x] Taxonomy Manager cho Category, Topic và Topic Cluster; Category giới hạn
+  cây cha–con tối đa 3 cấp, content editor và AI Import đã gắn primary/related
+  taxonomy với validation cùng market (change 026).
+- [ ] Revision history UI và restore; hệ thống đang ghi ContentRevision nhưng
+  admin chưa xem hoặc khôi phục được.
+- [x] URL/Redirect Manager: tự lưu URL cũ khi đổi route bài đã publish, redirect
+  vĩnh viễn tới canonical hiện tại, quản lý alias và trạng thái tại
+  `/admin/url-routing` (change 025).
+- [ ] Dashboard vận hành thật; `/admin` vẫn hiển thị số liệu tĩnh từ giai đoạn
+  foundation.
+- [ ] Bulk AI import vào database; hiện chỉ import một draft/lần và batch 50 chỉ
+  validate file, chưa có queue/job thực thi.
+- [x] Media Manager/upload trực tiếp qua S3-compatible adapter, đường dẫn `uploads/yyyymm/assetId`, metadata, usage guard và bộ chọn ảnh cho content/broker. Smoke R2 thật chờ cấu hình bucket/domain.
+  boundary và trường URL, chưa có thư viện ảnh hoặc upload workflow. Kế hoạch tại
+  change 027 dùng prefix `uploads/{yyyymm}/{assetId}/` để chia nhỏ object theo tháng.
+- [ ] Template-specific public experience còn thiếu cho CountryHub, TopicHub,
+  GlossaryTerm, LandingPage và CMS-authored BrokerComparison.
+- [ ] Settings còn placeholder; quản lý nhiều user/role không thuộc phạm vi hiện
+  tại vì CMS dùng một owner account đã được bảo vệ bằng password + TOTP.
+- [ ] Nền vận hành dài hạn: background jobs, broken-link scan định kỳ, restore
+  drill và monitoring/alerting.
+
+Thứ tự đề xuất sau Template Manager: Taxonomy + gắn vào Content → Revision
+history/restore → URL redirects → Dashboard thật → bulk import → media.
+
 ## FINAL LAUNCH READINESS CHECK — roadmap đã dừng, 2026-09-10
 
 Theo yêu cầu owner, **đóng roadmap nhiều phiên ở đây**. Không tiếp tục phiên 41/42/43, không tạo kế hoạch 20–30 phiên. Mọi giai đoạn/checkpoint và “việc tiếp theo” bên dưới chỉ là lịch sử, không phải backlog được phép tự triển khai.

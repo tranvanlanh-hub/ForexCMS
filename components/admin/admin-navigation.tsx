@@ -4,10 +4,10 @@ import { usePathname } from "next/navigation";
 import { adminNavItems } from "@/lib/admin/navigation";
 const groups = [
     { title: "WORKSPACE", slugs: ["dashboard", "content", "ai-import", "content-scale"] },
-    { title: "MANAGE", slugs: ["brokers", "affiliate-links", "markets", "templates"] },
+    { title: "MANAGE", slugs: ["brokers", "affiliate-links", "markets", "templates", "taxonomy", "media"] },
     { title: "INSIGHTS & SETTINGS", slugs: ["analytics", "seo", "internal-links", "url-routing", "settings"] },
 ];
-const icons: Record<string, string> = { dashboard: "▦", content: "▤", "ai-import": "↓", "content-scale": "▥", brokers: "◈", "affiliate-links": "↗", markets: "◎", templates: "▧", analytics: "▥", seo: "⌕", "internal-links": "⇄", "url-routing": "⌁", settings: "⚙" };
+const icons: Record<string, string> = { dashboard: "▦", content: "▤", "ai-import": "↓", "content-scale": "▥", brokers: "◈", "affiliate-links": "↗", markets: "◎", templates: "▧", taxonomy: "⌘", media: "▣", analytics: "▥", seo: "⌕", "internal-links": "⇄", "url-routing": "⌁", settings: "⚙" };
 export function AdminNavigation() {
     const pathname = usePathname().replace(/\/$/, "");
     return <nav aria-label="Admin navigation" className="admin-nav">{groups.map(group => <div className="nav-group" key={group.title}><p>{group.title}</p>{group.slugs.map(slug => { const item = adminNavItems.find(item => item.slug === slug); if (!item)

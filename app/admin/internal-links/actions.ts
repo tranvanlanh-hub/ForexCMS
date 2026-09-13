@@ -10,6 +10,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { generateInternalLinkSuggestionsForContent } from "@/lib/internal-links";
+import { requireAdminMutation } from "@/lib/admin/session";
 
 function field(formData: FormData, name: string) {
   return String(formData.get(name) ?? "").trim();
@@ -31,6 +32,7 @@ function numberField(formData: FormData, name: string, fallback: number) {
 }
 
 export async function createInternalLinkRuleAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const name = field(formData, "name");
   const marketId = field(formData, "marketId");
   const languageCode = field(formData, "languageCode").toLowerCase();
@@ -139,6 +141,7 @@ export async function createInternalLinkRuleAction(formData: FormData) {
 }
 
 export async function generateInternalLinkSuggestionsAction(formData: FormData) {
+  await requireAdminMutation(formData);
   const contentItemId = field(formData, "contentItemId");
 
   if (!contentItemId) {
@@ -165,6 +168,7 @@ export async function generateInternalLinkSuggestionsAction(formData: FormData) 
 export async function updateInternalLinkSuggestionStatusAction(
   formData: FormData,
 ) {
+  await requireAdminMutation(formData);
   const suggestionId = field(formData, "suggestionId");
   const status = field(formData, "status") as InternalLinkSuggestionStatus;
 
