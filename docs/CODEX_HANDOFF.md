@@ -1,6 +1,6 @@
 # Codex Handoff
 
-## Production handoff — marketgb.com — 2026-09-13
+## Production handoff — marketgb.com — 2026-09-14
 
 **Đây là trạng thái hiện hành. Mục này thay thế các ghi chú cũ nói rằng production
 chưa được deploy hoặc admin còn dùng Basic Auth.**
@@ -10,8 +10,10 @@ chưa được deploy hoặc admin còn dùng Basic Auth.**
 - Nhánh đang phát hành là `main`. Các commit production gần nhất:
   `4e2d7416` (CMS workflows + launch), `79c5c987` (Cloudflare deploy),
   `820a424` (password verification trên Workers), `33c5c1c` và `456f986`
-  (ổn định Prisma/Neon theo request). Version Worker đã kiểm tra cuối cùng là
-  `c74b999c-e918-4827-8fd6-a18bca2b90a8`, nhận 100% traffic.
+  (ổn định Prisma/Neon theo request), `2369c3c0` (tự tạo slug + inline media
+  picker) và `df8685e6` (tài liệu UX). Version Worker đã kiểm tra cuối cùng là
+  `ec6d90eb-75cf-46ef-b5b5-ef729ea96b18`, nhận 100% traffic và được build từ
+  `main` tại `df8685e6`.
 - Admin production dùng tài khoản database-backed với password + TOTP. Owner đã
   cập nhật `ADMIN_USERNAME` và `ADMIN_PASSWORD` trong `.env.local`, sau đó account
   tương ứng đã được đồng bộ vào Neon. Không ghi giá trị credential vào tài liệu
@@ -40,6 +42,9 @@ chưa được deploy hoặc admin còn dùng Basic Auth.**
   `uploads/yyyymm/...` để chia thư mục theo tháng.
 - Upload media thật chưa sẵn sàng cho tới khi cấu hình R2/S3 endpoint, bucket,
   access key, secret key, public base URL và CORS/lifecycle cho `pending/`.
+  Cloudflare Worker hiện chỉ có `DATABASE_URL`, `AUTH_PASSWORD_PEPPER` và
+  `AUTH_ENCRYPTION_KEY`; chưa có các secret R2/S3. Trình soạn thảo mới đã có
+  inline file picker nhưng chủ động khóa upload khi storage chưa sẵn sàng.
   Trình duyệt kiểm tra từng chặn URL `/admin/media/` bằng
   `net::ERR_BLOCKED_BY_CLIENT`; đây là phía client/extension, không phải bằng
   chứng route server bị thiếu.
