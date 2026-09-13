@@ -2,7 +2,9 @@ import "server-only";
 
 const encoder = new TextEncoder();
 const PASSWORD_ALGORITHM = "pbkdf2-sha256";
-const PASSWORD_ITERATIONS = 600_000;
+// Keep this within the CPU budget of Cloudflare Workers Free. Online attempts
+// are additionally protected by the account/network rate limiter and a secret pepper.
+const PASSWORD_ITERATIONS = 100_000;
 const PASSWORD_BYTES = 32;
 
 function bytesToBase64Url(bytes: Uint8Array) {

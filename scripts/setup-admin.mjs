@@ -79,8 +79,8 @@ function recoveryHash(code, pepper) {
 
 async function passwordHash(password, pepper) {
   const salt = randomBytes(16);
-  const hash = await pbkdf2(`${password}\0${pepper}`, salt, 600_000, 32, "sha256");
-  return `$pbkdf2-sha256$600000$${base64url(salt)}$${base64url(hash)}`;
+  const hash = await pbkdf2(`${password}\0${pepper}`, salt, 100_000, 32, "sha256");
+  return `$pbkdf2-sha256$100000$${base64url(salt)}$${base64url(hash)}`;
 }
 
 function recoveryCodes() {
