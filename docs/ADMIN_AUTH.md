@@ -5,7 +5,7 @@ email reset flow, or user-management screen.
 
 ## Security design
 
-- Passwords use PBKDF2-HMAC-SHA-256 with 600,000 iterations, a random per-password salt, and a server-side pepper.
+- Passwords use PBKDF2-HMAC-SHA-256 with 100,000 iterations, a random per-password salt, and a server-side pepper. This value is intentionally kept within the Cloudflare Workers CPU budget and must match in both runtime verification and the admin setup script.
 - The TOTP secret is encrypted with AES-256-GCM. Google Authenticator, Microsoft Authenticator, Authy, and 1Password are compatible.
 - The browser receives a random opaque session token in an HttpOnly, Secure, SameSite=Strict cookie. PostgreSQL stores only its SHA-256 hash.
 - Sessions expire after 30 minutes idle and after 8 hours absolutely. Logout revokes the database session.

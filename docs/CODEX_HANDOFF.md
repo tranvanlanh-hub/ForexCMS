@@ -1,5 +1,68 @@
 # Codex Handoff
 
+## Production handoff — marketgb.com — 2026-09-13
+
+**Đây là trạng thái hiện hành. Mục này thay thế các ghi chú cũ nói rằng production
+chưa được deploy hoặc admin còn dùng Basic Auth.**
+
+- Domain chính thức `https://marketgb.com` đang phục vụ từ Cloudflare Worker
+  `content-hub-cms`; `APP_ENV=production` và `APP_URL=https://marketgb.com`.
+- Nhánh đang phát hành là `main`. Các commit production gần nhất:
+  `4e2d7416` (CMS workflows + launch), `79c5c987` (Cloudflare deploy),
+  `820a424` (password verification trên Workers), `33c5c1c` và `456f986`
+  (ổn định Prisma/Neon theo request). Version Worker đã kiểm tra cuối cùng là
+  `c74b999c-e918-4827-8fd6-a18bca2b90a8`, nhận 100% traffic.
+- Admin production dùng tài khoản database-backed với password + TOTP. Owner đã
+  cập nhật `ADMIN_USERNAME` và `ADMIN_PASSWORD` trong `.env.local`, sau đó account
+  tương ứng đã được đồng bộ vào Neon. Không ghi giá trị credential vào tài liệu
+  hoặc Git. `DATABASE_URL`, `AUTH_PASSWORD_PEPPER` và `AUTH_ENCRYPTION_KEY` đang
+  được lưu dưới dạng Cloudflare secrets.
+- PBKDF2 hiện dùng 100.000 vòng để phù hợp CPU của Cloudflare Workers Free. Cả
+  runtime (`lib/admin/crypto.ts`) và setup (`scripts/setup-admin.mjs`) phải giữ
+  cùng giá trị. Thay đổi password bằng `npm run admin:setup` hoặc quy trình đồng
+  bộ account, không chỉ sửa env rồi kỳ vọng account database tự đổi.
+- Lỗi đăng nhập production trước đây do PBKDF2 600.000 vòng vượt ngân sách CPU
+  của Worker. Bản 100.000 vòng đã được kiểm tra: bước password tạo challenge
+  cookie thành công, sau đó đăng nhập/TOTP vào được admin.
+- Lỗi `/admin/content/` với thông báo `This admin view failed` trước đây do mỗi
+  Prisma operation tạo một Neon client riêng; thử dùng một global client lại gây
+  lỗi I/O chéo request của Cloudflare. Cách hiện hành dùng React `cache()` để giữ
+  Prisma client theo request trên preview/production và chỉ dùng global client ở
+  local. Không đổi lại thành global Prisma client trên Workers.
+- Đã kiểm tra trực tiếp trong phiên admin production: Content tải đủ 17 records
+  (1 draft, 16 published); Taxonomy, Brokers và URL Routing đều mở được qua nhiều
+  lượt điều hướng. Cloudflare tail sau bản request-scoped không còn lỗi I/O chéo
+  request trong lượt smoke này. Typecheck đạt; lint không có error và còn hai
+  warning `<img>` đã biết.
+- URL Redirect Manager, Taxonomy Manager (Category cha-con tối đa 3 cấp, Topic,
+  Topic Cluster và gắn taxonomy vào content) cùng migration tương ứng đã có trên
+  Neon production. Media Manager/schema cũng đã triển khai, dùng key
+  `uploads/yyyymm/...` để chia thư mục theo tháng.
+- Upload media thật chưa sẵn sàng cho tới khi cấu hình R2/S3 endpoint, bucket,
+  access key, secret key, public base URL và CORS/lifecycle cho `pending/`.
+  Trình duyệt kiểm tra từng chặn URL `/admin/media/` bằng
+  `net::ERR_BLOCKED_BY_CLIENT`; đây là phía client/extension, không phải bằng
+  chứng route server bị thiếu.
+- Script `npm run deploy:cloudflare` build bundle an toàn, tạm loại route khỏi
+  config phát hành vì API token hiện không có quyền `Zone: Workers Routes Edit`.
+  Custom domain đã gắn sẵn vẫn được giữ. Script upload có thể in
+  `No targets deployed`; khi đó lấy `Current Version ID` rồi chạy
+  `wrangler versions deploy <version>@100%` để chuyển traffic.
+- `.env.local` và `.env.cloudflare` là file private/ignored. Không commit, không
+  in token/credential vào log hoặc handoff. Token Cloudflare hiện đủ deploy
+  Worker/secrets nhưng thiếu quyền quản lý route và chưa đủ quyền/cấu hình R2.
+
+### Việc cần kiểm tra trước go-live nội dung thật
+
+- Thay dữ liệu broker/affiliate/demo còn placeholder bằng dữ liệu đã duyệt;
+  không coi 16 bài pilot là nội dung tài chính đã sẵn sàng xuất bản.
+- Cấu hình và smoke upload/read/delete R2 nếu launch phụ thuộc Media Manager.
+- Xác nhận backup/restore Neon, canonical/sitemap/robots trên domain thật, và cân
+  nhắc thêm `www.marketgb.com` nếu muốn hỗ trợ hostname này (hiện chưa cấu hình).
+- Sau mỗi deploy, kiểm tra login, `/admin/content/`, một trang query nặng, public
+  article, redirect 308, sitemap và Cloudflare tail. Không tái sử dụng Prisma
+  client/global promise giữa các request Cloudflare.
+
 ## Taxonomy Manager — 2026-09-13
 
 - Change 026 adds `/admin/taxonomy` for three-level Category trees, Topics and

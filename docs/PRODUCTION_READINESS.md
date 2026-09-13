@@ -1,5 +1,9 @@
 # Production Readiness — Final Launch Check
 
+> Historical audit from 2026-09-10. Production was subsequently deployed to
+> `https://marketgb.com` on 2026-09-13. Use the current status at the top of
+> [CODEX_HANDOFF.md](CODEX_HANDOFF.md) before acting on this older checklist.
+
 Ngày kiểm tra: 2026-09-10. Commit đầu phiên: 09a320eb. Phạm vi: production nhỏ của dự án hiện tại; roadmap nhiều phiên đã dừng.
 
 **Chưa thể launch production nhỏ nguyên trạng.** Không thiếu tính năng lớn để tiếp tục phát triển; còn lỗi runtime đã tái hiện, dữ liệu demo và điều kiện vận hành production chưa hoàn tất.
