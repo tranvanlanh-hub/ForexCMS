@@ -1,5 +1,19 @@
 # Roadmap Phát Triển
 
+## Content editor UX — slug auto-fill + inline media upload — 2026-09-13
+
+- Slug field in `/admin/content/new` now auto-fills from the article title via
+  `normalizeSlug`; user edits lock it, with a "Reset to title" link to undo.
+  Edit mode starts with the slug locked so existing canonical URLs are kept.
+- "Featured image" and "Social sharing image" pickers in the Images panel now
+  have an inline file picker + "Upload new image" button that calls the
+  existing `/admin/media/upload-intent/` + `/admin/media/finalize/` endpoints,
+  appends the new asset to the dropdown, and selects it (WordPress-style).
+- New client components: `components/admin/title-slug-fields.tsx` and
+  `components/admin/inline-media-picker.tsx`. No new server routes, no schema
+  change, no new dependency. `content-form.tsx` accepts `csrfToken`,
+  `storageReady`, `maxBytes` from the page.
+
 ## Secure owner login — 2026-09-13
 
 - Replaced source-level Basic Auth with a singleton admin password + TOTP flow.

@@ -494,6 +494,8 @@ Da hoan tat:
 - Tao form tao moi tai `/admin/content/new`.
 - Tao form sua tai `/admin/content/[id]/edit`.
 - Form gom: title, slug, market/language, content type, template, status draft/published/archived, body markdown, SEO title, meta description.
+- Slug tu dong sinh tu title qua `normalizeSlug`; nguoi dung tu khoa khi sua, co nut "Reset to title".
+- Featured image va Social sharing image picker co nut upload noi tuyen (goi intent + finalize), khong can mo Media Manager.
 - Tao server actions cho create/update, ghi `ContentItem`, `SeoMetadata`, va `ContentRevision`.
 - Publish validation chan published neu thieu title, slug, market, content type, template, body, SEO title, hoac meta description.
 - Canonical path duoc sinh tu helper theo `/{market}/{content-type}/{slug}/`, khong tao public URL root dang `/{slug}`.
