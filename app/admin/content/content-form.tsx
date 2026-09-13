@@ -1,10 +1,11 @@
+"use client";
+
+import { useActionState, useEffect, useRef } from "react";
 import { ContentStatus, ContentType, type Market, type Prisma, type SeoMetadata, type Template, type Broker, } from "@prisma/client";
 import Link from "next/link";
 import { SaveContentButton } from "@/components/admin/save-content-button";
-import { CsrfField } from "@/components/admin/csrf-field";
 import { TitleSlugFields } from "@/components/admin/title-slug-fields";
 import { InlineMediaPicker } from "@/components/admin/inline-media-picker";
-import { ContentFormShell } from "@/components/admin/content-form-shell";
 import type { ContentActionState } from "@/app/admin/content/actions";
 import { contentStatusLabels, contentTypeLabels, getMarkdownBody, } from "@/lib/content";
 type ContentFormItem = {
@@ -53,9 +54,35 @@ const editableStatuses = [
 ] as const;
 export function ContentForm({ action, error, item, brokers, markets, mediaAssets, saved, templates, categories, topics, csrfToken, storageReady, maxBytes }: ContentFormProps & { csrfToken: string; storageReady: boolean; maxBytes: number; }) {
     const isEditing = Boolean(item);
-    return <ContentFormShell action={action} error={error}><CsrfField />
+    const [actionState, formAction] = useActionState(action, { error: error ?? "" });
+    const formRef = useRef<HTMLFormElement>(null);
+    const submittedValuesRef = useRef<FormData | null>(null);
+
+    useEffect(() => {
+      const form = formRef.current;
+      const submitted = submittedValuesRef.current;
+      if (!form || !submitted || !actionState.error) return;
+
+      for (const control of Array.from(form.elements)) {
+        if (control instanceof HTMLInputElement) {
+          if (control.type === "file") continue;
+          const values = submitted.getAll(control.name).map(String);
+          if (control.type === "checkbox" || control.type === "radio") control.checked = values.includes(control.value);
+          else if (control.name) control.value = values[0] ?? "";
+        } else if (control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement) {
+          const values = submitted.getAll(control.name).map(String);
+          if (control instanceof HTMLSelectElement && control.multiple) {
+            for (const option of Array.from(control.options)) option.selected = values.includes(option.value);
+          } else if (control.name) control.value = values[0] ?? "";
+        }
+      }
+    }, [actionState]);
+
+    return <form action={formAction} className="content-editor" onSubmitCapture={(event) => { submittedValuesRef.current = new FormData(event.currentTarget); }} ref={formRef}>
+    <input name="_csrf" type="hidden" value={csrfToken}/>
     {item && <input name="id" type="hidden" value={item.id}/>}
     <header className="editor-heading"><div><Link className="editor-back" href="/admin/content">← All content</Link><h1>{isEditing ? "Edit article" : "Create an article"}</h1><p>Your workspace for writing, reviewing and publishing.</p></div><div className="editor-heading-actions">{item?.status === ContentStatus.PUBLISHED && <Link className="button button-outline" href={item.canonicalPath} target="_blank" rel="noopener noreferrer">View article ↗</Link>}<SaveContentButton editing={isEditing}/></div></header>
+    {actionState.error && <div role="alert" className="editor-alert error">{actionState.error}</div>}
     {saved && <div role="status" className="editor-alert success">✓ Content saved successfully.</div>}
     <div className="editor-grid"><div className="editor-main">
       <section className="editor-paper"><div className="paper-label"><span>ARTICLE CONTENT</span><span>Markdown</span></div><TitleSlugFields initialTitle={item?.title ?? ""} initialSlug={item?.slug ?? ""}/><div className="body-label" style={{ marginTop: 19 }}><label htmlFor="body">Body content</label><span>Use ## for headings · **bold** · - for lists</span></div><textarea className="body-editor" defaultValue={getMarkdownBody(item?.body)} id="body" name="body" placeholder="Start writing your article…" aria-describedby="body-help"/><p id="body-help" className="field-help">Write in Markdown. Affiliate links are managed through the attached brokers and campaigns.</p></section>
@@ -69,5 +96,5 @@ export function ContentForm({ action, error, item, brokers, markets, mediaAssets
       <section className="editor-panel"><div className="panel-heading"><h2>Images</h2><span className="panel-badge">Media</span></div><InlineMediaPicker name="featuredMediaId" label="Featured image" emptyLabel="No featured image" initialValue={item?.featuredMediaId ?? ""} mediaAssets={mediaAssets} csrfToken={csrfToken} storageReady={storageReady} maxBytes={maxBytes}/><InlineMediaPicker name="socialMediaId" label="Social sharing image" emptyLabel="Use featured image" initialValue={item?.socialMediaId ?? ""} mediaAssets={mediaAssets} csrfToken={csrfToken} storageReady={storageReady} maxBytes={maxBytes}/><p className="field-help">For larger libraries, open the <Link className="font-semibold text-[#0f766e]" href="/admin/media">Media Manager</Link> to edit alt text or replace files.</p></section>
       <section className="editor-panel"><div className="panel-heading"><h2>Attached brokers (optional)</h2></div><div className="broker-checkboxes">{brokers.map(broker => <label key={broker.id}><input type="checkbox" name="brokerIds" value={broker.id} defaultChecked={item?.brokers.some(selected => selected.id === broker.id) ?? false}/><span>{broker.name}<small>{broker.slug}</small></span></label>)}</div><p className="field-help">Used for broker facts and affiliate CTAs. Select the brokers relevant to this article.</p></section>
     </aside></div>
-  </ContentFormShell>;
+  </form>;
 }
