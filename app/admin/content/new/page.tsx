@@ -1,6 +1,8 @@
 import { ContentForm } from "@/app/admin/content/content-form";
 import { createContentAction } from "@/app/admin/content/actions";
 import { prisma } from "@/lib/db";
+import { getCsrfToken } from "@/lib/admin/session";
+import { isStorageConfigured, MAX_MEDIA_UPLOAD_BYTES } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -90,9 +92,12 @@ export default async function NewContentPage({
       action={createContentAction}
       brokers={options.brokers}
       categories={options.categories}
+      csrfToken={await getCsrfToken()}
       error={error}
       markets={options.markets}
+      maxBytes={MAX_MEDIA_UPLOAD_BYTES}
       mediaAssets={options.mediaAssets}
+      storageReady={isStorageConfigured()}
       templates={options.templates}
       topics={options.topics}
     />

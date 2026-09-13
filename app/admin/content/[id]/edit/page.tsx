@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { ContentForm } from "@/app/admin/content/content-form";
 import { updateContentAction } from "@/app/admin/content/actions";
 import { prisma } from "@/lib/db";
+import { getCsrfToken } from "@/lib/admin/session";
+import { isStorageConfigured, MAX_MEDIA_UPLOAD_BYTES } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -105,11 +107,14 @@ export default async function EditContentPage({
       action={updateContentAction}
       brokers={data.brokers}
       categories={data.categories}
+      csrfToken={await getCsrfToken()}
       error={error}
       item={data.item}
       markets={data.markets}
+      maxBytes={MAX_MEDIA_UPLOAD_BYTES}
       mediaAssets={data.mediaAssets}
       saved={saved === "1"}
+      storageReady={isStorageConfigured()}
       templates={data.templates}
       topics={data.topics}
     />
