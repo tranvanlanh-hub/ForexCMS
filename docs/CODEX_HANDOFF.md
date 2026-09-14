@@ -1,5 +1,21 @@
 # Codex Handoff
 
+## Quyết định chuyển production sang VPS — 2026-09-14
+
+- Owner đã chốt hướng gom Next.js, PostgreSQL, Adminer và media local vào một VPS
+  Vultr; Cloudflare tiếp tục làm DNS/CDN/proxy. Cấu hình dự kiến là Shared CPU tại
+  Singapore, 1 vCPU, 2 GB RAM, 55 GB SSD, Ubuntu 24.04 LTS x64 và khoảng 2 GB
+  swap.
+- PostgreSQL được giữ nguyên; Adminer là giao diện quản trị miễn phí và không phải
+  database. Không đổi sang MySQL/phpMyAdmin.
+- Media sẽ lưu ngoài thư mục release tại
+  `/var/www/marketgb/shared/uploads/yyyymm/`. Owner chấp nhận lưu app, database và
+  media trên cùng VPS và sẽ backup database thủ công về local định kỳ.
+- Phiên tiếp theo phải đọc và làm theo
+  [VPS_DEPLOYMENT_ARCHITECTURE.md](VPS_DEPLOYMENT_ARCHITECTURE.md). Chưa tạo VPS,
+  chưa sửa runtime sang Node native, chưa migrate dữ liệu và chưa cắt domain trong
+  phiên ghi tài liệu này.
+
 ## Production handoff — marketgb.com — 2026-09-14
 
 **Đây là trạng thái hiện hành. Mục này thay thế các ghi chú cũ nói rằng production
