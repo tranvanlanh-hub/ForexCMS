@@ -6,7 +6,7 @@ import { buildMediaKeys, createMediaUploadUrl, extensionForMime, isStorageConfig
 export async function POST(request: Request) {
   try {
     const auth = await requireAdminApiMutation(request);
-    if (!isStorageConfigured()) return NextResponse.json({ error: "Media storage is not configured." }, { status: 503 });
+    if (!(await isStorageConfigured())) return NextResponse.json({ error: "Media storage is not configured." }, { status: 503 });
     const body = await request.json() as { filename?: string; mimeType?: string; sizeBytes?: number };
     const filename = String(body.filename ?? "").replace(/[\\/\0]/g, "_").slice(0, 180);
     const mimeType = String(body.mimeType ?? "");

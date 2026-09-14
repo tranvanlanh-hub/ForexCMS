@@ -1,112 +1,157 @@
 # Codex Handoff
 
-## Quyết định chuyển production sang VPS — 2026-09-14
-
-- Owner đã chốt hướng gom Next.js, PostgreSQL, Adminer và media local vào một VPS
-  Vultr; Cloudflare tiếp tục làm DNS/CDN/proxy. Cấu hình dự kiến là Shared CPU tại
-  Singapore, 1 vCPU, 2 GB RAM, 55 GB SSD, Ubuntu 24.04 LTS x64 và khoảng 2 GB
-  swap.
-- PostgreSQL được giữ nguyên; Adminer là giao diện quản trị miễn phí và không phải
-  database. Không đổi sang MySQL/phpMyAdmin.
-- Media sẽ lưu ngoài thư mục release tại
-  `/var/www/marketgb/shared/uploads/yyyymm/`. Owner chấp nhận lưu app, database và
-  media trên cùng VPS và sẽ backup database thủ công về local định kỳ.
-- Phiên tiếp theo phải đọc và làm theo
-  [VPS_DEPLOYMENT_ARCHITECTURE.md](VPS_DEPLOYMENT_ARCHITECTURE.md). Chưa tạo VPS,
-  chưa sửa runtime sang Node native, chưa migrate dữ liệu và chưa cắt domain trong
-  phiên ghi tài liệu này.
-
-## Production handoff — marketgb.com — 2026-09-14
+## VPS production cutover — 2026-09-14
 
 **Đây là trạng thái hiện hành. Mục này thay thế các ghi chú cũ nói rằng production
-chưa được deploy hoặc admin còn dùng Basic Auth.**
+chưa được deploy, admin còn dùng Basic Auth, hay production còn chạy trên
+Cloudflare Worker.**
 
-- Domain chính thức `https://marketgb.com` đang phục vụ từ Cloudflare Worker
-  `content-hub-cms`; `APP_ENV=production` và `APP_URL=https://marketgb.com`.
-- Nhánh đang phát hành là `main`. Các commit production gần nhất:
-  `4e2d7416` (CMS workflows + launch), `79c5c987` (Cloudflare deploy),
-  `820a424` (password verification trên Workers), `33c5c1c` và `456f986`
-  (ổn định Prisma/Neon theo request), `2369c3c0` (tự tạo slug + inline media
-  picker), `7e9e5fb` (content tối thiểu + SEO tùy chọn), và `9fdae76`
-  (form tương thích Cloudflare). Version Worker hiện hành là
-  `a0cb7b6d-42da-4f91-9602-69f817f9a5c5`, nhận 100% traffic; cần xem commit mới
-  hơn `9fdae76` về cơ chế build sạch và form action ổn định.
-- Admin production dùng tài khoản database-backed với password + TOTP. Owner đã
-  cập nhật `ADMIN_USERNAME` và `ADMIN_PASSWORD` trong `.env.local`, sau đó account
-  tương ứng đã được đồng bộ vào Neon. Không ghi giá trị credential vào tài liệu
-  hoặc Git. `DATABASE_URL`, `AUTH_PASSWORD_PEPPER` và `AUTH_ENCRYPTION_KEY` đang
-  được lưu dưới dạng Cloudflare secrets.
-- PBKDF2 hiện dùng 100.000 vòng để phù hợp CPU của Cloudflare Workers Free. Cả
-  runtime (`lib/admin/crypto.ts`) và setup (`scripts/setup-admin.mjs`) phải giữ
-  cùng giá trị. Thay đổi password bằng `npm run admin:setup` hoặc quy trình đồng
-  bộ account, không chỉ sửa env rồi kỳ vọng account database tự đổi.
-- Lỗi đăng nhập production trước đây do PBKDF2 600.000 vòng vượt ngân sách CPU
-  của Worker. Bản 100.000 vòng đã được kiểm tra: bước password tạo challenge
-  cookie thành công, sau đó đăng nhập/TOTP vào được admin.
-- Lỗi `/admin/content/` với thông báo `This admin view failed` trước đây do mỗi
-  Prisma operation tạo một Neon client riêng; thử dùng một global client lại gây
-  lỗi I/O chéo request của Cloudflare. Cách hiện hành dùng React `cache()` để giữ
-  Prisma client theo request trên preview/production và chỉ dùng global client ở
-  local. Không đổi lại thành global Prisma client trên Workers.
-- Đã kiểm tra trực tiếp trong phiên admin production: Content tải đủ 17 records
-  (1 draft, 16 published); Taxonomy, Brokers và URL Routing đều mở được qua nhiều
-  lượt điều hướng. Cloudflare tail sau bản request-scoped không còn lỗi I/O chéo
-  request trong lượt smoke này. Typecheck đạt; lint không có error và còn hai
-  warning `<img>` đã biết.
+### Kiến trúc hiện tại
+
+- `https://marketgb.com` và `https://www.marketgb.com` được Cloudflare proxy tới
+  Vultr VPS tại Singapore (Ubuntu 24.04, 1 vCPU, 2 GB RAM, 55 GB SSD, 2 GB swap).
+  Caddy 2.8.4 terminate TLS bằng Cloudflare Origin CA cert và reverse_proxy sang
+  Next.js `node start` trên `127.0.0.1:3000`. Cloudflare SSL/TLS mode phải để
+  **Full (strict)** để verify Origin CA chain.
+- Runtime source đã được refactor từ Cloudflare Workers + Neon adapter + S3 về
+  Node native: Prisma Node client, schema `binaryTargets = ["native",
+  "debian-openssl-3.0.x"]`, media lưu local filesystem dưới
+  `/var/www/marketgb/shared/uploads/yyyymm/...`. Upload đi qua PUT tới
+  `/api/admin/media/upload` với HMAC-signed URL (`MEDIA_UPLOAD_SIGNING_SECRET`,
+  TTL mặc định 300s, max 8 MiB).
+- DB là PostgreSQL 16 local, không còn Neon. Schema, migrations, seed và admin
+  account được tái tạo qua `prisma migrate deploy` + `scripts/setup-admin-env.cjs`.
+  Auth secrets mới (PEPPER + ENCRYPTION_KEY) do owner tạo; account cũ của Neon
+  không tồn tại trên VPS DB.
+- Cloudflare Worker `content-hub-cms` (Workers Free, version cũ) vẫn còn, không
+  còn custom domain và không nhận traffic. Giữ nguyên ít nhất 1 tuần làm rollback
+  target.
+
+### File trên VPS (tham chiếu, không commit secret)
+
+| Path                                      | Vai trò                                                |
+|-------------------------------------------|--------------------------------------------------------|
+| `/etc/marketgb/app.env`                   | Env runtime (DB URL, PEPPER, ENCRYPTION_KEY, signing), `0640 root:marketgb` |
+| `/etc/caddy/Caddyfile`                    | `:80` reverse_proxy + `/uploads/*` file_server, `:443` TLS với Origin CA |
+| `/etc/caddy/ssl/origin.pem`               | Origin certificate (`0640 root:caddy`)                 |
+| `/etc/caddy/ssl/origin.key`               | Origin private key (`0640 root:caddy`)                 |
+| `/etc/systemd/system/marketgb-web.service`| Systemd unit (User=marketgb, `ProtectSystem=strict`)    |
+| `/var/www/marketgb/releases/<ts>/`        | Bản build; symlink `/var/www/marketgb/current` trỏ vào release mới nhất |
+| `/var/www/marketgb/shared/`               | Uploads + `resolve-prisma-hook.cjs` load qua `node --require` |
+| `/var/www/marketgb/shared/uploads/`       | Media theo tháng `yyyymm/assetId/...`                  |
+| `/var/www/marketgb/logs/`                 | Log Next.js, xem qua `journalctl -u marketgb-web`      |
+
+`scripts/marketgb-web.service`, `scripts/marketgb.caddy`,
+`scripts/resolve-prisma-hook.cjs`, `scripts/setup-admin-env.cjs` đã được lưu
+trong repo (không chứa secret).
+
+### Build + deploy flow
+
+1. Local `npm run build` (Turbopack). Bundle đã thử `output: "standalone"` nhưng
+   revert vì Turbopack externalize Prisma với id `@prisma/client-<hash>`, runtime
+   không resolve được — workaround là `scripts/resolve-prisma-hook.cjs` loaded
+   qua `node --require` trong unit systemd.
+2. Rsync artifact từ local lên `/var/www/marketgb/releases/<ts>/` (Node modules,
+   `.next/standalone`, `.next/static`, `public/`, `prisma/`). Không push `.env`
+   hay `.env.local`; secrets ở `/etc/marketgb/app.env`.
+3. `prisma migrate deploy` chạy trong release mới (nếu có migration mới).
+4. Symlink `/var/www/marketgb/current` → release mới; `systemctl restart
+   marketgb-web`.
+5. `systemctl reload caddy` (chỉ khi Caddyfile đổi).
+
+Rollback: `ln -sfn /var/www/marketgb/releases/<previous-ts> /var/www/marketgb/current
+&& systemctl restart marketgb-web`. Giữ ít nhất 2 release gần nhất.
+
+### Smoke test đã chạy sau cutover
+
+- `https://marketgb.com/` → `200` (qua Cloudflare → Caddy → Next)
+- `https://www.marketgb.com/` → `200`
+- `/admin/login/` → `200`
+- `/admin/` (no session) → `303` → `/admin/login/`
+- `/robots.txt` → `200`
+- `/sitemap.xml` → `200`
+- Direct VPS `http://45.77.32.116/` → `200`
+- Direct VPS `https://45.77.32.116/` → `200` (Origin CA)
+- DB-backed admin đăng nhập + TOTP thành công (account tạo qua
+  `setup-admin-env.cjs`, recovery codes lưu tại owner local).
+- `pg_dump` đầu tiên từ VPS về `backups/forex_cms-20260914.dump` (ignored).
+- Worker `content-hub-cms` vẫn nhận `*.workers.dev`; domain `marketgb.com` đã bỏ
+  custom domain binding trong dashboard → Cloudflare DNS A record là nguồn
+  truth, đã trỏ `45.77.32.116` proxied cho cả `marketgb.com` và `www`.
+
+### Việc cần làm tiếp (không liên quan code, không commit)
+
+- Trong Cloudflare dashboard: set **SSL/TLS → Full (strict)**, bật
+  **Always Use HTTPS**, bật **HTTP/2 to Origin**, bật HSTS sau khi confirm
+  strict ổn. API token hiện thiếu `Zone Settings:Edit` nên phải làm thủ công.
+- Owner cần thay demo data thật (broker facts, affiliate URLs, content) trước
+  khi tính traffic. Không tính 16 bài pilot là production content.
+- Lên lịch backup Postgres định kỳ (`scripts/backup-postgres.mjs` đã có sẵn
+  trong repo, hỗ trợ custom output).
+- Sau 1 tuần ổn định: xóa Cloudflare Worker `content-hub-cms` và route custom
+  domain cũ trong account.
+
+### Ghi chú kỹ thuật cần giữ khi build/deploy tiếp
+
+- Không quay lại `output: "standalone"` cho tới khi đã giải quyết xong Turbopack
+  Prisma hash. Hook hiện đang là cách chính xác nhất để giữ runtime resolve.
+- Không commit `/etc/marketgb/app.env`, `/etc/caddy/ssl/*`, hay
+  `/var/www/marketgb/shared/uploads/`.
+- Worker `content-hub-cms` không được tự redeploy/xóa trong tuần đầu; nó là
+  fallback nếu rollback toàn bộ sang Cloudflare.
+- Không đổi PBKDF2 vòng lặp (100.000) — cả runtime và setup phải khớp.
+
+## Production handoff — marketgb.com — 2026-09-14 (VPS)
+
+**Mục này tóm tắt thay đổi runtime + content + admin từ lúc còn chạy trên
+Worker cho tới khi cắt sang VPS.**
+- Nhánh phát hành là `main`. Commit production gần nhất: `337e85a` (docs VPS
+  architecture), `2702989` (production content publishing), `9fdae76` (form
+  Cloudflare — không còn dùng), `7e9e5fb` (content tối thiểu + SEO tùy chọn),
+  `4880c23` (production editor fix).
+- Admin production dùng account database-backed PBKDF2 SHA-256 (100.000 vòng) +
+  AES-GCM encrypted TOTP + 10 recovery codes. Account được tạo lại trên VPS qua
+  `scripts/setup-admin-env.cjs` (env `ADMIN_USERNAME`/`ADMIN_PASSWORD` do owner
+  cung cấp qua kênh riêng; secret không có trong repo/log).
+- Lỗi `/admin/content/` với `This admin view failed` trước đây do mỗi Prisma
+  operation tạo một Neon client riêng trên Worker. Runtime hiện tại (Node native)
+  chỉ có một `NodePrismaClient` được wrap bằng React `cache()` cho mỗi request,
+  Proxy pattern giữ call sites không đổi. Không còn giới hạn I/O chéo request vì
+  đã chuyển khỏi Workers.
 - Content create/update chỉ bắt buộc `title` và `body`. Slug tự sinh (có hỗ trợ
   bỏ dấu tiếng Việt và hậu tố khi trùng); market/content type/template lấy mặc
   định tương thích; SEO title lấy title và meta description lấy đoạn văn bản từ
   body khi để trống. Taxonomy, ảnh, author/reviewer, translation group và broker
-  đều tùy chọn, kể cả khi publish. Public metadata/Article JSON-LD cũng fallback
-  khi gặp record cũ có SEO rỗng.
-- Validation của Content Editor redirect về cùng form với thông báo lỗi rồi khôi
-  phục toàn bộ giá trị vừa submit từ `sessionStorage`, nên không xóa nội dung đã
-  nhập. Form không dùng `useActionState` vì Vinext/Cloudflare hiện gây lỗi render
-  503 với cơ chế đó. Redirect thành công nằm ngoài `try/catch`; trước đây
-  `NEXT_REDIRECT` bị bắt nhầm và hiển thị lỗi dù transaction đã lưu thành công.
-  Bài owner nhập trong lần lỗi đó (`cmu06g3we...`) vẫn tồn tại an toàn dưới dạng
-  Draft; không tự sửa hoặc xóa record này.
+  đều tùy chọn, kể cả khi publish.
 - URL Redirect Manager, Taxonomy Manager (Category cha-con tối đa 3 cấp, Topic,
-  Topic Cluster và gắn taxonomy vào content) cùng migration tương ứng đã có trên
-  Neon production. Media Manager/schema cũng đã triển khai, dùng key
-  `uploads/yyyymm/...` để chia thư mục theo tháng.
-- Upload media thật chưa sẵn sàng cho tới khi cấu hình R2/S3 endpoint, bucket,
-  access key, secret key, public base URL và CORS/lifecycle cho `pending/`.
-  Cloudflare Worker hiện chỉ có `DATABASE_URL`, `AUTH_PASSWORD_PEPPER` và
-  `AUTH_ENCRYPTION_KEY`; chưa có các secret R2/S3. Trình soạn thảo mới đã có
-  inline file picker nhưng chủ động khóa upload khi storage chưa sẵn sàng.
-  Trình duyệt kiểm tra từng chặn URL `/admin/media/` bằng
-  `net::ERR_BLOCKED_BY_CLIENT`; đây là phía client/extension, không phải bằng
-  chứng route server bị thiếu.
-- Script `npm run deploy:cloudflare` build bundle an toàn, tạm loại route khỏi
-  config phát hành vì API token hiện không có quyền `Zone: Workers Routes Edit`.
-  Custom domain đã gắn sẵn vẫn được giữ. Script upload có thể in
-  `No targets deployed`; khi đó lấy `Current Version ID` rồi chạy
-  `wrangler versions deploy <version>@100%` để chuyển traffic.
-- Ngày 2026-09-14 phát hiện custom domain từng trỏ nhầm vào Worker
-  `content-hub-cms-preview`, nên deploy production không xuất hiện trên domain và
-  request trả xen kẽ mã cũ/503. Domain đã được Cloudflare Workers Domains API
-  chuyển sang đúng service `content-hub-cms`. Sau đó 6/6 request admin có session
-  đều trả 200 và bundle mới. Smoke create production với chỉ title + body trả 303
-  tới trang edit, tự sinh slug, SEO title, meta description, URL và revision;
-  category để null hợp lệ. Record và session smoke đã được xóa sạch sau kiểm tra.
-- `scripts/build-vinext-safe.mjs` phải xóa `dist` và `.next` trước mỗi build. Nếu
-  giữ `.next` từ build/dev cũ, Vinext có thể ghép server bundle cũ với client
-  bundle mới và Server Action sẽ sập sau khi submit.
+  Topic Cluster và gắn taxonomy vào content) và Media Manager đều đã chạy trên
+  VPS DB. Media Manager giờ dùng filesystem local thay vì S3/R2 — không cần
+  bucket, CORS hay lifecycle.
+- Upload media chạy qua `POST /api/admin/media/upload-intent` (HMAC-signed URL)
+  → `PUT /api/admin/media/upload?key=&exp=&sig=` với raw body. Body ≤
+  `MEDIA_MAX_UPLOAD_BYTES` (mặc định 8 MiB). File ghi vào
+  `<MEDIA_LOCAL_ROOT>/pending/<assetId>` rồi finalize move sang
+  `<MEDIA_LOCAL_ROOT>/yyyymm/<assetId>/original.<ext>`.
+- Content/broker editor chỉ chọn asset `READY`. Public article render featured
+  image + OG/Twitter image metadata.
 - `.env.local` và `.env.cloudflare` là file private/ignored. Không commit, không
-  in token/credential vào log hoặc handoff. Token Cloudflare hiện đủ deploy
-  Worker/secrets nhưng thiếu quyền quản lý route và chưa đủ quyền/cấu hình R2.
+  in token/credential vào log hoặc handoff. Token Cloudflare hiện đủ edit
+  DNS zone nhưng thiếu `Zone Settings:Edit` (SSL mode) và `Origin CA:Edit`
+  (tạo cert qua API). Cả hai đều làm thủ công trong dashboard hoặc cấp thêm
+  scope cho token.
+- Worker `content-hub-cms` không còn custom domain; nó vẫn nhận
+  `content-hub-cms.content-hub-stack.workers.dev` với bundle cũ. Không tự
+  redeploy/xóa trong tuần đầu — dùng làm fallback khi rollback toàn bộ.
 
 ### Việc cần kiểm tra trước go-live nội dung thật
 
 - Thay dữ liệu broker/affiliate/demo còn placeholder bằng dữ liệu đã duyệt;
-  không coi 16 bài pilot là nội dung tài chính đã sẵn sàng xuất bản.
-- Cấu hình và smoke upload/read/delete R2 nếu launch phụ thuộc Media Manager.
-- Xác nhận backup/restore Neon, canonical/sitemap/robots trên domain thật, và cân
-  nhắc thêm `www.marketgb.com` nếu muốn hỗ trợ hostname này (hiện chưa cấu hình).
-- Sau mỗi deploy, kiểm tra login, `/admin/content/`, một trang query nặng, public
-  article, redirect 308, sitemap và Cloudflare tail. Không tái sử dụng Prisma
-  client/global promise giữa các request Cloudflare.
+  không coi pilot là nội dung tài chính đã sẵn sàng xuất bản.
+- Xác nhận backup/restore Postgres trên VPS (`scripts/backup-postgres.mjs` và
+  `scripts/restore-postgres.mjs` đã có trong repo).
+- Sau mỗi deploy, kiểm tra login, `/admin/content/`, public article, redirect
+  308, sitemap, `/uploads/...` cache HIT, và `journalctl -u marketgb-web` xem có
+  lỗi I/O.
 
 ## Taxonomy Manager — 2026-09-13
 

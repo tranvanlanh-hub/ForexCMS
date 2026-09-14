@@ -1,0 +1,7 @@
+:80 {
+    route /uploads/* {
+        root * /var/www/marketgb/shared
+        file_server
+    }
+    reverse_proxy 127.0.0.1:3000
+}

@@ -97,7 +97,7 @@ export default async function NewContentPage({
       markets={options.markets}
       maxBytes={MAX_MEDIA_UPLOAD_BYTES}
       mediaAssets={options.mediaAssets}
-      storageReady={isStorageConfigured()}
+      storageReady={await isStorageConfigured()}
       templates={options.templates}
       topics={options.topics}
     />

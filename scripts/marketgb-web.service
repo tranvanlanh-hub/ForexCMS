@@ -1,0 +1,23 @@
+[Unit]
+Description=MarketGB CMS (Next.js standalone)
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=marketgb
+Group=marketgb
+WorkingDirectory=/var/www/marketgb/current
+EnvironmentFile=/etc/marketgb/app.env
+ExecStart=/usr/bin/node --require /var/www/marketgb/shared/resolve-prisma-hook.cjs node_modules/next/dist/bin/next start --port 3000 --hostname 127.0.0.1
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/www/marketgb/shared /var/www/marketgb/logs /var/www/marketgb/releases
+PrivateTmp=true
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

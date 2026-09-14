@@ -114,7 +114,7 @@ export default async function EditContentPage({
       maxBytes={MAX_MEDIA_UPLOAD_BYTES}
       mediaAssets={data.mediaAssets}
       saved={saved === "1"}
-      storageReady={isStorageConfigured()}
+      storageReady={await isStorageConfigured()}
       templates={data.templates}
       topics={data.topics}
     />

@@ -3,6 +3,9 @@ import { requireAdminApiMutation } from "@/lib/admin/session";
 import { prisma } from "@/lib/db";
 import { headMediaObject, inspectImageHeader, MAX_MEDIA_UPLOAD_BYTES, promoteMediaObject, readMediaHeader, type AllowedMediaMime } from "@/lib/storage";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export async function POST(request: Request) {
   let assetId = "";
   try {
@@ -14,11 +17,10 @@ export async function POST(request: Request) {
     if (asset.status === "READY") return NextResponse.json({ ok: true });
     if (!asset.pendingKey || asset.status !== "PENDING") return NextResponse.json({ error: "Upload cannot be finalized in its current state." }, { status: 409 });
     const head = await headMediaObject(asset.pendingKey);
-    const sizeBytes = Number(head.ContentLength ?? 0);
-    if (sizeBytes < 1 || sizeBytes > MAX_MEDIA_UPLOAD_BYTES || sizeBytes !== Number(asset.sizeBytes) || head.ContentType !== asset.mimeType) throw new Error("Uploaded object metadata does not match the upload intent.");
+    if (head.sizeBytes < 1 || head.sizeBytes > MAX_MEDIA_UPLOAD_BYTES || head.sizeBytes !== Number(asset.sizeBytes)) throw new Error("Uploaded object size does not match the upload intent.");
     const dimensions = inspectImageHeader(await readMediaHeader(asset.pendingKey), asset.mimeType as AllowedMediaMime);
-    await promoteMediaObject(asset.pendingKey, asset.storageKey, asset.mimeType);
-    await prisma.mediaAsset.update({ where: { id: asset.id }, data: { status: "READY", pendingKey: null, width: dimensions.width, height: dimensions.height, sizeBytes: BigInt(sizeBytes), etag: head.ETag?.replaceAll('"', "") ?? null, errorMessage: null } });
+    await promoteMediaObject(asset.pendingKey, asset.storageKey);
+    await prisma.mediaAsset.update({ where: { id: asset.id }, data: { status: "READY", pendingKey: null, width: dimensions.width, height: dimensions.height, sizeBytes: BigInt(head.sizeBytes), etag: null, errorMessage: null } });
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Upload could not be finalized.";

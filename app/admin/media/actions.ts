@@ -27,7 +27,7 @@ export async function deleteMediaAction(data: FormData) {
   const asset = await prisma.mediaAsset.findUnique({ where: { id }, include: { variants: true, _count: { select: { featuredContent: true, socialContent: true, brokerLogos: true } } } });
   if (!asset) fail("Media asset was not found.");
   if (asset._count.featuredContent + asset._count.socialContent + asset._count.brokerLogos > 0) fail("This media asset is in use and cannot be deleted.");
-  if (!isStorageConfigured()) fail("Media storage is not configured, so the object cannot be deleted safely.");
+  if (!(await isStorageConfigured())) fail("Media storage is not configured, so the object cannot be deleted safely.");
   await prisma.mediaAsset.update({ where: { id }, data: { status: "DELETING", errorMessage: null } });
   try {
     await deleteMediaObjects([asset.storageKey, ...(asset.pendingKey ? [asset.pendingKey] : []), ...asset.variants.map(item => item.storageKey)]);

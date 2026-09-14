@@ -1,27 +1,136 @@
 import "server-only";
-import { CopyObjectCommand, DeleteObjectsCommand, GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { mkdir, rename, rm, stat, readFile, writeFile, access } from "node:fs/promises";
+import { dirname, normalize, resolve, sep } from "node:path";
+import { createHmac, timingSafeEqual } from "node:crypto";
 
 export const MAX_MEDIA_UPLOAD_BYTES = Number(process.env.MEDIA_MAX_UPLOAD_BYTES ?? 8 * 1024 * 1024);
 export const MEDIA_UPLOAD_TTL_SECONDS = Number(process.env.MEDIA_UPLOAD_URL_TTL_SECONDS ?? 300);
 const MIME_EXTENSIONS = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/avif": "avif" } as const;
 export type AllowedMediaMime = keyof typeof MIME_EXTENSIONS;
-export type StorageConfig = { endpoint: string; region: string; bucket: string; publicBaseUrl: string; accessKeyId: string; secretAccessKey: string };
+
+export type StorageConfig = {
+  root: string;
+  publicBase: string;
+  signingSecret: string;
+};
 
 export function getStorageConfig(): StorageConfig {
-  return { endpoint: process.env.S3_ENDPOINT ?? "", region: process.env.S3_REGION ?? "auto", bucket: process.env.S3_BUCKET ?? "", publicBaseUrl: (process.env.S3_PUBLIC_BASE_URL ?? "").replace(/\/$/, ""), accessKeyId: process.env.S3_ACCESS_KEY_ID ?? "", secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? "" };
+  return {
+    root: process.env.MEDIA_LOCAL_ROOT ?? "/var/www/marketgb/shared/uploads",
+    publicBase: (process.env.MEDIA_PUBLIC_BASE ?? "/uploads").replace(/\/$/, ""),
+    signingSecret: process.env.MEDIA_UPLOAD_SIGNING_SECRET ?? "",
+  };
 }
-export function isStorageConfigured() { const c = getStorageConfig(); return Boolean(c.endpoint && c.bucket && c.publicBaseUrl && c.accessKeyId && c.secretAccessKey); }
-function client() { const c = getStorageConfig(); if (!isStorageConfigured()) throw new Error("Media storage is not configured."); return new S3Client({ endpoint: c.endpoint, region: c.region, forcePathStyle: !c.endpoint.includes("r2.cloudflarestorage.com"), credentials: { accessKeyId: c.accessKeyId, secretAccessKey: c.secretAccessKey } }); }
-export function extensionForMime(mimeType: string): string | null { return MIME_EXTENSIONS[mimeType as AllowedMediaMime] ?? null; }
-export function mediaMonth(date = new Date()) { return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, "0")}`; }
-export function buildMediaKeys(assetId: string, mimeType: AllowedMediaMime, date = new Date()) { if (!/^[a-zA-Z0-9_-]+$/.test(assetId)) throw new Error("Invalid media asset ID."); const yyyymm = mediaMonth(date); const extension = MIME_EXTENSIONS[mimeType]; return { yyyymm, extension, pendingKey: `pending/${yyyymm}/${assetId}/original.${extension}`, storageKey: `uploads/${yyyymm}/${assetId}/original.${extension}` }; }
-export function buildMediaPublicUrl(key: string) { const base = getStorageConfig().publicBaseUrl; return base && key ? `${base}/${key.split("/").map(encodeURIComponent).join("/")}` : ""; }
-export async function createMediaUploadUrl(key: string, mimeType: AllowedMediaMime) { const c = getStorageConfig(); return getSignedUrl(client(), new PutObjectCommand({ Bucket: c.bucket, Key: key, ContentType: mimeType }), { expiresIn: MEDIA_UPLOAD_TTL_SECONDS }); }
-export async function headMediaObject(key: string) { const c = getStorageConfig(); return client().send(new HeadObjectCommand({ Bucket: c.bucket, Key: key })); }
-export async function readMediaHeader(key: string) { const c = getStorageConfig(); const response = await client().send(new GetObjectCommand({ Bucket: c.bucket, Key: key, Range: "bytes=0-65535" })); return new Uint8Array(await response.Body!.transformToByteArray()); }
-export async function promoteMediaObject(pendingKey: string, storageKey: string, mimeType: string) { const c = getStorageConfig(); const copySource = `${c.bucket}/${pendingKey.split("/").map(encodeURIComponent).join("/")}`; await client().send(new CopyObjectCommand({ Bucket: c.bucket, Key: storageKey, CopySource: copySource, ContentType: mimeType, MetadataDirective: "REPLACE", CacheControl: "public, max-age=31536000, immutable" })); const destination = await headMediaObject(storageKey); if (!destination.ContentLength || destination.ContentType !== mimeType) throw new Error("Promoted media object could not be verified."); await deleteMediaObjects([pendingKey]); }
-export async function deleteMediaObjects(keys: string[]) { if (!keys.length) return; const c = getStorageConfig(); await client().send(new DeleteObjectsCommand({ Bucket: c.bucket, Delete: { Objects: keys.map(Key => ({ Key })), Quiet: true } })); }
+
+export async function isStorageConfigured(): Promise<boolean> {
+  const { root, signingSecret } = getStorageConfig();
+  if (!signingSecret || signingSecret.length < 32) return false;
+  try {
+    await access(root, 2 /* W_OK */);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function extensionForMime(mimeType: string): string | null {
+  return MIME_EXTENSIONS[mimeType as AllowedMediaMime] ?? null;
+}
+
+export function mediaMonth(date = new Date()) {
+  return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, "0")}`;
+}
+
+export function buildMediaKeys(assetId: string, mimeType: AllowedMediaMime, date = new Date()) {
+  if (!/^[a-zA-Z0-9_-]+$/.test(assetId)) throw new Error("Invalid media asset ID.");
+  const yyyymm = mediaMonth(date);
+  const extension = MIME_EXTENSIONS[mimeType];
+  return {
+    yyyymm,
+    extension,
+    pendingKey: `pending/${yyyymm}/${assetId}/original.${extension}`,
+    storageKey: `uploads/${yyyymm}/${assetId}/original.${extension}`,
+  };
+}
+
+export function buildMediaPublicUrl(key: string): string {
+  const { publicBase } = getStorageConfig();
+  return key ? `${publicBase}/${key.split("/").map(encodeURIComponent).join("/")}` : "";
+}
+
+function safeJoin(root: string, key: string): string {
+  const normalized = normalize(key).replace(/^[/\\]+/, "");
+  if (normalized.split(sep).some((segment) => segment === "..")) {
+    throw new Error("Invalid media key.");
+  }
+  const full = resolve(root, normalized);
+  if (!full.startsWith(resolve(root) + sep) && full !== resolve(root)) {
+    throw new Error("Media key escapes storage root.");
+  }
+  return full;
+}
+
+function signUpload(key: string, exp: number): string {
+  const { signingSecret } = getStorageConfig();
+  if (!signingSecret) throw new Error("Media upload signing secret is not configured.");
+  return createHmac("sha256", signingSecret).update(`${key}|${exp}`).digest("base64url");
+}
+
+export function verifyUploadSignature(key: string, exp: number, sig: string): boolean {
+  if (!Number.isFinite(exp) || exp * 1000 < Date.now()) return false;
+  const expected = signUpload(key, exp);
+  const a = Buffer.from(expected);
+  const b = Buffer.from(sig);
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
+}
+
+export async function createMediaUploadUrl(key: string, _mimeType: AllowedMediaMime): Promise<string> {
+  const exp = Math.floor(Date.now() / 1000) + MEDIA_UPLOAD_TTL_SECONDS;
+  const sig = signUpload(key, exp);
+  return `/api/admin/media/upload?key=${encodeURIComponent(key)}&exp=${exp}&sig=${encodeURIComponent(sig)}`;
+}
+
+export async function writeMediaObject(key: string, data: Uint8Array | Buffer): Promise<{ sizeBytes: number; mimeType: string | null }> {
+  const { root } = getStorageConfig();
+  const full = safeJoin(root, key);
+  await mkdir(dirname(full), { recursive: true });
+  const buffer = Buffer.isBuffer(data) ? data : Buffer.from(data);
+  await writeFile(full, buffer);
+  return { sizeBytes: buffer.length, mimeType: null };
+}
+
+export async function headMediaObject(key: string): Promise<{ sizeBytes: number; mimeType: string | null }> {
+  const { root } = getStorageConfig();
+  const full = safeJoin(root, key);
+  const info = await stat(full);
+  return { sizeBytes: info.size, mimeType: null };
+}
+
+export async function readMediaHeader(key: string, maxBytes = 65536): Promise<Uint8Array> {
+  const { root } = getStorageConfig();
+  const full = safeJoin(root, key);
+  const handle = await stat(/*turbopackIgnore: true*/ full);
+  const length = Math.min(maxBytes, handle.size);
+  const buffer = await readFile(/*turbopackIgnore: true*/ full);
+  return new Uint8Array(buffer.subarray(0, length));
+}
+
+export async function promoteMediaObject(pendingKey: string, storageKey: string): Promise<void> {
+  const { root } = getStorageConfig();
+  const pendingPath = safeJoin(root, pendingKey);
+  const storagePath = safeJoin(root, storageKey);
+  await mkdir(dirname(storagePath), { recursive: true });
+  await rename(pendingPath, storagePath);
+}
+
+export async function deleteMediaObjects(keys: string[]): Promise<void> {
+  const { root } = getStorageConfig();
+  for (const key of keys) {
+    const full = safeJoin(root, key);
+    await rm(full, { force: true });
+  }
+}
 
 export function inspectImageHeader(bytes: Uint8Array, expectedMime: AllowedMediaMime) {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength); let mimeType = ""; let width = 0; let height = 0;

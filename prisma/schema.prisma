@@ -1,13 +1,6 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
-}
-
-generator edgeClient {
-  provider        = "prisma-client-js"
-  output          = "../node_modules/.prisma/client-edge"
-  engineType      = "client"
-  previewFeatures = ["driverAdapters", "queryCompiler"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
