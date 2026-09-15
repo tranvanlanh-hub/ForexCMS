@@ -1,49 +1,40 @@
 import { PrismaClient, type Prisma } from "@prisma/client";
-import { cache } from "react";
 
-function createPrismaClient() {
+// Single PrismaClient shared across all requests in this Node process.
+// Using globalThis to survive Next.js dev hot-reload; in production the
+// process is long-lived so a module-level singleton is sufficient.
+const globalForPrisma = globalThis as unknown as {
+  __marketgb_prisma?: PrismaClient;
+};
+
+function createPrismaClient(): PrismaClient {
   const log = (
     process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"]
   ) satisfies Prisma.LogLevel[];
   return new PrismaClient({ log });
 }
 
-const getRequestPrismaClient = cache(() => Promise.resolve(createPrismaClient()));
+export const prisma: PrismaClient =
+  globalForPrisma.__marketgb_prisma ?? createPrismaClient();
 
-function getPrismaClient() {
-  return getRequestPrismaClient();
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.__marketgb_prisma = prisma;
 }
 
-function createPrismaProxy(path: PropertyKey[] = []): unknown {
-  return new Proxy(() => undefined, {
-    get(_target, prop) {
-      if (prop === "then") return undefined;
-      return createPrismaProxy([...path, prop]);
-    },
-    apply(_target, _thisArg, args) {
-      return getPrismaClient().then((client) => {
-        const receiver = path.slice(0, -1).reduce<unknown>(
-          (value, key) => (value as Record<PropertyKey, unknown>)[key],
-          client,
-        );
-        const method = (receiver as Record<PropertyKey, unknown>)[path.at(-1) ?? ""];
-
-        return (method as (...methodArgs: unknown[]) => unknown).apply(receiver, args);
-      });
-    },
+// Graceful shutdown so Postgres connections close cleanly on restart/reload.
+function disconnectOnExit(signal: NodeJS.Signals) {
+  process.once(signal, () => {
+    prisma
+      .$disconnect()
+      .catch((err) => console.error("prisma disconnect error", err))
+      .finally(() => process.exit(0));
   });
 }
+disconnectOnExit("SIGINT");
+disconnectOnExit("SIGTERM");
 
-export const prisma = createPrismaProxy() as PrismaClient;
-
-export type DatabaseConfig = {
-  url: string;
-};
-
-export function getDatabaseConfig(): DatabaseConfig {
-  return {
-    url: process.env.DATABASE_URL ?? "",
-  };
+export function getDatabaseConfig(): { url: string } {
+  return { url: process.env.DATABASE_URL ?? "" };
 }
 
 export type { Prisma } from "@prisma/client";
