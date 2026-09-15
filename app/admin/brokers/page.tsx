@@ -1,4 +1,4 @@
-import { BrokerStatus } from "@prisma/client";
+import { BrokerStatus, ContentStatus, ContentType } from "@prisma/client";
 import Link from "next/link";
 import { DemoModeBanner } from "@/components/admin/demo-mode-banner";
 import { brokerStatusLabels } from "@/lib/affiliate";
@@ -13,6 +13,15 @@ async function getBrokers() {
   return prisma.broker.findMany({
     orderBy: [{ priority: "asc" }, { name: "asc" }],
     include: {
+      contentItems: {
+        where: {
+          contentType: ContentType.BROKER_REVIEW,
+          status: ContentStatus.PUBLISHED,
+        },
+        orderBy: { updatedAt: "desc" },
+        select: { canonicalPath: true, title: true },
+        take: 1,
+      },
       _count: {
         select: {
           affiliateLinks: true,
@@ -157,6 +166,7 @@ export default async function AdminBrokersPage() {
                   <th className="px-4 py-3 font-semibold">Links</th>
                   <th className="px-4 py-3 font-semibold">Facts</th>
                   <th className="px-4 py-3 font-semibold">Content</th>
+                  <th className="px-4 py-3 font-semibold">Frontend</th>
                   <th className="px-4 py-3 font-semibold">Updated</th>
                 </tr>
               </thead>
@@ -220,6 +230,21 @@ export default async function AdminBrokersPage() {
                     </td>
                     <td className="px-4 py-4 text-[#374151]">
                       {broker._count.contentItems}
+                    </td>
+                    <td className="px-4 py-4">
+                      {broker.contentItems[0] ? (
+                        <Link
+                          className="inline-flex items-center rounded-md border border-[#b7dfca] bg-[#f0fdf6] px-2.5 py-1.5 text-xs font-semibold text-[#166534] transition hover:border-[#70b891] hover:bg-[#e4f8ed]"
+                          href={broker.contentItems[0].canonicalPath}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          title={`View ${broker.contentItems[0].title}`}
+                        >
+                          View ↗
+                        </Link>
+                      ) : (
+                        <span className="text-xs text-[#8a8f98]">No page</span>
+                      )}
                     </td>
                     <td className="px-4 py-4 text-[#5f6268]">
                       {broker.updatedAt.toLocaleDateString("en-US")}
