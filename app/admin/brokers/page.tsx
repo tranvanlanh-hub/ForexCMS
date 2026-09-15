@@ -11,7 +11,7 @@ type BrokerListItem = Awaited<ReturnType<typeof getBrokers>>[number];
 
 async function getBrokers() {
   return prisma.broker.findMany({
-    orderBy: { updatedAt: "desc" },
+    orderBy: [{ priority: "asc" }, { name: "asc" }],
     include: {
       _count: {
         select: {
@@ -150,6 +150,9 @@ export default async function AdminBrokersPage() {
               <thead className="border-b border-[#d9ded7] bg-[#fbfcfb] text-xs uppercase tracking-[0.1em] text-[#5f6268]">
                 <tr>
                   <th className="px-4 py-3 font-semibold">Broker</th>
+                  <th className="px-4 py-3 font-semibold">Priority</th>
+                  <th className="px-4 py-3 font-semibold">Rating</th>
+                  <th className="px-4 py-3 font-semibold">Contact</th>
                   <th className="px-4 py-3 font-semibold">Status</th>
                   <th className="px-4 py-3 font-semibold">Links</th>
                   <th className="px-4 py-3 font-semibold">Facts</th>
@@ -175,6 +178,29 @@ export default async function AdminBrokersPage() {
                           {broker.description}
                         </p>
                       ) : null}
+                    </td>
+                    <td className="px-4 py-4 font-semibold text-[#374151]">
+                      {broker.priority}
+                    </td>
+                    <td className="px-4 py-4 text-[#374151]">
+                      {broker.overallRating !== null ? (
+                        <span className="font-semibold">
+                          {broker.overallRating.toFixed(1)} / 5
+                        </span>
+                      ) : (
+                        <span className="text-[#8a8f98]">Not rated</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4 text-[#374151]">
+                      {
+                        [
+                          broker.websiteUrl,
+                          broker.supportEmail,
+                          broker.supportPhone,
+                          broker.headquartersAddress,
+                        ].filter(Boolean).length
+                      }
+                      /4
                     </td>
                     <td className="px-4 py-4">
                       <span

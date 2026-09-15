@@ -33,3 +33,11 @@ Change `openspec/changes/019-seo-broker-affiliate-link-ai-safety/` upgrades revi
 BrokerReview pages now highlight sourced regulation, rating/score when represented as a sourced fact, fees/spread, minimum deposit, deposit/withdrawal, platform, account type, and sourced pros/cons. Markdown pros/cons are not rendered for BrokerReview pages because they do not carry citation fields.
 
 Broker comparison cards now show sourced snapshot facts before the full comparison table. Review JSON-LD may include `reviewRating` only when a rating/score fact with source fields exists.
+
+## Implementation note 2026-09-15 - Editorial score storage
+
+Change `openspec/changes/028-broker-profile-review-fields/` adds first-class
+MarketGB editorial score fields and review metadata to Broker Manager. This
+change only establishes validated admin storage; existing public review and
+comparison rendering is unchanged until a separate presentation/methodology
+change explicitly adopts these editorial scores.

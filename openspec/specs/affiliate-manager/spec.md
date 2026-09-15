@@ -7,6 +7,8 @@ Quan ly broker va affiliate link tap trung de thay doi link mot cho va ap dung t
 ## Requirements
 
 - He thong phai co Broker entity.
+- Broker Manager phai ho tro profile/contact fields, editorial priority, va
+  optional MarketGB review scores bang nhan tieng Anh.
 - He thong phai co AffiliateLink entity.
 - Affiliate link phai ho tro market, language, campaign, status va priority.
 - Public CTA phai resolve link qua broker/campaign token.
@@ -78,3 +80,15 @@ idx_affiliate_resolver on AffiliateLink(brokerId, marketId, languageCode, campai
 ```
 
 Public affiliate resolver reads now use a short tag-based cache for active broker/market/campaign resolution. Affiliate link mutations revalidate this cache. Affiliate click tracking and redirects remain `no-store` and are not cached.
+
+## Implementation note 2026-09-15 - Broker profile and review fields
+
+Change `openspec/changes/028-broker-profile-review-fields/` expands Broker
+Manager with first-class editorial priority; legal/company/contact details; and
+optional 0–5 MarketGB scores for overall rating, trust and safety, commissions
+and fees, research and education, trading tools, trading platforms, customer
+support, account types, special features, and account opening.
+
+These fixed profile fields do not replace sourced `BrokerFact` claims. Affiliate
+destinations remain in `AffiliateLink`, and editorial scores remain distinct from
+broker-supplied facts.

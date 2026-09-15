@@ -13,6 +13,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "node prisma/seed.mjs",
+    "brokers:import": "node scripts/import-broker-research.mjs",
     "pilot:check": "node scripts/check-content-pilot.mjs",
     "content:pilot:generate": "node scripts/generate-content-pilot.mjs",
     "content:audit": "node scripts/audit-content-batch.mjs",

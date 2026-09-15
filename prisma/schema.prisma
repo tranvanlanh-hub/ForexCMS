@@ -556,19 +556,38 @@ model SeoMetadata {
 }
 
 model Broker {
-  id           String       @id @default(cuid())
-  slug         String       @unique
-  name         String
-  legalName    String?
-  websiteUrl   String?
-  logoUrl      String?
-  logoAssetKey String?
-  logoMediaId  String?
-  description  String?
-  status       BrokerStatus @default(DRAFT)
-  facts        Json         @default("{}")
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  id                      String       @id @default(cuid())
+  slug                    String       @unique
+  name                    String
+  legalName               String?
+  websiteUrl              String?
+  supportEmail            String?
+  supportPhone            String?
+  contactPageUrl          String?
+  foundedYear             Int?
+  headquartersCountry     String?
+  headquartersAddress     String?
+  priority                Int          @default(100)
+  logoUrl                 String?
+  logoAssetKey            String?
+  logoMediaId             String?
+  description             String?
+  overallRating           Decimal?     @db.Decimal(2, 1)
+  trustSafetyRating       Decimal?     @db.Decimal(2, 1)
+  feesRating              Decimal?     @db.Decimal(2, 1)
+  researchEducationRating Decimal?     @db.Decimal(2, 1)
+  tradingToolsRating      Decimal?     @db.Decimal(2, 1)
+  tradingPlatformsRating  Decimal?     @db.Decimal(2, 1)
+  customerSupportRating   Decimal?     @db.Decimal(2, 1)
+  accountTypesRating      Decimal?     @db.Decimal(2, 1)
+  specialFeaturesRating   Decimal?     @db.Decimal(2, 1)
+  accountOpeningRating    Decimal?     @db.Decimal(2, 1)
+  ratingSummary           String?
+  ratingReviewedAt        DateTime?
+  status                  BrokerStatus @default(DRAFT)
+  facts                   Json         @default("{}")
+  createdAt               DateTime     @default(now())
+  updatedAt               DateTime     @updatedAt
 
   affiliateLinks AffiliateLink[]
   affiliateClickEvents AffiliateClickEvent[]
@@ -578,6 +597,7 @@ model Broker {
   logoMedia      MediaAsset?       @relation("BrokerLogoMedia", fields: [logoMediaId], references: [id], onDelete: Restrict)
 
   @@index([status])
+  @@index([priority, status])
   @@index([logoMediaId])
 }
 

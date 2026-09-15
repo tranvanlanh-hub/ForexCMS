@@ -1,5 +1,113 @@
 # Codex Handoff
 
+## Broker Manager production deploy + 36 draft brokers — 2026-09-15
+
+**Đây là trạng thái production hiện hành.** Broker profile/review inputs đã được
+deploy lên VPS và 36 broker nghiên cứu đã được chèn trực tiếp vào PostgreSQL để
+owner tiếp tục cập nhật trong admin.
+
+- Release active: `/var/www/marketgb/releases/20260915151204`.
+- Migration `202609150900_broker_profile_review_fields` đã apply; production có
+  12 migration hoàn tất.
+- Dataset nguồn: `data/brokers/research-20260915.json`. Lệnh import:
+  `npm run brokers:import -- --apply`; mặc định không có `--apply` chỉ lập kế
+  hoạch. Import chỉ tạo slug còn thiếu và chỉ điền ô trống/demo trên row đã có,
+  không ghi đè dữ liệu thật mà editor đã sửa.
+- Production hiện có đúng 36 broker, priority 1–36 và 36 giá trị priority khác
+  nhau. Cả 36 ở trạng thái `DRAFT`; không có rating nào được tự điền.
+- Trước thay đổi đã tạo backup
+  `/var/backups/marketgb/forex_cms-before-broker-import-20260915.dump` trên VPS
+  và tải bản tương ứng về `backups/postgres/` (ignored). SHA-256 hai bản khớp.
+- Đã verify Prisma validate/generate, JSON/script syntax, typecheck, ESLint
+  (0 error; warning cũ), Next production build và `git diff --check`.
+- Smoke production: loopback `/` 200, `/admin/login/` 200, broker list/create
+  không session redirect 307 về login, `https://marketgb.com/` 200. Bundle deploy
+  có label field mới và journal không có error mới trong cửa sổ kiểm tra.
+- Chưa publish broker, chưa tạo affiliate link/BrokerFact mới và chưa chấm điểm.
+  Rollback app có thể trỏ lại release `20260915080105`; migration chỉ thêm cột
+  nullable/default nên tương thích với release trước. Khôi phục dữ liệu chỉ dùng
+  backup nếu có yêu cầu riêng và phải theo quy trình restore đã duyệt.
+
+## Broker research workbook — 2026-09-15 (local editorial artifact)
+
+- Created `outputs/broker-research-20260915/marketgb-broker-research-36.xlsx`
+  for all 36 prioritized brokers. It maps the new English Broker Manager fields
+  to official-source findings and clearly labelled reference data.
+- Each broker row includes priority/tier, identity and contact fields, founded
+  year/headquarters where available, jurisdiction/editorial notes, two source
+  URL slots, retrieval date, and the complete set of rating fields.
+- Rating fields remain intentionally blank until a reproducible editorial
+  scoring methodology is approved. The workbook includes a `Field Guide` sheet
+  explaining field purpose, validation and publication risks.
+- Verified by re-opening/inspecting the generated workbook, scanning for common
+  formula errors, and rendering both sheets to PNG for visual review. No
+  database seed, migration or production deployment was performed.
+
+## Broker profile and review fields — 2026-09-15 (local only)
+
+**Đây là thay đổi source hiện hành nhưng chưa deploy hoặc migrate production.**
+Change `openspec/changes/028-broker-profile-review-fields/` mở rộng Broker
+Manager để quản lý dữ liệu review bằng label tiếng Anh.
+
+- `Broker` có thêm editorial `priority`; founded year; headquarters country và
+  address; support email, phone/hotline, contact page; đồng thời form giờ expose
+  cả `legalName` và `websiteUrl` đã có từ trước.
+- Có 10 score tùy chọn theo thang 0–5: overall, trust & safety, commissions &
+  fees, research & education, trading tools, trading platforms, customer
+  support, account types, special features và account opening. Có thêm rating
+  summary và review date để ghi rationale/thời điểm đánh giá.
+- Server action kiểm tra URL, email, phone, priority, founded year, date, độ dài
+  và score; migration cũng có database check constraints cho priority/year/range
+  score. Broker list sort theo priority và hiện overall rating/contact
+  completeness.
+- Factual/legal/trading claims vẫn là sourced `BrokerFact`; affiliate destination
+  vẫn chỉ nằm trong `AffiliateLink`. Change này chưa đổi public review renderer.
+- Migration mới: `202609150900_broker_profile_review_fields`. Chưa apply lên VPS;
+  production vẫn ở 11 migration và database trống như mục verification bên dưới.
+- Đã pass Prisma validate/generate, typecheck, full-repo ESLint, targeted ESLint
+  cho toàn bộ file Broker thay đổi, production build và `git diff --check`.
+  ESLint có override hẹp cho `*.cjs` vì hai script vận hành CommonJS bắt buộc
+  dùng `require()`; warning ảnh/unused cũ và build warning dynamic filesystem còn.
+
+## VPS production verification — 2026-09-15
+
+**Đây là trạng thái hiện hành và bổ sung cho mục cutover 2026-09-14 bên dưới.**
+Đã kết nối SSH thành công tới `45.77.32.116` bằng key do owner cung cấp, với
+user `root`; không lưu key hoặc credential vào repo/tài liệu/log. Tệp key gốc ở
+máy Windows có ACL quá rộng nên OpenSSH từ chối; phiên kiểm tra dùng một bản tạm
+có ACL chỉ cho owner và không sửa tệp gốc.
+
+### Trạng thái đã xác minh trên VPS
+
+- Hostname `vultr`, Ubuntu 24.04, kernel `6.8.0-139-generic`; thời điểm kiểm tra
+  uptime khoảng 1 ngày 2 giờ.
+- Node `v22.23.2`, Caddy `v2.8.4`, PostgreSQL `16.15`. Ba service
+  `marketgb-web`, `caddy`, `postgresql` đều `active`; không thấy log mức error
+  của `marketgb-web` kể từ lần restart release hiện tại.
+- Release active là `/var/www/marketgb/releases/20260915080105`, được systemd
+  đưa vào trạng thái active lúc `2026-09-15 08:48:53 UTC`. VPS đang giữ 5
+  release. Release này tương ứng với source sửa Prisma connection leak được
+  commit ngay sau deploy thành `d3083866` trên `main`/`origin/main`.
+- Fix `d3083866` thay Prisma client theo request bằng singleton process-level.
+  Trong lần xác minh này, số connection của role app giữ nguyên 4 trước và sau
+  10 request liên tiếp (PostgreSQL `max_connections=100`), không tái hiện tăng
+  connection theo request.
+- Tài nguyên: RAM 1.9 GiB, available khoảng 1.4 GiB; swap 2.0 GiB gần như chưa
+  dùng; filesystem root 52 GiB, dùng 12 GiB (25%), còn 37 GiB.
+- Database `forex_cms` có 11 migration hoàn tất. Hiện có 0 `ContentItem`, 0 bài
+  published và 0 `MediaAsset`; đây là production database trống, không phải bộ
+  16 bài pilot trước đây ở Neon/preview.
+- HTTP từ app loopback `127.0.0.1:3000`, qua Caddy, và HTTPS public đều trả
+  `200` cho `/`. Public HTTPS cũng trả `200` cho `/admin/login/`, `/robots.txt`
+  và `/sitemap.xml`. `/admin/` không có session trả `307` về trang login.
+
+### Trạng thái local đã đối chiếu
+
+- Workspace sạch tại `d3083866`; `main`, `origin/main` và `origin/HEAD` cùng trỏ
+  commit này.
+- Không migration/data/config/secret nào bị thay đổi trên VPS trong lần kiểm tra.
+  Thay đổi duy nhất ở workspace là cập nhật handoff này bằng dữ kiện read-only.
+
 ## VPS production cutover — 2026-09-14
 
 **Đây là trạng thái hiện hành. Mục này thay thế các ghi chú cũ nói rằng production
