@@ -10,6 +10,10 @@
   trang public thì hiện `No page`.
 - [ ] Biên tập, dẫn nguồn và publish từng broker review. Broker status không thay
   thế quy trình tạo/link/publish ContentItem.
+- [x] Broker Review v1 source: canonical ContentItem review page đọc verdict,
+  analysis và FAQ từ ContentItem; identity/facts/offers từ Broker/BrokerFact/
+  AffiliateLink; market assessment riêng qua BrokerReviewAssessment. Chưa migrate
+  hoặc deploy. Xem `openspec/changes/031-broker-review-v1/`.
 - [ ] Broker profile route độc lập `/{market}/brokers/{broker-slug}/` vẫn chưa
   triển khai; chỉ làm khi owner chọn route này thay cho mô hình broker-review
   content hiện tại.

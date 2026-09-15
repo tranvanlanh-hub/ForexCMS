@@ -113,6 +113,16 @@ export function validateContentForSave(input: ContentPublishValidationInput) {
   return errors;
 }
 
+export function validateBrokerReviewVerdict(value: string) {
+  const verdict = value.trim();
+  const errors: string[] = [];
+
+  if (!verdict) errors.push("Verdict is required before publishing a broker review.");
+  if (verdict.length > 500) errors.push("Verdict must be 500 characters or less.");
+
+  return errors;
+}
+
 export function buildDefaultMetaDescription(markdown: string, maxLength = 160) {
   const plainText = markdown
     .replace(/```[\s\S]*?```/g, " ")

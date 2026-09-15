@@ -249,8 +249,9 @@ model Market {
   anchorTexts    AnchorText[]
   internalLinkRules InternalLinkRule[]
   internalLinkSuggestions InternalLinkSuggestion[]
-  seoMetadata    SeoMetadata[]
-  topicClusters  TopicCluster[]
+  seoMetadata         SeoMetadata[]
+  reviewAssessments   BrokerReviewAssessment[]
+  topicClusters       TopicCluster[]
   topics         Topic[]
 
   @@index([languageCode])
@@ -593,12 +594,40 @@ model Broker {
   affiliateClickEvents AffiliateClickEvent[]
   contentItems   ContentItem[]   @relation("ContentBrokers")
   factItems      BrokerFact[]
-  seoMetadata    SeoMetadata[]
-  logoMedia      MediaAsset?       @relation("BrokerLogoMedia", fields: [logoMediaId], references: [id], onDelete: Restrict)
+  seoMetadata        SeoMetadata[]
+  reviewAssessments  BrokerReviewAssessment[]
+  logoMedia          MediaAsset?       @relation("BrokerLogoMedia", fields: [logoMediaId], references: [id], onDelete: Restrict)
 
   @@index([status])
   @@index([priority, status])
   @@index([logoMediaId])
+}
+
+model BrokerReviewAssessment {
+  id                             String   @id @default(cuid())
+  brokerId                       String
+  marketId                       String
+  regulationTrustScore           Decimal? @db.Decimal(2, 1)
+  regulationTrustRationale       String?
+  costsScore                     Decimal? @db.Decimal(2, 1)
+  costsRationale                 String?
+  tradingExperienceScore         Decimal? @db.Decimal(2, 1)
+  tradingExperienceRationale     String?
+  depositsWithdrawalsScore       Decimal? @db.Decimal(2, 1)
+  depositsWithdrawalsRationale   String?
+  supportEducationScore          Decimal? @db.Decimal(2, 1)
+  supportEducationRationale      String?
+  reviewerName                   String?
+  reviewedAt                     DateTime?
+  methodologyVersion             String   @default("broker-review-v1")
+  createdAt                      DateTime @default(now())
+  updatedAt                      DateTime @updatedAt
+
+  broker Broker @relation(fields: [brokerId], references: [id], onDelete: Cascade)
+  market Market @relation(fields: [marketId], references: [id], onDelete: Cascade)
+
+  @@unique([brokerId, marketId])
+  @@index([marketId, brokerId])
 }
 
 model MediaAsset {

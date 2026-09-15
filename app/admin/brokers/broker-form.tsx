@@ -11,6 +11,7 @@ import {
   brokerRatingFields,
   type BrokerRatingFieldName,
 } from "@/lib/brokers/review-fields";
+import { getBrokerReviewScoreSummary } from "@/lib/brokers/review";
 
 type BrokerFormItem = Pick<
   Broker,
@@ -43,6 +44,23 @@ type BrokerFormItem = Pick<
   | "ratingSummary"
   | "ratingReviewedAt"
 > & {
+  reviewAssessments?: Array<{
+    market: { code: string; name: string; locale: string };
+    regulationTrustScore: Broker["overallRating"];
+    costsScore: Broker["overallRating"];
+    tradingExperienceScore: Broker["overallRating"];
+    depositsWithdrawalsScore: Broker["overallRating"];
+    supportEducationScore: Broker["overallRating"];
+    regulationTrustRationale: string | null;
+    costsRationale: string | null;
+    tradingExperienceRationale: string | null;
+    depositsWithdrawalsRationale: string | null;
+    supportEducationRationale: string | null;
+    reviewerName: string | null;
+    methodologyVersion: string;
+    reviewedAt: Date | null;
+  }>;
+} & {
   factItems?: Array<
     Pick<
       BrokerFact,
@@ -69,9 +87,10 @@ type BrokerFormProps = {
   item?: BrokerFormItem;
   saved?: boolean;
   mediaAssets: Array<{ id: string; originalFilename: string }>;
+  reviewMarkets?: Array<{ id: string; code: string; name: string; locale: string }>;
 };
 
-export function BrokerForm({ action, error, item, mediaAssets, saved }: BrokerFormProps) {
+export function BrokerForm({ action, error, item, mediaAssets, reviewMarkets = [], saved }: BrokerFormProps) {
   const isEditing = Boolean(item);
   const factsValue = serializeBrokerFactsForForm(
     item?.factItems?.sort((a, b) => a.displayOrder - b.displayOrder) ?? [],
@@ -323,15 +342,38 @@ export function BrokerForm({ action, error, item, mediaAssets, saved }: BrokerFo
         </div>
       </section>
 
+      {item ? <section className="rounded-lg border border-[#d8e1ec] bg-white p-5">
+        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+          <div>
+            <h2 className="text-base font-semibold text-[#07162f]">Market review assessments</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-[#53657c]">
+              The public Broker Review v1 scorecard uses one market-specific assessment. Legacy global scores below do not appear on the public review.
+            </p>
+          </div>
+          <span className="rounded-md border border-[#d3e1f5] bg-[#eef4fc] px-3 py-2 text-xs font-semibold text-[#0754cf]">MarketGB v1</span>
+        </div>
+        <div className="mt-4 overflow-x-auto">
+          <table className="min-w-full text-left text-sm">
+            <thead className="border-b border-[#d8e1ec] text-xs text-[#53657c]"><tr><th className="pb-3 font-semibold">Market</th><th className="pb-3 font-semibold">Assessment</th><th className="pb-3 font-semibold">Reviewed</th><th className="pb-3 font-semibold"></th></tr></thead>
+            <tbody className="divide-y divide-[#e8eef5]">
+              {reviewMarkets.map((market) => {
+                const assessment = item.reviewAssessments?.find((candidate) => candidate.market.code === market.code);
+                const summary = getBrokerReviewScoreSummary(assessment);
+                return <tr key={market.id}><td className="py-3 font-medium text-[#07162f]">{market.name}<span className="ml-2 text-xs text-[#71839a]">{market.locale}</span></td><td className="py-3 text-[#53657c]">{summary.average === null ? "Not assessed" : `${summary.average.toFixed(1)} / 5 · ${summary.assessedCount}/5 criteria`}</td><td className="py-3 text-[#53657c]">{assessment?.reviewedAt ? assessment.reviewedAt.toLocaleDateString("en-US") : "—"}</td><td className="py-3 text-right"><Link className="font-semibold text-[#0754cf] hover:underline" href={`/admin/brokers/${item.id}/review-assessments/${market.id}`}>{assessment ? "Edit" : "Assess"}</Link></td></tr>;
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section> : null}
+
       <section className="rounded-lg border border-[#d9ded7] bg-white p-5">
         <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
           <div>
             <h2 className="text-base font-semibold text-[#111827]">
-              Editorial review scores
+              Legacy global editorial scores
             </h2>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-[#5f6268]">
-              MarketGB editorial scores use a 0–5 scale. Apply the approved
-              methodology consistently; these are not broker-supplied claims.
+              Retained for internal/history use. Public Broker Review v1 uses the market assessment above; these values are not broker-supplied claims.
             </p>
           </div>
           <span className="rounded-md border border-[#f4d28c] bg-[#fffbeb] px-3 py-2 text-xs font-semibold text-[#92400e]">
@@ -412,7 +454,7 @@ export function BrokerForm({ action, error, item, mediaAssets, saved }: BrokerFo
             <p className="font-semibold text-[#374151]">Line format</p>
             <p className="mt-1 font-mono">
               CATEGORY | label | value | unit | source name | source URL |
-              market | applies to | citation | primary
+              market | applies to | citation | primary | retrieved YYYY-MM-DD
             </p>
           </div>
           <div className="rounded-md border border-[#eef1ed] bg-[#fbfcfb] p-3">

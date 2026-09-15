@@ -296,8 +296,8 @@ export function buildReviewJsonLd(input: {
   broker?: Pick<Broker, "name" | "slug" | "description" | "websiteUrl"> | null;
   reviewRating?: {
     value: string;
-    bestRating?: string;
-    worstRating?: string;
+    assessedCriteria?: number;
+    totalCriteria?: number;
   } | null;
   authorName?: string | null;
   reviewerName?: string | null;
@@ -314,12 +314,15 @@ export function buildReviewJsonLd(input: {
     input.broker.description?.trim() ||
     `${input.broker.name} broker review.`;
   const { siteName } = getSeoDefaults();
+  const assessmentNote = input.reviewRating?.assessedCriteria
+    ? ` MarketGB assessed ${input.reviewRating.assessedCriteria} of ${input.reviewRating.totalCriteria ?? 5} criteria.`
+    : "";
 
   return {
     "@context": "https://schema.org",
     "@type": "Review",
     name: input.title,
-    reviewBody: description,
+    reviewBody: `${description}${assessmentNote}`,
     inLanguage: input.market.locale || input.market.languageCode,
     url: absoluteUrl(input.canonicalPath),
     datePublished: toIsoDateString(input.publishedAt),
@@ -349,8 +352,8 @@ export function buildReviewJsonLd(input: {
       ? {
           "@type": "Rating",
           ratingValue: input.reviewRating.value,
-          bestRating: input.reviewRating.bestRating,
-          worstRating: input.reviewRating.worstRating,
+          bestRating: "5",
+          worstRating: "0",
         }
       : undefined,
     publisher: {

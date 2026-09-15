@@ -9,6 +9,12 @@ import {
   brokerRatingFields,
   type BrokerRatingFieldName,
 } from "@/lib/brokers/review-fields";
+import {
+  BROKER_REVIEW_METHODOLOGY_VERSION,
+  brokerReviewCriteria,
+  parseReviewDate as parseAssessmentReviewDate,
+  validateBrokerReviewAssessment,
+} from "@/lib/brokers/review";
 import { revalidatePublicOperationalCache } from "@/lib/cache/public";
 import { normalizeSlug } from "@/lib/content";
 import { prisma } from "@/lib/db";
@@ -249,6 +255,89 @@ function buildFactCreateInput(args: {
     displayOrder: fact.displayOrder,
     isPrimary: fact.isPrimary,
   }));
+}
+
+export async function upsertBrokerReviewAssessmentAction(formData: FormData) {
+  await requireAdminMutation(formData);
+
+  const brokerId = field(formData, "brokerId");
+  const marketId = field(formData, "marketId");
+  const reviewerName = field(formData, "reviewerName");
+  const reviewedAt = field(formData, "reviewedAt");
+  const scores = Object.fromEntries(
+    brokerReviewCriteria.map((criterion) => [
+      criterion.scoreField,
+      field(formData, criterion.scoreField),
+    ]),
+  ) as Record<(typeof brokerReviewCriteria)[number]["scoreField"], string>;
+  const rationales = Object.fromEntries(
+    brokerReviewCriteria.map((criterion) => [
+      criterion.rationaleField,
+      field(formData, criterion.rationaleField),
+    ]),
+  ) as Record<(typeof brokerReviewCriteria)[number]["rationaleField"], string>;
+  const editPath = `/admin/brokers/${brokerId}/review-assessments/${marketId}`;
+  const errors = validateBrokerReviewAssessment({
+    scores,
+    rationales,
+    reviewerName,
+    reviewedAt,
+  });
+
+  if (!brokerId || !marketId) {
+    redirectWithError("/admin/brokers", ["Broker or market is missing."]);
+  }
+  if (errors.length > 0) {
+    redirectWithError(editPath, errors);
+  }
+
+  const scoreData = Object.fromEntries(
+    brokerReviewCriteria.map((criterion) => [
+      criterion.scoreField,
+      scores[criterion.scoreField] ? Number(scores[criterion.scoreField]) : null,
+    ]),
+  );
+  const rationaleData = Object.fromEntries(
+    brokerReviewCriteria.map((criterion) => [
+      criterion.rationaleField,
+      rationales[criterion.rationaleField].trim() || null,
+    ]),
+  );
+  const hasScore = Object.values(scores).some((value) => value.trim());
+
+  try {
+    await prisma.brokerReviewAssessment.upsert({
+      where: {
+        brokerId_marketId: {
+          brokerId,
+          marketId,
+        },
+      },
+      create: {
+        brokerId,
+        marketId,
+        ...scoreData,
+        ...rationaleData,
+        reviewerName: reviewerName || null,
+        reviewedAt: hasScore ? parseAssessmentReviewDate(reviewedAt) : null,
+        methodologyVersion: BROKER_REVIEW_METHODOLOGY_VERSION,
+      },
+      update: {
+        ...scoreData,
+        ...rationaleData,
+        reviewerName: reviewerName || null,
+        reviewedAt: hasScore ? parseAssessmentReviewDate(reviewedAt) : null,
+        methodologyVersion: BROKER_REVIEW_METHODOLOGY_VERSION,
+      },
+    });
+    revalidatePath(`/admin/brokers/${brokerId}/edit`);
+    revalidatePath(editPath);
+    revalidatePublicOperationalCache();
+  } catch {
+    redirectWithError(editPath, ["Assessment could not be saved. Check the broker and market."]);
+  }
+
+  redirect(`${editPath}?saved=1`);
 }
 
 export async function createBrokerAction(formData: FormData) {

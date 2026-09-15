@@ -12,7 +12,10 @@ Broker Manager hiện quản lý hồ sơ/contact/headquarters, priority, source
 và review score tùy chọn. Production có bộ 36 broker draft để editor cập nhật.
 Trang frontend của broker vẫn là `ContentItem` loại `BROKER_REVIEW`, không được
 tự sinh từ Broker record; cột `Frontend` trong admin chỉ link tới review đã
-publish. Chi tiết tại [BROKER_MANAGER.md](BROKER_MANAGER.md).
+publish. Broker Review v1 source thêm market-scoped `BrokerReviewAssessment`;
+ContentItem vẫn sở hữu verdict/prose/FAQ, BrokerFact vẫn sở hữu cited fact, và
+AffiliateLink vẫn sở hữu offer. Chi tiết tại [BROKER_MANAGER.md](BROKER_MANAGER.md)
+và `openspec/changes/031-broker-review-v1/`.
 
 ## Khuyến nghị stack
 

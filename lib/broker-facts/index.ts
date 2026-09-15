@@ -49,6 +49,13 @@ const allowedCategories = new Set<BrokerFactCategory>(
   Object.values(BrokerFactCategory),
 );
 
+const placeholderHosts = new Set([
+  "example.com",
+  "example.org",
+  "example.net",
+  "localhost",
+]);
+
 export function isHttpUrl(value: string) {
   try {
     const url = new URL(value);
@@ -56,6 +63,42 @@ export function isHttpUrl(value: string) {
   } catch {
     return false;
   }
+}
+
+export function isPlaceholderSourceUrl(value: string) {
+  try {
+    const hostname = new URL(value).hostname.toLowerCase();
+    return (
+      placeholderHosts.has(hostname) ||
+      hostname === "example" ||
+      hostname.endsWith(".example") ||
+      [...placeholderHosts].some((host) => hostname.endsWith(`.${host}`)) ||
+      hostname.endsWith(".test") ||
+      hostname.endsWith(".invalid")
+    );
+  } catch {
+    return true;
+  }
+}
+
+function serializeDate(value: Date | null) {
+  return value ? value.toISOString().slice(0, 10) : "";
+}
+
+function parseSourceRetrievedAt(value: string, lineNumber: number, errors: string[]) {
+  if (!value) return null;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    errors.push(`Fact line ${lineNumber} source retrieved date must use YYYY-MM-DD.`);
+    return null;
+  }
+
+  const parsed = new Date(`${value}T00:00:00.000Z`);
+  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
+    errors.push(`Fact line ${lineNumber} source retrieved date must be valid.`);
+    return null;
+  }
+
+  return parsed;
 }
 
 export function serializeBrokerFactsForForm(
@@ -78,6 +121,7 @@ export function serializeBrokerFactsForForm(
         fact.appliesTo ?? "",
         fact.citationText ?? "",
         fact.isPrimary ? "primary" : "",
+        serializeDate(fact.sourceRetrievedAt),
       ].join(" | "),
     )
     .join("\n");
@@ -105,6 +149,7 @@ export function parseBrokerFactLines(rawValue: string) {
       appliesTo,
       citationText,
       flag,
+      sourceRetrievedAt,
     ] = parts;
     const lineNumber = index + 1;
 
@@ -128,6 +173,8 @@ export function parseBrokerFactLines(rawValue: string) {
       errors.push(`Fact line ${lineNumber} needs a valid source URL.`);
     }
 
+    const retrievedAt = parseSourceRetrievedAt(sourceRetrievedAt ?? "", lineNumber, errors);
+
     if (
       !allowedCategories.has(category) ||
       !label ||
@@ -148,7 +195,7 @@ export function parseBrokerFactLines(rawValue: string) {
       sourceName,
       sourceUrl,
       citationText: citationText || null,
-      sourceRetrievedAt: null,
+      sourceRetrievedAt: retrievedAt,
       displayOrder: facts.length * 10 + 10,
       isPrimary: flag?.toLowerCase() === "primary",
       marketCode: marketCode || null,
@@ -180,6 +227,60 @@ export function getSourcedBrokerFacts<
   return (facts ?? []).filter(
     (fact) => fact.sourceName.trim() && isHttpUrl(fact.sourceUrl),
   );
+}
+
+export type ReviewScopedFact = {
+  category: BrokerFactCategory;
+  displayOrder: number;
+  id: string;
+  isPrimary: boolean;
+  label: string;
+  market?: { code: string } | null;
+  sourceName: string;
+  sourceUrl: string;
+  updatedAt: Date | string;
+};
+
+function normalizedFactLabel(value: string) {
+  return value.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function reviewFactOrder<T extends ReviewScopedFact>(marketCode: string) {
+  return (left: T, right: T) => {
+    const leftScope = left.market?.code === marketCode ? 0 : 1;
+    const rightScope = right.market?.code === marketCode ? 0 : 1;
+    if (leftScope !== rightScope) return leftScope - rightScope;
+    if (left.isPrimary !== right.isPrimary) return left.isPrimary ? -1 : 1;
+    if (left.displayOrder !== right.displayOrder) return left.displayOrder - right.displayOrder;
+
+    const updatedDifference = new Date(right.updatedAt).getTime() - new Date(left.updatedAt).getTime();
+    if (updatedDifference !== 0) return updatedDifference;
+    return left.id.localeCompare(right.id);
+  };
+}
+
+export function getReviewScopedBrokerFacts<T extends ReviewScopedFact>(
+  facts: T[] | undefined,
+  marketCode: string,
+) {
+  const visibleFacts = getSourcedBrokerFacts(facts).filter(
+    (fact) =>
+      !isPlaceholderSourceUrl(fact.sourceUrl) &&
+      (!fact.market || fact.market.code === marketCode),
+  );
+  const ordered = [...visibleFacts].sort(reviewFactOrder<T>(marketCode));
+  const selected = new Map<string, T>();
+
+  for (const fact of ordered) {
+    const key = `${fact.category}:${normalizedFactLabel(fact.label)}`;
+    if (!selected.has(key)) selected.set(key, fact);
+  }
+
+  const categoryPosition = new Map(Object.values(BrokerFactCategory).map((category, index) => [category, index]));
+  return [...selected.values()].sort((left, right) => {
+    const categoryDifference = (categoryPosition.get(left.category) ?? 0) - (categoryPosition.get(right.category) ?? 0);
+    return categoryDifference || reviewFactOrder<T>(marketCode)(left, right);
+  });
 }
 
 export function getSourcedBrokerFactHighlights<

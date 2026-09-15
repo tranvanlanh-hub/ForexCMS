@@ -32,8 +32,8 @@ async function getContentFormOptions() {
       },
     }),
     prisma.broker.findMany({
-      where: { status: "ACTIVE" },
-      orderBy: { name: "asc" },
+      where: { status: { not: "ARCHIVED" } },
+      orderBy: [{ priority: "asc" }, { name: "asc" }],
       select: { id: true, name: true, slug: true },
     }),
     prisma.category.findMany({ where: { status: "ACTIVE" }, orderBy: { name: "asc" }, select: { id: true, marketId: true, name: true, parentId: true, status: true } }),
@@ -47,9 +47,9 @@ async function getContentFormOptions() {
 export default async function NewContentPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; warning?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, warning } = await searchParams;
   let options: Awaited<ReturnType<typeof getContentFormOptions>> | null = null;
   let isDatabaseReady = true;
 
@@ -98,6 +98,7 @@ export default async function NewContentPage({
       maxBytes={MAX_MEDIA_UPLOAD_BYTES}
       mediaAssets={options.mediaAssets}
       storageReady={await isStorageConfigured()}
+      warning={warning}
       templates={options.templates}
       topics={options.topics}
     />

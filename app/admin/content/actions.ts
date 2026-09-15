@@ -22,9 +22,11 @@ import {
   buildContentCanonicalPath,
   normalizeSlug,
   toMarkdownBody,
+  validateBrokerReviewVerdict,
   validateContentForSave,
 } from "@/lib/content";
 import { claimContentUrl, releaseUnpublishedContentUrl } from "@/lib/routing/content-urls";
+import { getBrokerReviewStructureWarnings } from "@/lib/brokers/review";
 import { validateContentTaxonomy } from "@/lib/taxonomy";
 import { logEvent } from "@/lib/observability/logging";
 
@@ -61,6 +63,7 @@ type ContentWriteData = {
   templateId: string;
   translationGroupId: string | null;
   title: string;
+  summary: string | null;
   slug: string;
   contentType: ContentType;
   status: ContentStatus;
@@ -82,7 +85,7 @@ type SeoWriteData = Omit<
 
 type ContentWriteInput =
   | { errors: string[] }
-  | { brokerIds: string[]; categoryIds: string[]; topicIds: string[]; contentData: ContentWriteData; seoData: SeoWriteData };
+  | { brokerIds: string[]; categoryIds: string[]; topicIds: string[]; warnings: string[]; contentData: ContentWriteData; seoData: SeoWriteData };
 
 function asStringArray(value: Prisma.JsonValue | undefined) {
   return Array.isArray(value)
@@ -99,6 +102,7 @@ async function buildWriteInput(
   existingContentId?: string,
 ): Promise<ContentWriteInput> {
   const title = field(formData, "title");
+  const summary = field(formData, "summary");
   const requestedSlug = normalizeSlug(field(formData, "slug") || title) || `content-${crypto.randomUUID().slice(0, 8)}`;
   let marketId = field(formData, "marketId");
   let templateId = field(formData, "templateId");
@@ -121,6 +125,7 @@ async function buildWriteInput(
   const featuredMediaId = field(formData, "featuredMediaId") || null;
   const socialMediaId = field(formData, "socialMediaId") || null;
 
+  const warnings: string[] = [];
   const errors = validateContentForSave({
     title,
     slug: requestedSlug,
@@ -132,6 +137,11 @@ async function buildWriteInput(
     seoTitle,
     metaDescription,
   });
+
+  if (summary.length > 500) errors.push("Verdict must be 500 characters or less.");
+  if (status === ContentStatus.PUBLISHED && contentType === ContentType.BROKER_REVIEW) {
+    errors.push(...validateBrokerReviewVerdict(summary));
+  }
 
   if (errors.length > 0) {
     return { errors };
@@ -228,7 +238,17 @@ async function buildWriteInput(
 
   const ctaSlots = asStringArray(template.ctaSlots);
 
-  if (status === ContentStatus.PUBLISHED && ctaSlots.length > 0 && brokerIds.length > 0) {
+  if (contentType === ContentType.BROKER_REVIEW) {
+    if (brokerIds.length === 0) warnings.push("Broker review has no attached broker; public evidence and offers will be unavailable.");
+    warnings.push(...getBrokerReviewStructureWarnings(markdown));
+  }
+
+  if (
+    status === ContentStatus.PUBLISHED &&
+    contentType !== ContentType.BROKER_REVIEW &&
+    ctaSlots.length > 0 &&
+    brokerIds.length > 0
+  ) {
       const brokers = await prisma.broker.findMany({
         where: { id: { in: brokerIds }, status: "ACTIVE" },
         select: { slug: true },
@@ -299,6 +319,7 @@ async function buildWriteInput(
     templateId,
     translationGroupId: translationGroup?.id ?? null,
     title,
+    summary: summary || null,
     slug,
     contentType,
     status,
@@ -323,7 +344,7 @@ async function buildWriteInput(
     robotsFollow: true,
   };
 
-  return { brokerIds, categoryIds, topicIds, contentData, seoData };
+  return { brokerIds, categoryIds, topicIds, warnings, contentData, seoData };
 }
 
 export async function createContentAction(
@@ -377,6 +398,7 @@ export async function createContentAction(
           contentItemId: createdItem.id,
             revisionNumber: 1,
             title: input.contentData.title,
+            summary: input.contentData.summary,
             body: input.contentData.body,
             status: input.contentData.status,
         },
@@ -394,7 +416,8 @@ export async function createContentAction(
 
   revalidatePath("/admin/content");
   revalidatePublicContentCache();
-  redirect(`/admin/content/${createdItemId}/edit?saved=1`);
+  const warningQuery = input.warnings.length ? `&warning=${encodeURIComponent(input.warnings.join(" "))}` : "";
+  redirect(`/admin/content/${createdItemId}/edit?saved=1${warningQuery}`);
 }
 
 export async function updateContentAction(
@@ -465,6 +488,7 @@ export async function updateContentAction(
           contentItemId: id,
           revisionNumber: (latestRevision?.revisionNumber ?? 0) + 1,
           title: input.contentData.title,
+          summary: input.contentData.summary,
           body: input.contentData.body,
           status: input.contentData.status,
         },
@@ -494,7 +518,8 @@ export async function updateContentAction(
   revalidatePath("/admin/content");
   revalidatePath(editPath);
   revalidatePublicContentCache();
-  redirect(`${editPath}?saved=1`);
+  const warningQuery = input.warnings.length ? `&warning=${encodeURIComponent(input.warnings.join(" "))}` : "";
+  redirect(`${editPath}?saved=1${warningQuery}`);
 }
 
 const bulkStatuses = new Set<ContentStatus>([

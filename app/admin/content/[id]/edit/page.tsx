@@ -53,9 +53,12 @@ async function getEditContentData(id: string) {
     }),
     prisma.broker.findMany({
       where: {
-        OR: [{ status: "ACTIVE" }, ...(item ? [{ contentItems: { some: { id } } }] : [])],
+        OR: [
+          { status: { not: "ARCHIVED" } },
+          ...(item ? [{ contentItems: { some: { id } } }] : []),
+        ],
       },
-      orderBy: { name: "asc" },
+      orderBy: [{ priority: "asc" }, { name: "asc" }],
       select: { id: true, name: true, slug: true },
     }),
     prisma.category.findMany({ where: { OR: [{ status: "ACTIVE" }, { contentItems: { some: { id } } }, { primaryContent: { some: { id } } }] }, orderBy: { name: "asc" }, select: { id: true, marketId: true, name: true, parentId: true, status: true } }),
@@ -71,10 +74,10 @@ export default async function EditContentPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ error?: string; saved?: string }>;
+  searchParams: Promise<{ error?: string; saved?: string; warning?: string }>;
 }) {
   const { id } = await params;
-  const { error, saved } = await searchParams;
+  const { error, saved, warning } = await searchParams;
   let data: Awaited<ReturnType<typeof getEditContentData>> | null = null;
   let isDatabaseReady = true;
 
@@ -115,6 +118,7 @@ export default async function EditContentPage({
       mediaAssets={data.mediaAssets}
       saved={saved === "1"}
       storageReady={await isStorageConfigured()}
+      warning={warning}
       templates={data.templates}
       topics={data.topics}
     />

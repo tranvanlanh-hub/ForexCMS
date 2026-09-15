@@ -32,6 +32,14 @@ export async function getPublishedContentByRoute(args: {
         socialMedia: true,
         brokers: {
           include: {
+            logoMedia: true,
+            reviewAssessments: {
+              where: {
+                market: {
+                  code: marketCode,
+                },
+              },
+            },
             factItems: {
               include: {
                 market: true,
@@ -39,6 +47,7 @@ export async function getPublishedContentByRoute(args: {
               orderBy: [{ displayOrder: "asc" }, { createdAt: "asc" }],
             },
           },
+          orderBy: [{ priority: "asc" }, { name: "asc" }],
         },
         market: true,
         seoMetadata: true,

@@ -16,6 +16,7 @@ export default async function EditBrokerPage({
   const { error, saved } = await searchParams;
   let broker: Awaited<ReturnType<typeof prisma.broker.findUnique>> | null = null;
   let mediaAssets: Array<{ id: string; originalFilename: string }> = [];
+  let reviewMarkets: Array<{ id: string; code: string; name: string; locale: string }> = [];
   let isDatabaseReady = true;
 
   try {
@@ -32,9 +33,22 @@ export default async function EditBrokerPage({
           },
           orderBy: [{ displayOrder: "asc" }, { createdAt: "asc" }],
         },
+        reviewAssessments: {
+          include: {
+            market: {
+              select: { code: true, name: true, locale: true },
+            },
+          },
+          orderBy: { updatedAt: "desc" },
+        },
       },
     });
     mediaAssets = await prisma.mediaAsset.findMany({ where: { OR: [{ status: "READY" }, { brokerLogos: { some: { id } } }] }, orderBy: { createdAt: "desc" }, select: { id: true, originalFilename: true } });
+    reviewMarkets = await prisma.market.findMany({
+      where: { status: "ACTIVE" },
+      orderBy: [{ isGlobal: "desc" }, { code: "asc" }],
+      select: { id: true, code: true, name: true, locale: true },
+    });
   } catch {
     isDatabaseReady = false;
   }
@@ -63,6 +77,7 @@ export default async function EditBrokerPage({
       error={error}
       item={broker}
       mediaAssets={mediaAssets}
+      reviewMarkets={reviewMarkets}
       saved={saved === "1"}
     />
   );

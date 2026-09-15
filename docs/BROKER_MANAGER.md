@@ -76,6 +76,26 @@ Workbook nghiên cứu chi tiết, source URL và ghi chú jurisdiction nằm tr
 tài liệu biên tập tham khảo; cần mở lại nguồn trước khi publish vì pháp nhân,
 địa chỉ và kênh hỗ trợ có thể thay đổi theo quốc gia.
 
+## Broker Review v1 source — 2026-09-16 (not deployed)
+
+- Public review vẫn là ContentItem canonical path
+  `/{market}/broker-reviews/{slug}/`; không có route broker profile riêng.
+- `BrokerReviewAssessment` thêm một assessment hiện hành cho từng broker/market:
+  Regulation & trust, Costs, Trading experience, Deposits & withdrawals, Support
+  & education. Mỗi điểm 0–5; overall public là trung bình các tiêu chí đã chấm.
+- Vào broker edit, chọn **Assess** ở market cần cập nhật. Assessment có reviewer,
+  date và rationale per criterion. Legacy global scores vẫn chỉ là dữ liệu cũ/
+  internal; Review v1 không dùng làm fallback.
+- Public review chỉ hiện BrokerFact có source hợp lệ; fact đúng market override
+  fact global cùng category/label. Không dùng `example.com` hay test data làm
+  evidence publish.
+- Tạo BrokerReview qua Content Manager, đặt Verdict/Summary, gắn broker và viết
+  Markdown analysis. Missing core facts/heading chỉ hiện state warning/unavailable
+  để editor có thể tiếp tục draft; không thay claim bằng copy tự tạo.
+- Không có affiliate offer hợp lệ: review không link broker website thay thế, chỉ
+  hiện disclosure. CTA top/middle/bottom thử campaign slot rồi fallback campaign
+  Review đã cấu hình.
+
 ## Trạng thái production ngày 2026-09-15
 
 - Broker profile/review input migration đã được áp dụng.
