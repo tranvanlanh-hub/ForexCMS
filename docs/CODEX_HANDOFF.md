@@ -1,5 +1,15 @@
 # Codex Handoff
 
+## Broker Manager documentation — 2026-09-15
+
+- Added `docs/BROKER_MANAGER.md` as the focused long-term guide for Broker data
+  ownership, editable fields, 36-broker import behavior, editorial workflow,
+  frontend-link rules and production verification.
+- Updated `docs/ARCHITECTURE.md` with the current VPS/PostgreSQL deployment and
+  Broker/ContentItem boundary; updated `docs/ROADMAP.md` with completed Broker
+  production work and the remaining public-review/profile-route distinction.
+- Documentation-only update; no code, database, migration or deployment change.
+
 ## Broker list Frontend column — 2026-09-15
 
 - Deployed source commit `c1263b8f` as active release

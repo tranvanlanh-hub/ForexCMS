@@ -1,5 +1,19 @@
 # Kiến Trúc Hệ Thống
 
+## Trạng thái production hiện tại — 2026-09-15
+
+MarketGB hiện chạy Next.js Node runtime và PostgreSQL 16 trên Vultr VPS; Caddy
+đứng trước ứng dụng và Cloudflare tiếp tục proxy DNS/CDN. Media được lưu trên
+filesystem dùng chung ngoài từng release. Các phần Cloudflare-first/VPS tương lai
+bên dưới là lịch sử quyết định kiến trúc ban đầu; trạng thái vận hành mới nhất
+nằm trong [CODEX_HANDOFF.md](CODEX_HANDOFF.md).
+
+Broker Manager hiện quản lý hồ sơ/contact/headquarters, priority, sourced facts
+và review score tùy chọn. Production có bộ 36 broker draft để editor cập nhật.
+Trang frontend của broker vẫn là `ContentItem` loại `BROKER_REVIEW`, không được
+tự sinh từ Broker record; cột `Frontend` trong admin chỉ link tới review đã
+publish. Chi tiết tại [BROKER_MANAGER.md](BROKER_MANAGER.md).
+
 ## Khuyến nghị stack
 
 Stack đề xuất cho dự án:
@@ -110,7 +124,8 @@ Frontend không nên tự biết affiliate URL cuối cùng. Khi cần hiển th
 Admin CMS cần có các khu vực:
 
 - Content Manager: quản lý article/page.
-- Broker Manager: quản lý sàn forex.
+- Broker Manager: quản lý identity, contact, headquarters, priority, sourced
+  facts và điểm review; hỗ trợ mở linked broker review đã publish từ danh sách.
 - Affiliate Manager: quản lý link, campaign, tracking.
 - Template Manager: quản lý loại giao diện.
 - URL Manager: quản lý định tuyến và slug.

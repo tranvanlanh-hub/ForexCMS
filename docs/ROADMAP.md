@@ -1,5 +1,22 @@
 # Roadmap Phát Triển
 
+## Broker Manager production data and frontend access — 2026-09-15
+
+- [x] Mở rộng Broker Manager với company/contact/headquarters, priority và 10
+  review score tùy chọn; validation và database constraints đã deploy.
+- [x] Nhập 36 broker nghiên cứu vào production với priority 1–36; record mới là
+  `Draft`, rating để trống và importer không ghi đè dữ liệu editor đã sửa.
+- [x] Thêm cột `Frontend`: chỉ mở linked `BROKER_REVIEW` đã publish; nếu chưa có
+  trang public thì hiện `No page`.
+- [ ] Biên tập, dẫn nguồn và publish từng broker review. Broker status không thay
+  thế quy trình tạo/link/publish ContentItem.
+- [ ] Broker profile route độc lập `/{market}/brokers/{broker-slug}/` vẫn chưa
+  triển khai; chỉ làm khi owner chọn route này thay cho mô hình broker-review
+  content hiện tại.
+
+Tài liệu vận hành: [BROKER_MANAGER.md](BROKER_MANAGER.md). Trạng thái release và
+database hiện hành: [CODEX_HANDOFF.md](CODEX_HANDOFF.md).
+
 ## Content editor UX — slug auto-fill + inline media upload — 2026-09-13
 
 - Slug field in `/admin/content/new` now auto-fills from the article title via
