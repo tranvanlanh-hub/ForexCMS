@@ -6,7 +6,8 @@
 deploy lên VPS và 36 broker nghiên cứu đã được chèn trực tiếp vào PostgreSQL để
 owner tiếp tục cập nhật trong admin.
 
-- Release active: `/var/www/marketgb/releases/20260915151204`.
+- Release active: `/var/www/marketgb/releases/20260915151204`, corresponding to
+  source commit `f3d6324b` on `main`/`origin/main`.
 - Migration `202609150900_broker_profile_review_fields` đã apply; production có
   12 migration hoàn tất.
 - Dataset nguồn: `data/brokers/research-20260915.json`. Lệnh import:
