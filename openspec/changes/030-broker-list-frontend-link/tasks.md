@@ -4,5 +4,5 @@
 - [x] Add the `Frontend` table column and new-tab `View` action.
 - [x] Render a non-clickable `No page` state when no review is published.
 - [x] Run lint, typecheck, production build and diff checks.
-- [ ] Deploy and verify the production Broker Manager.
-- [ ] Update the current handoff.
+- [x] Deploy and verify the production Broker Manager.
+- [x] Update the current handoff.

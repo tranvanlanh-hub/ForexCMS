@@ -1,5 +1,21 @@
 # Codex Handoff
 
+## Broker list Frontend column — 2026-09-15
+
+- Deployed source commit `c1263b8f` as active release
+  `/var/www/marketgb/releases/20260915152450`.
+- Broker Manager now has a `Frontend` column. It opens the newest linked,
+  published `BROKER_REVIEW` in a new tab and shows `No page` when none exists.
+  It never constructs a guessed URL, links to a draft, or exposes content based
+  only on Broker status.
+- Production currently has 36 brokers but zero linked published broker reviews,
+  so all 36 rows correctly show `No page` until review content is created,
+  linked and published.
+- Verified local lint (0 errors), typecheck, production build and diff check;
+  production root/login/public HTTP checks pass, broker route retains its 307
+  unauthenticated redirect, deployed bundle contains the new state, and recent
+  service journal has no errors. No database or migration change was made.
+
 ## Broker Manager production deploy + 36 draft brokers — 2026-09-15
 
 **Đây là trạng thái production hiện hành.** Broker profile/review inputs đã được
