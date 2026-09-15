@@ -76,7 +76,7 @@ Workbook nghiên cứu chi tiết, source URL và ghi chú jurisdiction nằm tr
 tài liệu biên tập tham khảo; cần mở lại nguồn trước khi publish vì pháp nhân,
 địa chỉ và kênh hỗ trợ có thể thay đổi theo quốc gia.
 
-## Broker Review v1 source — 2026-09-16 (not deployed)
+## Broker Review v1 — 2026-09-16 (deployed)
 
 - Public review vẫn là ContentItem canonical path
   `/{market}/broker-reviews/{slug}/`; không có route broker profile riêng.

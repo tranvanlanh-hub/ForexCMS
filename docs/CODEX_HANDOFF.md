@@ -1,29 +1,36 @@
 # Codex Handoff
 
-## Broker Review v1 — 2026-09-16 (not deployed)
+## Broker Review v1 — 2026-09-16 (deployed)
 
-- Source now has OpenSpec change `031-broker-review-v1`: canonical public page
-  remains `/{market}/broker-reviews/{slug}/`; no broker-profile route was added.
-  ContentItem owns verdict, analysis and FAQ. Broker owns reusable identity.
-  BrokerFact owns source-backed claims. AffiliateLink owns offers.
-- Added additive `BrokerReviewAssessment` migration
-  `202609160900_broker_review_v1`: one current assessment per broker/market,
-  five optional 0–5 MarketGB criteria, rationales, reviewer/date and fixed
-  `broker-review-v1` methodology. Legacy global Broker scores remain intact and
-  are not public Review v1 fallback data.
-- Review facts now reject invalid/placeholder sources; matching market facts
-  override global facts. Review offers fall back deterministically between top,
-  middle and bottom campaigns; no current offer renders one disclosure after
-  Verdict, never a broker website fallback.
+- Source commit `18298527` deployed as release
+  `/var/www/marketgb/releases/202609160634`; `/var/www/marketgb/current` now
+  points to it. Canonical public page remains `/{market}/broker-reviews/{slug}/`;
+  no broker-profile route was added. ContentItem owns verdict, analysis and FAQ.
+  Broker owns reusable identity. BrokerFact owns source-backed claims.
+  AffiliateLink owns offers.
+- Additive migration `202609160900_broker_review_v1` applied successfully: one
+  current `BrokerReviewAssessment` per broker/market, five optional 0–5 MarketGB
+  criteria, rationales, reviewer/date and fixed `broker-review-v1` methodology.
+  Legacy global Broker scores remain intact and are not Review v1 fallback data.
+- Review facts reject invalid/placeholder sources; matching market facts override
+  global facts. Review offers fall back deterministically between top, middle and
+  bottom campaigns; no current offer renders one disclosure after Verdict, never
+  a broker website fallback.
 - Added Broker Manager market-assessment editing, review verdict backed by
   `ContentItem.summary`, retrieved-date fact input, and non-blocking editorial
   structure warnings. Existing demo/pilot facts and offers must not be published
   as financial review evidence.
+- Before deploy: PostgreSQL backup created at
+  `/var/backups/marketgb/forex_cms-before-broker-review-20260915T180735Z.dump`
+  (SHA-256 `f20aa1489ceb8b76060c6a47f6dd6c15ac6bf6bd7cf673654bc83164a5915245`).
+  First VPS build hit stale Turbopack cache after dependency install; cache was
+  removed, then clean build completed before activation.
 - Verified locally: Prisma generate/validate, `npm run test:broker-review` (5
   tests), typecheck, lint with 0 errors, production Next build, and
-  `git diff --check`. Existing unrelated lint warnings and storage tracing
-  warning remain. Migration, template update, real assessment/data entry, VPS
-  deploy and browser smoke tests remain pending.
+  `git diff --check`. VPS smoke: service active; loopback/public root, login and
+  sitemap return 200; unauthenticated `/admin/` returns 307 to login. No new app
+  error was logged after release restart. Real assessment/data entry and browser
+  smoke of a real published review remain pending.
 
 ## Broker Manager documentation — 2026-09-15
 
