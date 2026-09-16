@@ -33,9 +33,15 @@
 - Production operational seed added manually, without pilot data: active `global`
   Market (`en`) and active `broker-review` Template. `/admin/content/new/` is no
   longer blocked by `Seed data needed`; Broker edit now has a Global assessment
-  target. No ContentItem, BrokerReviewAssessment, BrokerFact, AffiliateLink or
-  public review was created. Real assessment/data entry and browser smoke of a
-  real published review remain pending.
+  target.
+- A clearly labeled, `noindex` Exness layout demo was then inserted directly on
+  production at `/global/broker-reviews/exness-review-demo/` with demo-only
+  ContentItem, assessment and six facts. It has no AffiliateLink or CTA and must
+  be replaced or removed before any real editorial release. Runtime date handling
+  bug exposed by that demo was fixed in source commit `8ad4ef3` and deployed as
+  `/var/www/marketgb/releases/202609160710`; public demo smoke returns 200 with
+  the scorecard and no service errors. Real assessment/data entry and browser
+  smoke of a real published review remain pending.
 
 ## Broker Manager documentation — 2026-09-15
 
