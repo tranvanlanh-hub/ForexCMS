@@ -42,6 +42,8 @@
   `/var/www/marketgb/releases/202609160710`; public demo smoke returns 200 with
   the scorecard and no service errors. Real assessment/data entry and browser
   smoke of a real published review remain pending.
+- `robots.txt` now disallows `/demo/` as well as `/admin/`; demo routes must stay
+  out of search crawling/indexing.
 
 ## Broker Manager documentation — 2026-09-15
 
