@@ -86,12 +86,16 @@ const sectionCategories = {
   regulation: ["REGULATION_LICENSE", "RESTRICTED_COUNTRY"],
 } as const;
 
-function formatDate(value: Date) {
-  return value.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+function formatDate(value: Date | string) {
+  const date = value instanceof Date ? value : new Date(value);
+
+  return Number.isNaN(date.getTime())
+    ? "Unavailable"
+    : date.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
 }
 
 function FactSource({ fact }: { fact: ReviewFact }) {
