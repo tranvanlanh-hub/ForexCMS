@@ -29,8 +29,13 @@
   tests), typecheck, lint with 0 errors, production Next build, and
   `git diff --check`. VPS smoke: service active; loopback/public root, login and
   sitemap return 200; unauthenticated `/admin/` returns 307 to login. No new app
-  error was logged after release restart. Real assessment/data entry and browser
-  smoke of a real published review remain pending.
+  error was logged after release restart.
+- Production operational seed added manually, without pilot data: active `global`
+  Market (`en`) and active `broker-review` Template. `/admin/content/new/` is no
+  longer blocked by `Seed data needed`; Broker edit now has a Global assessment
+  target. No ContentItem, BrokerReviewAssessment, BrokerFact, AffiliateLink or
+  public review was created. Real assessment/data entry and browser smoke of a
+  real published review remain pending.
 
 ## Broker Manager documentation — 2026-09-15
 
